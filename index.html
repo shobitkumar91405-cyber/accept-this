@@ -201,20 +201,16 @@ function cutCake(){
   <source src="birthday.mp3" type="audio/mpeg">
 </audio>
 
-<button onclick="document.getElementById('bg-music').play()"
-style="
-position:fixed;
-bottom:20px;
-right:20px;
-padding:10px 15px;
-border:none;
-border-radius:20px;
-background:#ff4d6d;
-color:white;
-font-size:14px;
-z-index:9999;
-">
-🎵 Play Music
-</button>
+<script>
+let musicStarted = false;
+
+document.body.addEventListener("click", function () {
+  if (!musicStarted) {
+    const music = document.getElementById("bg-music");
+    music.play().catch(()=>{});
+    musicStarted = true;
+  }
+});
+</script>
 </body>
 </html>
