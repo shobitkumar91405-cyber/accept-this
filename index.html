@@ -1,104 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Aarvi 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Trishika! 🎁</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffeef2;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
 
-<style>
-body{
-  height:100vh;
-  margin:0;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:'Poppins',sans-serif;
-  text-align:center;
-  overflow:hidden;
-}
-.box{
-  max-width:750px;
-  padding:30px;
-  color:white;
-  animation:fade 1s ease;
-}
-.title{
-  font-size:36px;
-  font-weight:700;
-}
-.msg{
-  margin-top:25px;
-  font-size:22px;
-  line-height:1.7;
-  animation:slide 0.8s ease;
-}
-.hint{
-  margin-top:30px;
-  font-size:14px;
-  opacity:0.8;
-}
+        /* Balloons Animation */
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 8s linear infinite;
+        }
 
-@keyframes fade{
-  from{opacity:0}
-  to{opacity:1}
-}
-@keyframes slide{
-  from{transform:translateY(20px);opacity:0}
-  to{transform:translateY(0);opacity:1}
-}
-</style>
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+        }
+
+        /* Content Sections */
+        .section {
+            display: none;
+            padding: 20px;
+            max-width: 80%;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .active { display: block; }
+
+        h1 { font-family: 'Dancing Script', cursive; color: #ff4d6d; font-size: 3rem; }
+        p { color: #555; line-height: 1.6; }
+
+        /* Cake Styling */
+        .cake-container { position: relative; cursor: pointer; margin: 20px auto; width: 200px; }
+        .cake { width: 150px; height: 100px; background: #f4a261; border-radius: 10px 10px 0 0; position: relative; margin: 0 auto; }
+        .icing { width: 160px; height: 30px; background: #e76f51; border-radius: 20px; position: absolute; top: -10px; left: -5px; }
+        .candle { width: 10px; height: 40px; background: #ffd166; position: absolute; top: -50px; left: 70px; }
+        .flame { 
+            width: 15px; height: 20px; background: orange; border-radius: 50%; 
+            position: absolute; top: -20px; left: -2px; animation: flicker 0.5s infinite; 
+        }
+
+        @keyframes flicker {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .cut-line {
+            position: absolute; width: 100%; height: 2px; background: white; 
+            top: 50%; left: 0; display: none;
+        }
+
+        /* Buttons */
+        button {
+            background: #ff4d6d; color: white; border: none; padding: 12px 25px;
+            border-radius: 25px; font-size: 1rem; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+        button:hover { background: #ff758f; transform: scale(1.05); }
+
+        footer { position: fixed; bottom: 10px; font-size: 0.8rem; color: #888; }
+    </style>
 </head>
-
 <body>
 
-<div class="box">
-  <div class="title">Tap anywhere ✨</div>
-  <div id="msg" class="msg"></div>
-  <div class="hint">(Tap to read next)</div>
-</div>
+    <div id="balloon-container"></div>
 
-<script>
-const messages = [
+    <div id="s1" class="section active">
+        <h1>Hey Trishika... ❤️</h1>
+        <p>I have a small surprise for you. Are you ready?</p>
+        <button onclick="next(1)">Yes, Let's go! 🎁</button>
+    </div>
 
-"Aarvi 💖\n\nKuch log bina zyada bole hi apni presence se sab kuch special bana dete hain… aur tum unhi logon mein se ek ho ✨",
+    <div id="s2" class="section">
+        <h1>Make a Wish! 🎂</h1>
+        <div class="cake-container" onclick="cutCake()">
+            <div id="candle" class="candle"><div class="flame"></div></div>
+            <div class="cake">
+                <div class="icing"></div>
+                <div id="cut" class="cut-line"></div>
+            </div>
+        </div>
+        <p id="cake-instruction">Click the candle to blow it out and cut the cake!</p>
+    </div>
 
-"Tumhari smile 🌸\n\nItni simple hoke bhi itni powerful hai ki kisi ka bhi mood instantly better ho jaata hai 😌",
+    <div id="s3" class="section">
+        <h1 id="msg-title">Special Message for You</h1>
+        <p id="msg-text">Loading my feelings...</p>
+        <button id="msg-btn" onclick="showNextMessage()">Read Next ❤️</button>
+    </div>
 
-"Tumhari baatein 💬\n\nChahe serious ho ya funny, hamesha ek alag hi comfort feel hota hai jab tum saamne hoti ho 💖",
+    <footer>Modded by sivasingh🥀</footer>
 
-"Tumhari personality 🌷\n\nStrong bhi ho, kind bhi ho aur real bhi… aur honestly ye combination bahut rare hota hai ✨",
+    <script>
+        // Create Balloons
+        const container = document.getElementById('balloon-container');
+        for (let i = 0; i < 20; i++) {
+            let b = document.createElement('div');
+            b.className = 'balloon';
+            b.style.left = Math.random() * 100 + 'vw';
+            b.style.animationDelay = Math.random() * 5 + 's';
+            b.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 70%)`;
+            container.appendChild(b);
+        }
 
-"Mujhe lagta hai 💫\n\nTumhari sabse badi quality ye hai ki tum bina try kiye hi logon ke liye special ban jaati ho 💕",
+        function next(current) {
+            document.getElementById('s' + current).classList.remove('active');
+            document.getElementById('s' + (current + 1)).classList.add('active');
+        }
 
-"Zindagi ke har phase mein 🌈\n\nDua hai ki tum hamesha khud pe proud feel karo, kyunki tum deserve karti ho best things ✨",
+        function cutCake() {
+            document.querySelector('.flame').style.display = 'none';
+            document.getElementById('cut').style.display = 'block';
+            document.getElementById('cake-instruction').innerText = "Yay! The cake is cut! 🎉";
+            setTimeout(() => next(2), 2000);
+        }
 
-"Bas itna hi kehna tha Aarvi 🌸\n\nTum jaisi ho, bilkul perfect ho 💖",
+        const messages = [
+            "Happy Birthday, Trishika! You are the best thing that ever happened to me. 💖",
+            "On your special day, I want you to know how much I love you. ✨",
+            "May your year be filled with as much joy as you bring into my life. 🌸",
+            "You aren't just my girlfriend, you're my best friend and my world. 🌎",
+            "I can't wait to celebrate many more birthdays with you. 🥂",
+            "Forever yours, Sivasingh. 🥀"
+        ];
 
-"— From SivaSingh 💫\n\n(With genuine respect & good vibes ✨)"
+        let msgIndex = 0;
+        function showNextMessage() {
+            if (msgIndex < messages.length) {
+                document.getElementById('msg-text').innerText = messages[msgIndex];
+                msgIndex++;
+                if(msgIndex === messages.length) {
+                    document.getElementById('msg-btn').innerText = "See you soon! 😘";
+                }
+            } else {
+                alert("I Love You, Trishika! ❤️");
+            }
+        }
+        // Load first message
+        showNextMessage();
 
-];
-
-let i = 0;
-
-document.body.addEventListener("click", () => {
-  if(i < messages.length){
-    document.getElementById("msg").innerText = messages[i];
-    i++;
-
-    if(i === messages.length){
-      confetti({
-        particleCount: 300,
-        spread: 100,
-        origin: { y: 0.6 }
-      });
-    }
-  }
-});
-</script>
-
+    </script>
 </body>
 </html>
