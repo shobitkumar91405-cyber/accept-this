@@ -2,189 +2,242 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Happy Birthday Trishika 🎂</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Trishika 🎂❤️</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
 
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:linear-gradient(120deg,#ff9a9e,#fad0c4);
     font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#ffe0ec,#fff);
+    overflow:hidden;
     text-align:center;
-    overflow-x:hidden;
+    color:#fff;
 }
 
-/* Floating hearts */
-.heart{
+/* BALLOONS */
+.balloon{
     position:fixed;
-    bottom:-20px;
-    font-size:20px;
-    animation:floatUp 6s linear infinite;
+    bottom:-100px;
+    width:50px;
+    height:70px;
+    border-radius:50%;
+    animation:float 8s linear infinite;
+    opacity:0.9;
 }
-@keyframes floatUp{
-    from{transform:translateY(0);opacity:1}
-    to{transform:translateY(-110vh);opacity:0}
+@keyframes float{
+    from{transform:translateY(0);}
+    to{transform:translateY(-120vh);}
 }
 
-/* Sections */
+/* SECTIONS */
 .section{
     display:none;
     padding:30px;
-    animation:fade 1.5s ease;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 }
-.section.active{display:block}
-@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.section.active{
+    display:flex;
+}
 
 h1{
     font-family:'Dancing Script',cursive;
-    color:#ff4d6d;
     font-size:3rem;
+    margin-bottom:20px;
 }
+
 p{
-    font-size:1.2rem;
-    color:#444;
+    font-size:1.3rem;
+    line-height:1.8;
+    margin-bottom:25px;
 }
 
-/* Button */
+/* BUTTON */
 button{
-    background:#ff4d6d;
-    color:white;
-    border:none;
     padding:14px 30px;
+    border:none;
     border-radius:30px;
-    font-size:1rem;
+    font-size:1.1rem;
+    background:#ff4d6d;
+    color:#fff;
     cursor:pointer;
-    margin-top:20px;
-    box-shadow:0 6px 20px rgba(255,77,109,.4);
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    transition:0.3s;
 }
-button:hover{transform:scale(1.05)}
+button:hover{
+    transform:scale(1.08);
+}
 
-/* Cake */
-.cake-box{margin:40px auto;cursor:pointer}
+/* CAKE */
+.cake-box{
+    position:relative;
+    margin:30px 0;
+    cursor:pointer;
+}
 .cake{
-    width:180px;height:120px;
-    background:#f4a261;
-    margin:auto;
+    width:200px;
+    height:120px;
+    background:#8d5524;
     border-radius:10px;
     position:relative;
 }
 .icing{
+    width:220px;
+    height:40px;
+    background:#ff758f;
     position:absolute;
-    top:-15px;left:-10px;
-    width:200px;height:30px;
-    background:#e76f51;
+    top:-20px;
+    left:-10px;
     border-radius:20px;
 }
 .candle{
-    width:10px;height:40px;
+    width:12px;
+    height:50px;
     background:#ffd166;
     position:absolute;
-    top:-50px;left:85px;
+    top:-70px;
+    left:95px;
 }
 .flame{
-    width:15px;height:20px;
+    width:18px;
+    height:22px;
     background:orange;
     border-radius:50%;
     position:absolute;
-    top:-20px;left:-3px;
-    animation:flicker .4s infinite;
+    top:-22px;
+    left:-3px;
+    animation:flicker 0.4s infinite;
 }
-@keyframes flicker{50%{transform:scale(1.2)}}
-.cut{
-    display:none;
-    position:absolute;
-    top:55px;
-    width:100%;height:3px;
-    background:white;
+@keyframes flicker{
+    50%{transform:scale(1.2);}
 }
 
-/* Footer */
+.cut{
+    position:absolute;
+    width:100%;
+    height:3px;
+    background:white;
+    top:60px;
+    display:none;
+}
+
+/* FOOTER */
 footer{
-    margin:30px;
-    color:#888;
+    position:fixed;
+    bottom:10px;
+    width:100%;
+    font-size:0.9rem;
+    opacity:0.8;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="song">
-  <source src="birthday.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+<audio id="music" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
 </audio>
 
 <!-- SECTION 1 -->
 <div class="section active" id="s1">
     <h1>Hey Trishika ❤️</h1>
-    <p>Aaj tumhara birthday hai 🎂  
-    Aur main tumhare liye ek chhota sa magic laya hoon ✨</p>
+    <p>
+        Aaj ka din sirf tumhara hai…  
+        aur maine tumhare liye  
+        dil se kuch special banaya hai 💕
+    </p>
     <button onclick="next(1)">Start Surprise 🎁</button>
 </div>
 
 <!-- SECTION 2 -->
 <div class="section" id="s2">
-    <h1>Make a Wish 🎂✨</h1>
-    <p>Tap the cake to blow candle & cut it 💖</p>
+    <h1>Make a Wish 🎂</h1>
+    <p>
+        Candle bujhao, cake kaato  
+        aur wish maango meri jaan ✨
+    </p>
+
     <div class="cake-box" onclick="cutCake()">
+        <div class="candle" id="candle">
+            <div class="flame" id="flame"></div>
+        </div>
         <div class="cake">
             <div class="icing"></div>
-            <div class="candle" id="candle"><div class="flame" id="flame"></div></div>
             <div class="cut" id="cut"></div>
         </div>
     </div>
+
+    <p id="cakeText">Cake pe tap karo 🎂</p>
 </div>
 
 <!-- SECTION 3 -->
 <div class="section" id="s3">
-    <h1>For My Love ❤️</h1>
+    <h1>Just For You 💖</h1>
     <p id="msg"></p>
-    <button onclick="nextMsg()">Next 💌</button>
+    <button onclick="nextMsg()">Next ❤️</button>
 </div>
 
-<footer>Made with ❤️ by Sivasingh 🥀</footer>
+<footer>Made with ❤️ by Sivasingh</footer>
 
 <script>
-/* hearts */
+/* BALLOONS */
 for(let i=0;i<20;i++){
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="❤️";
- h.style.left=Math.random()*100+"vw";
- h.style.animationDelay=Math.random()*5+"s";
- document.body.appendChild(h);
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.background=`hsl(${Math.random()*360},70%,70%)`;
+    b.style.animationDuration=5+Math.random()*5+"s";
+    document.body.appendChild(b);
 }
 
-/* navigation */
+/* MUSIC START */
+document.body.addEventListener("click",()=>{
+    document.getElementById("music").play().catch(()=>{});
+},{once:true});
+
+/* SECTION SWITCH */
 function next(n){
- document.getElementById("s"+n).classList.remove("active");
- document.getElementById("s"+(n+1)).classList.add("active");
+    document.getElementById("s"+n).classList.remove("active");
+    document.getElementById("s"+(n+1)).classList.add("active");
 }
 
-/* cake */
+/* CAKE CUT */
 function cutCake(){
- document.getElementById("flame").style.display="none";
- document.getElementById("cut").style.display="block";
- document.getElementById("song").play();
- setTimeout(()=>next(2),2000);
+    document.getElementById("flame").style.display="none";
+    document.getElementById("cut").style.display="block";
+    document.getElementById("cakeText").innerText="Cake cut ho gaya 🎉";
+    setTimeout(()=>next(2),2000);
 }
 
-/* messages */
+/* MESSAGES */
 const messages=[
-"🎉 Happy Birthday Meri Trishika 🎉\nTum sirf meri girlfriend nahi ho, tum meri duniya ho ❤️",
-"💖 Tumhari smile meri saari thakaan mita deti hai 💖\nTumhara saath meri sabse badi blessing hai ✨",
-"🌸 Har din dua karta hoon ki tum hamesha khush raho 🌸\nTum deserve karti ho duniya ki saari khushiyan 😘",
-"🥀 Main hamesha tumhare saath rahunga 🥀\nHar khushi, har mushkil, har pal ❤️",
-"🎂 Aaj ka din sirf tumhara hai 🎂\nAur mera dil bhi hamesha tumhara hi rahega 💍",
-"💞 I Love You So Much Trishika 💞\n— Tumhara Sivasingh 🥀"
+"🎉 Happy Birthday Trishika 🎉\nTum meri life ka sabse khoobsurat hissa ho 💖",
+"✨ Tumhari muskaan meri har tension bhula deti hai ✨",
+"💫 Tum sirf meri girlfriend nahi, meri best friend bhi ho 💫",
+"🌹 Tumhare saath har moment special lagta hai 🌹",
+"❤️ Aaj ke din bas ek wish — tum hamesha khush raho ❤️",
+"🥀 Forever yours,\nSivasingh 🥀"
 ];
 
 let i=0;
 function nextMsg(){
- if(i<messages.length){
-  document.getElementById("msg").innerText=messages[i];
-  i++;
- }
+    if(i<messages.length){
+        document.getElementById("msg").innerText=messages[i];
+        i++;
+    }
 }
 nextMsg();
 </script>
