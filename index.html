@@ -2,125 +2,123 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SivaSingh 🤍 Trishika 🥀</title>
+<title>SivaSingh 🤍 Pallavi😍 🥀</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-  margin:0;
-  background:#0b0e14;
-  color:#f1f1f1;
-  font-family:'Segoe UI',sans-serif;
-  overflow-x:hidden;
+ background:#0b0e14;
+ color:#eee;
+ font-family:'Segoe UI',sans-serif;
+ overflow-x:hidden;
 }
 
-/* background hearts */
+/* CANVAS */
 canvas{
-  position:fixed;
-  inset:0;
-  z-index:-1;
+ position:fixed;
+ inset:0;
+ z-index:-2;
 }
 
-/* intro */
+/* INTRO */
 #intro{
-  position:fixed;
-  inset:0;
-  background:#000;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
+ position:fixed;
+ inset:0;
+ background:#000;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ z-index:999;
 }
-
 #heart{
-  font-size:120px;
-  cursor:pointer;
-  animation:pulse 1.6s infinite, spin 12s linear infinite;
-  filter:drop-shadow(0 0 35px #ff4d6d);
+ font-size:120px;
+ cursor:pointer;
+ animation:pulse 1.6s infinite,spin 14s linear infinite;
+ filter:drop-shadow(0 0 40px #ff4d6d);
 }
 @keyframes pulse{50%{transform:scale(1.2)}}
 @keyframes spin{to{transform:rotateY(360deg)}}
-
 #enter{
-  display:none;
-  margin-top:25px;
-  padding:12px 45px;
-  border:none;
-  border-radius:30px;
-  background:#ff4d6d;
-  color:#fff;
-  font-size:16px;
+ display:none;
+ margin-top:25px;
+ padding:12px 45px;
+ border:none;
+ border-radius:30px;
+ background:#ff4d6d;
+ color:#fff;
+ font-size:16px;
 }
 
-/* main */
+/* MAIN */
 #main{
-  display:none;
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+ display:none;
+ max-width:900px;
+ margin:auto;
+ padding:20px;
 }
-
 h2{
-  text-align:center;
-  color:#ff4d6d;
-  margin:40px 0 30px;
-  letter-spacing:1px;
+ text-align:center;
+ color:#ff4d6d;
+ margin:40px 0 30px;
+ letter-spacing:1px;
 }
 
-/* card */
+/* CARD */
 .card{
-  background:#151921;
-  border-radius:22px;
-  padding:20px;
-  margin:30px 0;
-  box-shadow:0 0 35px rgba(255,77,109,.25);
-  transition:.3s;
+ background:#151921;
+ border-radius:24px;
+ padding:22px;
+ margin:40px 0;
+ box-shadow:0 0 40px rgba(255,77,109,.25);
+ animation:fadeUp 1.3s ease both;
 }
-.card:hover{transform:scale(1.02)}
-
+@keyframes fadeUp{
+ from{opacity:0;transform:translateY(40px)}
+ to{opacity:1;transform:none}
+}
 .card img{
-  width:100%;
-  max-width:340px;
-  display:block;
-  margin:auto;
-  border-radius:20px;
+ width:100%;
+ max-width:360px;
+ display:block;
+ margin:auto;
+ border-radius:20px;
+ box-shadow:0 0 25px rgba(255,77,109,.3);
 }
-
 .shayari{
-  margin-top:18px;
-  font-size:1.05rem;
-  line-height:1.9;
-  text-align:center;
-  text-shadow:0 0 12px rgba(255,77,109,.6);
+ margin-top:18px;
+ font-size:1.05rem;
+ line-height:1.9;
+ text-align:center;
+ text-shadow:0 0 12px rgba(255,77,109,.6);
 }
 
-/* floating hearts */
+/* FLOATING HEARTS */
 .heart{
-  position:fixed;
-  font-size:18px;
-  animation:float 3s linear forwards;
-  pointer-events:none;
+ position:fixed;
+ font-size:18px;
+ animation:float 3.2s linear forwards;
+ pointer-events:none;
 }
 @keyframes float{
-  to{transform:translateY(-240px);opacity:0}
+ to{transform:translateY(-260px);opacity:0}
 }
 
-/* insta */
+/* INSTAGRAM */
 .insta{
-  text-align:center;
-  margin:50px 0 30px;
-  padding:20px;
-  background:#111;
-  border-radius:18px;
+ text-align:center;
+ margin:60px 0 30px;
+ padding:20px;
+ background:#111;
+ border-radius:20px;
 }
 .insta a{
-  display:block;
-  color:#ff4d6d;
-  text-decoration:none;
-  font-weight:600;
-  margin:6px 0;
+ display:block;
+ color:#ff4d6d;
+ text-decoration:none;
+ font-weight:600;
+ margin:6px 0;
 }
 
 audio{display:none}
@@ -133,72 +131,71 @@ audio{display:none}
 
 <!-- INTRO -->
 <div id="intro">
-  <div id="heart">💖</div>
-  <p style="margin-top:20px;color:#ccc">SivaSingh 🤍 Trishika 🥀</p>
-  <button id="enter">Enter Friendship ✨</button>
+ <div id="heart">💖</div>
+ <p style="margin-top:18px;color:#bbb">SivaSingh 🤍 Pallavi😍 🥀</p>
+ <button id="enter">Enter Friendship ✨</button>
 </div>
 
 <!-- MAIN -->
 <div id="main">
-
 <h2>Beautiful Friendship Moments</h2>
 
 <!-- GIF 1 -->
 <div class="card">
-  <img src="gif1.gif">
-  <div class="shayari">
+<img src="gif1.gif">
+<div class="shayari">
 𝐌𝐞𝐫𝐢 𝐇𝐚𝐫 𝐁𝐚𝐚𝐭 𝐓𝐮𝐦𝐬𝐞<br><br>
 Mujhe pasand ho tum,<br>
 mujhse apni har baat bataya karo na,
-  </div>
+</div>
 </div>
 
 <!-- GIF 2 -->
 <div class="card">
-  <img src="gif2.gif">
-  <div class="shayari">
+<img src="gif2.gif">
+<div class="shayari">
 Main to jatata hoon haq apna tumpe,<br>
 tum bhi thoda sa jataya karo na.
-  </div>
+</div>
 </div>
 
 <!-- GIF 3 -->
 <div class="card">
-  <img src="gif3.gif">
-  <div class="shayari">
+<img src="gif3.gif">
+<div class="shayari">
 Main maan lunga har baat tumhari,<br>
 tum bas hukm karke bataya karo na,<br><br>
 Koi pooche kaun hai ye ladka,<br>
 to mujhe apna aur khud ko mera mehboob bataya karo na.
-  </div>
+</div>
 </div>
 
 <!-- GIF 4 -->
 <div class="card">
-  <img src="gif4.gif">
-  <div class="shayari">
+<img src="gif4.gif">
+<div class="shayari">
 Mujhe pasand hai tumhari muskaan,<br>
 tum hamesha yun hi muskuraya karo na,<br><br>
 Tum bahut khoobsurat ho,<br>
 phir bhi thoda sa singaar lagaya karo na.
-  </div>
+</div>
 </div>
 
 <!-- GIF 5 -->
 <div class="card">
-  <img src="gif5.gif">
-  <div class="shayari">
+<img src="gif5.gif">
+<div class="shayari">
 Main din-raat tumhare baare mein sochta hoon,<br>
 kya tum bhi sochti ho — sach batao na,<br><br>
 Tumhari khoobsurti ki kya tareef karoon,<br>
 sabko khud se thoda kam bataya karo na.
-  </div>
+</div>
 </div>
 
 <!-- GIF 6 -->
 <div class="card">
-  <img src="gif6.gif">
-  <div class="shayari">
+<img src="gif6.gif">
+<div class="shayari">
 Tumhare aankhon mein yun dub jata hoon har baar,<br>
 mera haath pakad kar nikaala karo na,<br><br>
 Mujhe tumhara dupatta pasand hai,<br>
@@ -207,7 +204,7 @@ Tumhare kaanon ke ghumke mujhe bahut pasand hain,<br>
 unhe sabko na dikhaya karo na,<br><br>
 Tumhare hothon ki laali kyun mujhe itni achhi lagti hai,<br>
 mujhe tum hi batao na.
-  </div>
+</div>
 </div>
 
 <!-- INSTA -->
@@ -215,31 +212,42 @@ mujhe tum hi batao na.
 📸 Instagram  
 <a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
 </div>
-
 </div>
 
 <audio id="music" src="newsong.mp3" loop></audio>
 
 <script>
-/* background floating hearts */
+/* BACKGROUND RAIN + PETALS */
 const c=document.getElementById("bg"),ctx=c.getContext("2d");
 function resize(){c.width=innerWidth;c.height=innerHeight}
 resize();onresize=resize;
-let hearts=[];
-setInterval(()=>hearts.push({x:Math.random()*c.width,y:c.height,s:1+Math.random()*2,f:12+Math.random()*10}),280);
+
+let drops=[],petals=[];
+for(let i=0;i<120;i++)drops.push({x:Math.random()*c.width,y:Math.random()*c.height,s:4+Math.random()*6});
+for(let i=0;i<40;i++)petals.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*20});
+
 (function draw(){
  ctx.clearRect(0,0,c.width,c.height);
- hearts.forEach((h,i)=>{
-  h.y-=h.s;
-  ctx.font=h.f+"px serif";
-  ctx.fillStyle="rgba(255,77,109,.45)";
-  ctx.fillText("💖",h.x,h.y);
-  if(h.y<0)hearts.splice(i,1);
+ ctx.strokeStyle="rgba(180,200,255,.4)";
+ drops.forEach(d=>{
+  ctx.beginPath();
+  ctx.moveTo(d.x,d.y);
+  ctx.lineTo(d.x,d.y+15);
+  ctx.stroke();
+  d.y+=d.s;if(d.y>c.height)d.y=0;
+ });
+ petals.forEach(p=>{
+  ctx.fillStyle="rgba(255,77,109,.4)";
+  ctx.beginPath();
+  ctx.ellipse(p.x,p.y,6,3,0,0,Math.PI*2);
+  ctx.fill();
+  p.y+=1;p.x+=Math.sin(p.y/40);
+  if(p.y>c.height)p.y=0;
  });
  requestAnimationFrame(draw);
 })();
 
-/* intro logic */
+/* INTRO LOGIC */
 const heart=document.getElementById("heart");
 const enter=document.getElementById("enter");
 const intro=document.getElementById("intro");
@@ -247,13 +255,14 @@ const main=document.getElementById("main");
 const music=document.getElementById("music");
 
 heart.onclick=e=>{
- for(let i=0;i<30;i++){
+ for(let i=0;i<35;i++){
   let h=document.createElement("div");
-  h.className="heart";h.innerHTML="💖";
+  h.className="heart";
+  h.innerHTML="💖";
   h.style.left=e.clientX+"px";
   h.style.top=e.clientY+"px";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),3000);
+  setTimeout(()=>h.remove(),3200);
  }
  enter.style.display="block";
  music.play();
@@ -264,16 +273,16 @@ enter.onclick=()=>{
  main.style.display="block";
 };
 
-/* card heart effect */
 document.querySelectorAll(".card").forEach(card=>{
  card.onclick=()=>{
-  for(let i=0;i<18;i++){
+  for(let i=0;i<20;i++){
    let h=document.createElement("div");
-   h.className="heart";h.innerHTML="💖";
+   h.className="heart";
+   h.innerHTML="💖";
    h.style.left=Math.random()*innerWidth+"px";
    h.style.top=innerHeight+"px";
    document.body.appendChild(h);
-   setTimeout(()=>h.remove(),3000);
+   setTimeout(()=>h.remove(),3200);
   }
  };
 });
