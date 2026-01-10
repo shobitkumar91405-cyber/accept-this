@@ -3,527 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Broken Heart - Aarvi & Siva</title>
+    <title>Instagram | DM</title>
     <style>
-        :root {
-            --bg: #0b0e14;
-            --accent: #8b0000;
-            --text: #e0e0e0;
-            --pink: #ff1493;
-        }
+        :root { --insta-blue: #0095f6; --bg-dark: #000; --chat-received: #262626; }
+        body, html { margin: 0; padding: 0; background: var(--bg-dark); color: white; font-family: sans-serif; overflow-x: hidden; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; }
+        /* Rain Animation */
+        .rain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+        .drop { position: absolute; background: rgba(255, 255, 255, 0.15); width: 1px; height: 20px; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(110vh); } }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            height: 100vh;
-        }
+        /* App Layout */
+        #app { position: relative; z-index: 10; max-width: 500px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; border-right: 0.5px solid #333; border-left: 0.5px solid #333; }
+        
+        /* Stories Header */
+        .stories { display: flex; gap: 15px; padding: 10px; border-bottom: 0.5px solid #333; overflow-x: auto; }
+        .story-circle { min-width: 60px; height: 60px; border-radius: 50%; border: 2px solid #d62976; background: #333; }
 
-        #rainCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Intro Screen */
-        #intro-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #0b0e14 100%);
-        }
-
-        .heart-container {
-            perspective: 1000px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .heart-3d {
-            font-size: 120px;
-            animation: heartbeat 1.5s infinite ease-in-out, rotate3d 5s infinite linear;
-            display: inline-block;
-            filter: drop-shadow(0 0 20px var(--pink));
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes rotate3d {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        .intro-text {
-            text-align: center;
-            margin-top: 30px;
-            opacity: 0;
-            transition: 1s;
-        }
-
-        .btn-group {
-            margin-top: 20px;
-            display: none;
-            gap: 20px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
-
-        .btn-yes { background: var(--pink); color: white; box-shadow: 0 0 15px var(--pink); }
-        .btn-breakup { background: #333; color: #888; border: 1px solid #444; }
+        /* Chat Window */
+        .header { padding: 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 0.5px solid #333; }
+        .profile-info { display: flex; align-items: center; gap: 10px; }
+        .pfp { width: 35px; height: 35px; border-radius: 50%; background: url('photo1.jpg') center/cover; transition: 0.5s; }
+        
+        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .bubble { max-width: 75%; padding: 12px 16px; border-radius: 22px; font-size: 14px; line-height: 1.4; position: relative; }
+        .rec { background: var(--chat-received); align-self: flex-start; }
+        .sen { background: var(--insta-blue); align-self: flex-end; }
+        .typing { font-size: 12px; color: #a8a8a8; margin-left: 10px; display: none; }
+        .seen { font-size: 10px; color: #a8a8a8; align-self: flex-end; margin-top: -8px; }
 
         /* Call Screen */
-        #call-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 200;
-            background: #000;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
-            padding: 50px 0;
-        }
+        #call-ui { position: fixed; inset: 0; background: rgba(10,10,10,0.98); z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .call-pfp { width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; border: 2px solid #333; }
+        .controls { display: flex; gap: 60px; margin-top: 50px; }
+        .btn { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 24px; }
+        .ans { background: #4cd964; } .rej { background: #ff3b30; transform: rotate(135deg); }
 
-        .caller-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid var(--accent);
-            object-fit: cover;
-        }
+        /* Gallery */
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 20px; }
+        .gallery img, .gallery video { width: 100%; aspect-ratio: 1/1; object-fit: cover; filter: grayscale(50%); cursor: pointer; transition: 0.3s; }
+        .gallery img:hover { filter: grayscale(0%); }
 
-        .call-ui { text-align: center; }
-        .call-ui h2 { font-size: 2rem; margin-bottom: 10px; }
-        .call-ui p { color: #aaa; animation: blink 1s infinite; }
-
-        .call-btns { display: flex; gap: 60px; }
-        .call-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 24px;
-        }
-        .accept { background: #2ecc71; color: white; }
-        .reject { background: #e74c3c; color: white; }
-
-        #dialogue-box {
-            position: absolute;
-            bottom: 20%;
-            width: 80%;
-            text-align: center;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: #ddd;
-        }
-
-        /* Main Content */
-        #main-site {
-            display: none;
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            color: var(--accent);
-            margin: 40px 0 20px;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .typewriter {
-            text-align: center;
-            font-size: 1.4rem;
-            min-height: 1.5em;
-            margin-bottom: 40px;
-            color: #bbb;
-        }
-
-        /* Video Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .video-card {
-            background: #151921;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-        }
-
-        video { width: 100%; display: block; }
-
-        /* Photo Section */
-        .photo-viewer {
-            width: 100%;
-            height: 400px;
-            background: #151921;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .photo-viewer img {
-            max-width: 100%;
-            max-height: 100%;
-            transition: opacity 0.5s;
-        }
-
-        /* Shayari Cards */
-        .shayari-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .shayari-card {
-            background: linear-gradient(145deg, #0d1117, #161b22);
-            padding: 20px;
-            border-left: 4px solid var(--accent);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .shayari-card:active { transform: scale(0.98); }
-
-        /* Chat Section */
-        .chat-box {
-            background: #0d1117;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .chat-msg { margin-bottom: 10px; }
-        .chat-msg.me { text-align: right; color: #888; }
-        .seen { color: #3498db; font-size: 0.8rem; }
-
-        /* Instagram */
-        .insta-footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid #222;
-        }
-
-        .insta-link { color: var(--pink); text-decoration: none; display: block; margin: 10px 0; }
-
-        /* Final Screen */
-        #goodbye-screen {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 500;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .broken-heart-final { font-size: 100px; filter: grayscale(1); }
-
-        @keyframes blink { 50% { opacity: 0.5; } }
-        @keyframes thunder { 0%, 100% { background: #000; } 50% { background: #222; } }
-        .flash { animation: thunder 0.2s; }
-
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
-            .heart-3d { font-size: 80px; }
-        }
+        /* Footer Input */
+        .footer { padding: 15px; border-top: 0.5px solid #333; display: flex; gap: 10px; }
+        input { flex: 1; background: transparent; border: 1px solid #444; border-radius: 20px; padding: 8px 15px; color: white; outline: none; }
     </style>
 </head>
 <body>
 
-    <canvas id="rainCanvas"></canvas>
+    <div class="rain" id="rain"></div>
+    <audio id="master-bg" src="sad-bg.mp3" loop></audio>
 
-    <section id="intro-screen">
-        <div class="heart-container" onclick="explodeHeart()">
-            <div class="heart-3d" id="mainHeart">💖</div>
+    <div id="app">
+        <div class="stories" id="story-tray">
+            <div class="story-circle"></div>
+            <div class="story-circle" style="border-color: #555;"></div>
+            <div class="story-circle" style="border-color: #555;"></div>
         </div>
-        <div class="intro-text" id="introText">
-            <h1 id="welcomeTitle"></h1>
-            <div class="btn-group" id="introBtns">
-                <button class="btn btn-yes" onclick="startExperience(true)">YES ❤️</button>
-                <button class="btn btn-breakup" onclick="startExperience(false)">BREAKUP 💔</button>
+
+        <div class="header">
+            <div class="profile-info">
+                <div class="pfp" id="main-pfp"></div>
+                <div>
+                    <b id="user-title">Trishika</b><br>
+                    <small style="color: #00f641;" id="status-text">Active Now</small>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <section id="call-screen">
-        <img src="photo1.jpg" class="caller-img" alt="Aarvi">
-        <div class="call-ui">
-            <h2>Aarvi ❤️</h2>
-            <p>Incoming Call...</p>
-        </div>
-        <div id="dialogue-box"></div>
-        <div class="call-btns" id="callBtns">
-            <div class="call-btn reject" onclick="location.reload()">✖</div>
-            <div class="call-btn accept" onclick="handleCall()">📞</div>
-        </div>
-    </section>
-
-    <main id="main-site">
-        <div class="typewriter" id="sadQuotes"></div>
-
-        <h2 class="section-title">Broken Memories</h2>
-        <div class="grid">
-            <div class="video-card"><video src="video1.mp4" onclick="playVideo(this)"></video></div>
-            <div class="video-card"><video src="video2.mp4" onclick="playVideo(this)"></video></div>
-            <div class="video-card"><video src="video3.mp4" onclick="playVideo(this)"></video></div>
-            <div class="video-card"><video src="video4.mp4" onclick="playVideo(this)"></video></div>
+            <div style="font-size: 20px;">📞 &nbsp; 📹</div>
         </div>
 
-        <h2 class="section-title">Faded Moments</h2>
-        <div class="photo-viewer" onclick="nextPhoto()">
-            <img src="photo1.jpg" id="galleryImg" alt="Memory">
-        </div>
-
-        <h2 class="section-title">Deep Pain</h2>
-        <div class="shayari-grid">
-            <div class="shayari-card" onclick="playPain()">
-                "Waqt ne sikhaya hai har dard ko sehna, par tumhe khone ka gham kabhi kam nahi hota."
+        <div id="chat-container">
             </div>
-            <div class="shayari-card" onclick="playPain()">
-                "Tum toh chale gaye apni duniya mein, hum aaj bhi wahi ruke hain tumhare intezar mein."
-            </div>
+        <div class="typing" id="typing-ui">Trishika is typing...</div>
+
+        <div id="media-area" class="gallery" style="display:none;"></div>
+
+        <div class="footer" id="input-bar">
+            <input type="text" placeholder="Message..." id="msg-input">
+            <button id="send-btn" style="background:none; border:none; color:var(--insta-blue); font-weight:bold;">Send</button>
         </div>
+    </div>
 
-        <div class="chat-box">
-            <div class="chat-msg me">
-                <p>Tum ab bhi yaad aati ho...</p>
-                <span class="seen">Seen ✔✔</span>
-            </div>
-            <div style="color: #555; font-size: 0.8rem;">Last seen long ago</div>
+    <div id="call-ui">
+        <div class="call-pfp"></div>
+        <h1 id="caller-name">Trishika</h1>
+        <p id="call-timer">Instagram Audio...</p>
+        <div class="controls">
+            <div class="btn rej">📞</div>
+            <div class="btn ans">📞</div>
         </div>
-
-        <footer class="insta-footer">
-            <p>Follow My Pain:</p>
-            <a href="#" class="insta-link">📸 @smss1708</a>
-            <a href="#" class="insta-link">📸 @black_its_me20</a>
-            <button class="btn btn-breakup" style="margin-top: 20px;" onclick="showGoodbye()">Let You Go 🥀</button>
-        </footer>
-    </main>
-
-    <section id="goodbye-screen">
-        <div class="broken-heart-final" id="dissolvingHeart">💔</div>
-        <h1 style="margin: 20px;">Aaj bhi pyaar hai…<br>Par ab haq nahi…</h1>
-    </section>
-
-    <audio id="bgMusic" src="newsong.mp3" loop></audio>
-    <audio id="brokenSound" src="broken.mp3"></audio>
+    </div>
 
     <script>
-        const canvas = document.getElementById('rainCanvas');
-        const ctx = canvas.getContext('2d');
-        let rain = [];
-        let particles = [];
-        let currentPhotoIndex = 1;
-        let bgMusic = document.getElementById('bgMusic');
-        let brokenSound = document.getElementById('brokenSound');
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        const chat = document.getElementById('chat-container');
+        const typing = document.getElementById('typing-ui');
+        const bgMusic = document.getElementById('master-bg');
+        
+        // Rain Drops
+        for(let i=0; i<80; i++) {
+            let drop = document.createElement('div');
+            drop.className = 'drop';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+            drop.style.opacity = Math.random();
+            document.getElementById('rain').appendChild(drop);
         }
-        window.onresize = resize;
-        resize();
 
-        class Drop {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.len = Math.random() * 20 + 10;
-                this.speed = Math.random() * 10 + 5;
+        function appendMsg(text, sender) {
+            let b = document.createElement('div');
+            b.className = `bubble ${sender}`;
+            b.innerText = text;
+            chat.appendChild(b);
+            if(sender === 'sen') {
+                let s = document.createElement('div');
+                s.className = 'seen';
+                s.innerText = 'Seen';
+                chat.appendChild(s);
             }
-            draw() {
-                ctx.strokeStyle = 'rgba(174, 194, 224, 0.2)';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x, this.y + this.len);
-                ctx.stroke();
-            }
-            update() {
-                this.y += this.speed;
-                if (this.y > canvas.height) this.y = -this.len;
-            }
+            chat.scrollTop = chat.scrollHeight;
         }
 
-        for (let i = 0; i < 150; i++) rain.push(new Drop());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            rain.forEach(d => { d.draw(); d.update(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        function explodeHeart() {
-            document.body.classList.add('flash');
-            setTimeout(() => document.body.classList.remove('flash'), 200);
-            
-            const heart = document.getElementById('mainHeart');
-            heart.style.animation = 'none';
-            heart.style.transform = 'scale(2)';
-            heart.style.opacity = '0';
-            
-            document.getElementById('introText').style.opacity = '1';
-            typeWriter("welcomeTitle", "Aarvi ji\nWelcome to SivaSingh’s heart 💖\nI want to say I love you\nDo you love me?", () => {
-                document.getElementById('introBtns').style.display = 'flex';
-            });
-        }
-
-        function typeWriter(id, text, cb) {
-            let i = 0;
-            const el = document.getElementById(id);
-            el.innerHTML = "";
-            function type() {
-                if (i < text.length) {
-                    el.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
-                    i++;
-                    setTimeout(type, 50);
-                } else if (cb) cb();
-            }
-            type();
-        }
-
-        function startExperience(isYes) {
-            if (isYes) {
-                alert("She said YES 💖");
-                showMainSite();
-            } else {
-                document.getElementById('intro-screen').style.display = 'none';
-                document.getElementById('call-screen').style.display = 'flex';
-            }
-        }
-
-        function handleCall() {
-            document.getElementById('callBtns').style.display = 'none';
-            const dialogues = [
-                { t: "Aarvi: Hello Siva...", d: 1500 },
-                { t: "Siva: Haan babu...", d: 1500 },
-                { t: "Aarvi: Mai hamesha ke liye ja rahi hu...", d: 2000 },
-                { t: "Siva: Please Aarvi mujhe chhod ke mat jao, mai pagal ho jaunga...", d: 2500 },
-                { t: "Aarvi: Sorry Siva... ab hum kabhi nahi milenge...", d: 2000 }
-            ];
-
-            let delay = 0;
-            dialogues.forEach((item, index) => {
-                setTimeout(() => {
-                    document.getElementById('dialogue-box').innerText = item.t;
-                    if (index === dialogues.length - 1) {
-                        setTimeout(showMainSite, 2500);
-                    }
-                }, delay);
-                delay += item.d;
-            });
-        }
-
-        function showMainSite() {
-            document.getElementById('intro-screen').style.display = 'none';
-            document.getElementById('call-screen').style.display = 'none';
-            document.getElementById('main-site').style.display = 'block';
-            bgMusic.play();
-            startQuotes();
-        }
-
-        function startQuotes() {
-            const quotes = [
-                "Kuch log sirf yaadon mein reh jaate hain...",
-                "Hum chaah kar bhi tumhare nahi rahe...",
-                "Mohabbat aaj bhi hai, par ab saath nahi..."
-            ];
-            let qIdx = 0;
-            setInterval(() => {
-                typeWriter("sadQuotes", quotes[qIdx]);
-                qIdx = (qIdx + 1) % quotes.length;
-            }, 5000);
-            typeWriter("sadQuotes", quotes[0]);
-        }
-
-        function playVideo(v) {
-            const allVids = document.querySelectorAll('video');
-            allVids.forEach(vid => {
-                if (vid !== v) {
-                    vid.pause();
-                }
-            });
-
-            if (v.paused) {
-                bgMusic.pause();
-                v.play();
-                v.onended = () => {
-                    bgMusic.play();
-                };
-            } else {
-                v.pause();
+        // Logic Start
+        window.onload = () => {
+            setTimeout(() => {
                 bgMusic.play();
-            }
-        }
-
-        function nextPhoto() {
-            currentPhotoIndex = (currentPhotoIndex % 10) + 1;
-            const img = document.getElementById('galleryImg');
-            img.style.opacity = '0';
-            setTimeout(() => {
-                img.src = `photo${currentPhotoIndex}.jpg`;
-                img.style.opacity = '1';
-            }, 500);
-        }
-
-        function playPain() {
-            document.body.classList.add('flash');
-            setTimeout(() => document.body.classList.remove('flash'), 200);
-            brokenSound.currentTime = 0;
-            brokenSound.play();
-        }
-
-        function showGoodbye() {
-            document.getElementById('goodbye-screen').style.display = 'flex';
-            setTimeout(() => {
-                const h = document.getElementById('dissolvingHeart');
-                h.style.transition = '2s';
-                h.style.opacity = '0';
-                h.style.transform = 'scale(0.5) translateY(-100px)';
+                typing.style.display = 'block';
                 setTimeout(() => {
-                    document.getElementById('goodbye-screen').style.background = '#000';
-                    document.getElementById('goodbye-screen').innerHTML = "";
+                    typing.style.display = 'none';
+                    appendMsg("Hii SivaSingh... Kaise ho?", "rec");
                 }, 2000);
             }, 1000);
+        };
+
+        document.getElementById('send-btn').onclick = () => {
+            let val = document.getElementById('msg-input').value;
+            if(!val) return;
+            appendMsg(val, "sen");
+            document.getElementById('msg-input').value = "";
+            
+            // Story Progression
+            setTimeout(() => {
+                document.getElementById('call-ui').style.display = 'flex';
+            }, 2000);
+        };
+
+        document.querySelector('.ans').onclick = () => {
+            document.getElementById('call-timer').innerText = "00:01";
+            let sec = 1;
+            let timer = setInterval(() => {
+                sec++;
+                document.getElementById('call-timer').innerText = `00:0${sec}`;
+                if(sec > 5) {
+                    clearInterval(timer);
+                    endCall();
+                }
+            }, 1000);
+        };
+
+        function endCall() {
+            document.getElementById('call-ui').style.display = 'none';
+            appendMsg("Trishika, suno to...", "sen");
+            setTimeout(() => {
+                typing.style.display = 'block';
+                setTimeout(() => {
+                    typing.style.display = 'none';
+                    appendMsg("Nahi Siva, ab kuch nahi bacha. Hum dost bhi nahi reh sakte.", "rec");
+                    appendMsg("Goodbye forever. 💔", "rec");
+                    breakupAction();
+                }, 3000);
+            }, 1500);
+        }
+
+        function breakupAction() {
+            setTimeout(() => {
+                document.getElementById('user-title').innerText = "Instagram User";
+                document.getElementById('status-text').innerText = "Unavailable";
+                document.getElementById('main-pfp').style.background = "#333";
+                document.getElementById('input-bar').innerHTML = "<p style='color:#a8a8a8; text-align:center; width:100%'>You can no longer message this account.</p>";
+                loadGallery();
+            }, 2000);
+        }
+
+        function loadGallery() {
+            const gal = document.getElementById('media-area');
+            gal.style.display = 'grid';
+            
+            for(let i=1; i<=10; i++) {
+                let img = document.createElement('img');
+                img.src = `photo${i}.jpg`;
+                gal.appendChild(img);
+            }
+            for(let i=1; i<=4; i++) {
+                let v = document.createElement('video');
+                v.src = `video${i}.mp4`;
+                v.onclick = function() {
+                    if(this.paused) { bgMusic.pause(); this.play(); }
+                    else { this.pause(); bgMusic.play(); }
+                };
+                gal.appendChild(v);
+            }
         }
     </script>
 </body>
