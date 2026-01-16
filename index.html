@@ -1,346 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Trishika 🥀</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pastel-pink: #ffd1dc;
-            --pastel-peach: #ffeadb;
-            --pastel-lavender: #e6e6fa;
-            --text-color: #7d5a5a;
-            --glass-bg: rgba(255, 255, 255, 0.45);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry Trishika 💖</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+background:radial-gradient(circle at top,#2a1b2e,#0d0b10);
+color:#f5efe6;
+overflow-x:hidden;
+text-align:center;
+}
 
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach), var(--pastel-lavender));
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-color);
-        }
+/* floating hearts */
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:16px;
+animation:floatUp linear infinite;
+opacity:0.7;
+}
+@keyframes floatUp{
+to{transform:translateY(-110vh);opacity:0;}
+}
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+/* header */
+header{
+padding:18px 10px;
+position:sticky;
+top:0;
+background:rgba(20,10,25,0.6);
+backdrop-filter:blur(10px);
+z-index:10;
+}
+header h1{
+font-size:18px;
+letter-spacing:1px;
+}
+header p{
+font-size:14px;
+opacity:0.8;
+}
 
-        /* Floating Hearts Background */
-        .heart-particle {
-            position: fixed;
-            font-size: 20px;
-            pointer-events: none;
-            z-index: 0;
-            animation: floatUp 6s linear infinite;
-            opacity: 0.6;
-        }
+/* card */
+.card{
+width:92%;
+max-width:420px;
+margin:30px auto;
+padding:20px;
+border-radius:22px;
+background:rgba(255,255,255,0.06);
+box-shadow:0 0 25px rgba(255,200,255,0.15);
+animation:fadeIn 1s ease;
+}
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.9);}
+to{opacity:1;transform:scale(1);}
+}
 
-        @keyframes floatUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
+.gif{
+width:120px;
+max-height:120px;
+object-fit:contain;
+margin:10px auto;
+display:block;
+}
 
-        /* Header Styles */
-        header {
-            text-align: center;
-            padding: 20px;
-            z-index: 10;
-            width: 100%;
-        }
+button{
+margin-top:15px;
+padding:12px 28px;
+border:none;
+border-radius:30px;
+font-size:16px;
+background:linear-gradient(135deg,#ff7ac8,#b96bff);
+color:#fff;
+box-shadow:0 0 15px rgba(255,120,200,0.5);
+cursor:pointer;
+}
 
-        header p {
-            font-size: 14px;
-            font-weight: 600;
-        }
+/* hidden sections */
+.section{display:none;}
+.section.active{display:block;}
 
-        header a {
-            color: #d88fa5;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: bold;
-            display: inline-block;
-            transition: transform 0.3s;
-        }
+.small-gifs{
+display:flex;
+justify-content:center;
+gap:15px;
+}
+.small-gifs img{
+width:90px;
+}
 
-        header a:hover { transform: scale(1.1); }
-
-        /* Card System */
-        .container {
-            width: 90%;
-            max-width: 400px;
-            z-index: 5;
-            margin-top: 20px;
-            margin-bottom: 50px;
-        }
-
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 30px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            display: none;
-            animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .card.active { display: block; }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .gif-placeholder {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            display: block;
-            border-radius: 20px;
-        }
-
-        h2 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #b56c80;
-        }
-
-        p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        /* Buttons */
-        .btn {
-            background: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            color: #d88fa5;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(216, 143, 165, 0.3);
-            transition: all 0.3s ease;
-            font-family: 'Quicksand', sans-serif;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(216, 143, 165, 0.5);
-            background: #fffafa;
-        }
-
-        /* Heart Step Buttons */
-        .step-btns {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .heart-btn {
-            background: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: 0.3s;
-        }
-
-        .heart-btn.clicked {
-            background: #ffd1dc;
-            transform: scale(0.9);
-        }
-
-        /* Message Cards */
-        #step-message-container {
-            margin-top: 20px;
-            min-height: 180px;
-        }
-
-        .step-msg {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 15px;
-            border-radius: 20px;
-            margin-top: 10px;
-            display: none;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .final-letter {
-            text-align: left;
-            font-size: 0.95rem;
-            white-space: pre-line;
-        }
-
-        #final-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        .hidden { display: none; }
-    </style>
+/* music btn */
+#musicBtn{
+position:fixed;
+right:15px;
+bottom:15px;
+width:48px;
+height:48px;
+border-radius:50%;
+background:#ff7ac8;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+box-shadow:0 0 15px rgba(255,120,200,0.7);
+z-index:20;
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <p>Made by sivasingh 💖</p>
-        <a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
-    </header>
+<header>
+<h1>Made by Sivasingh 💖</h1>
+<p>@smss1708</p>
+</header>
 
-    <div class="container">
-        <div id="screen1" class="card active">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZkM2pxbmN6eHpsbmpxbmx2Z2x2Z2x2Z2x2Z2x2Z2x2Z2x2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/8mSclE9bH02u8/giphy.gif" alt="Cute Sad Cat" class="gif-placeholder">
-            <h2>Hey Cutiepie Trishika🥀</h2>
-            <p>Can we talk for a moment?<br>There’s something important I want to tell you...</p>
-            <button class="btn" onclick="nextScreen(1, 2)">Continue ❤️</button>
-        </div>
+<!-- SECTION 1 -->
+<div class="card section active" id="s1">
+<img src="intro.gif" class="gif">
+<h2>Hey Cutiepie 🌹</h2>
+<p style="margin-top:8px;">
+Can we talk for a moment?<br>
+There’s something important I want to tell you…
+</p>
+<button onclick="nextSection(2)">Continue ❤️</button>
+</div>
 
-        <div id="screen2" class="card">
-            <h2>From my heart...</h2>
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMG04ZW9sZ204ZW9sZ204ZW9sZ204ZW9sZ204ZW9sZ204ZW9sZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/X8U9nFqP6yTfG/giphy.gif" style="width: 48%; border-radius: 15px;">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHU0dzM2bHc0dzM2bHc0dzM2bHc0dzM2bHc0dzM2bHc0dzM2bHcmZXA9djFfaW50ZXJuYWxfZ2lmX2J5X2lkJmN0PXM/TfS8MAR9ucL2fWAdFd/giphy.gif" style="width: 48%; border-radius: 15px;">
-            </div>
-            <p>Tap to see my message</p>
-            <button class="btn" onclick="nextScreen(2, 3)">Tap ❤️</button>
-        </div>
+<!-- SECTION 2 -->
+<div class="card section" id="s2">
+<img src="sorry1.gif" class="gif">
+<p>
+Trishika…<br>
+I know I hurt you…<br>
+and I’ve been feeling really bad about it.
+</p>
+<button onclick="nextSection(3)">Next →</button>
+</div>
 
-        <div id="screen3" class="card">
-            <h2>Little Thoughts...</h2>
-            <div class="step-btns">
-                <button class="heart-btn" onclick="revealMsg(0, this)">💖</button>
-                <button class="heart-btn" onclick="revealMsg(1, this)">💗</button>
-                <button class="heart-btn" onclick="revealMsg(2, this)">💓</button>
-                <button class="heart-btn" onclick="revealMsg(3, this)">💝</button>
-                <button class="heart-btn" onclick="revealMsg(4, this)">💕</button>
-            </div>
+<!-- SECTION 3 -->
+<div class="card section" id="s3">
+<h3>From my heart…</h3>
+<div class="small-gifs">
+<img src="heart1.gif">
+<img src="heart2.gif">
+</div>
+<p style="margin-top:10px;">Tap to see message ↓</p>
+<button onclick="nextSection(4)">Open 💖</button>
+</div>
 
-            <div id="step-message-container">
-                <div id="msg-box" class="step-msg">
-                    <img id="msg-gif" src="" class="gif-placeholder" style="width: 100px; height: 100px;">
-                    <p id="msg-text"></p>
-                </div>
-            </div>
-            
-            <button id="next-to-final" class="btn hidden" onclick="nextScreen(3, 4)">See Final Letter ❤️</button>
-        </div>
+<!-- SECTION 4 -->
+<div class="card section" id="s4">
+<h3>Little things I want to tell you…</h3>
+<button onclick="alert('I never wanted to hurt you Trishika 💔')">💖</button><br>
+<button onclick="alert('You matter to me more than you know 🌸')">💖</button><br>
+<button onclick="alert('I promise to improve and be better 🌙')">💖</button><br>
+<button onclick="nextSection(5)">My Message →</button>
+</div>
 
-        <div id="screen4" class="card">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L95W4wv8nnb979d1ub/giphy.gif" alt="Sad Bunny" class="gif-placeholder">
-            <h2>I'm Sorry Trishika🥀</h2>
-            <div class="final-letter">
-                Dear Trishika,
+<!-- SECTION 5 -->
+<div class="card section" id="s5">
+<img src="promise.gif" class="gif">
+<p>
+I’m sorry Trishika, for hurting you and making you feel upset.<br><br>
+I never wanted to be the reason behind your tears or silence.<br><br>
+You matter to me more than I ever show.<br><br>
+I promise to listen, to grow, and to be better every single day.<br><br>
+I’m really trying… and I hope you can forgive me.
+</p>
+<button onclick="nextSection(6)">💖</button>
+</div>
 
-                I’ve been sitting here trying to find the perfect words, but honestly, "I'm sorry" is the only thing that matters. I hate that I was the reason for that frown on your face or the stress in your heart. 
+<!-- FINAL -->
+<div class="card section" id="s6">
+<img src="endlove.gif" class="gif">
+<h3>Sometimes a sorry needs more than just words… 💖</h3>
+</div>
 
-                You are my best friend, my favorite person to talk to, and losing our vibe over a mistake is the last thing I ever want. I value you more than I can express in a simple website. Please forgive me for being a bit silly/wrong. Can we go back to being the best duo again?
+<!-- music -->
+<audio id="bgm" loop>
+<source src="tere-liye.mp3" type="audio/mpeg">
+</audio>
+<div id="musicBtn" onclick="toggleMusic()">🎵</div>
 
-                Your bestie,
-                sivasingh 🤍
-            </div>
-            <p style="font-size: 12px; margin-top: 20px; font-style: italic;">
-                Some apologies come straight from the heart 💖
-            </p>
-        </div>
-    </div>
+<script>
+let current=1;
+function nextSection(n){
+document.getElementById("s"+current).classList.remove("active");
+document.getElementById("s"+n).classList.add("active");
+current=n;
+startMusic();
+}
 
-    <div id="final-overlay"></div>
+let started=false;
+function startMusic(){
+if(!started){
+document.getElementById("bgm").volume=0.35;
+document.getElementById("bgm").play();
+started=true;
+}
+}
+function toggleMusic(){
+let m=document.getElementById("bgm");
+if(m.paused){m.play();}else{m.pause();}
+}
 
-    <script>
-        // Floating Hearts Background Logic
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-particle');
-            heart.innerHTML = ['💖','💗','💓','💕','🌸'][Math.floor(Math.random() * 5)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
-        setInterval(createHeart, 400);
+/* hearts */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"%";
+h.style.animationDuration=(4+Math.random()*4)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+},400);
+</script>
 
-        // Screen Navigation
-        function nextScreen(current, next) {
-            document.getElementById('screen' + current).classList.remove('active');
-            document.getElementById('screen' + next).classList.add('active');
-            
-            if(next === 4) {
-                startFinalEffect();
-            }
-        }
-
-        // Step Messages Logic
-        const messages = [
-            { text: "I know I hurt you...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OPU6wUKARA8AU/giphy.gif" },
-            { text: "That was never my intention...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7SF5scGB2AFrO/giphy.gif" },
-            { text: "You mean a lot to me, Trishika🥀", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/14412MUKmbQq7m/giphy.gif" },
-            { text: "I’m really sorry for my mistakes...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/BEob5zFkS7LWQGnQP4/giphy.gif" },
-            { text: "Please forgive your bestie...", gif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZzdyY2NnZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ISOckXUybVfQ4/giphy.gif" }
-        ];
-
-        let clickedHearts = 0;
-        function revealMsg(index, btn) {
-            if(btn.classList.contains('clicked')) return;
-            
-            btn.classList.add('clicked');
-            const msgBox = document.getElementById('msg-box');
-            const msgText = document.getElementById('msg-text');
-            const msgGif = document.getElementById('msg-gif');
-
-            msgBox.style.display = 'none';
-            setTimeout(() => {
-                msgText.innerText = messages[index].text;
-                msgGif.src = messages[index].gif;
-                msgBox.style.display = 'block';
-                clickedHearts++;
-                
-                if(clickedHearts === 5) {
-                    document.getElementById('next-to-final').classList.remove('hidden');
-                }
-            }, 50);
-        }
-
-        function startFinalEffect() {
-            // Intensive heart shower at the end
-            for(let i=0; i<30; i++) {
-                setTimeout(createHeart, i * 100);
-            }
-            document.body.style.boxShadow = "inset 0 0 100px rgba(255,182,193,0.5)";
-        }
-    </script>
 </body>
 </html>
