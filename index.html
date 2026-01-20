@@ -1,330 +1,786 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Madam Ji | Pallavi</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For My Queen Khusi | Valentine's Day</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+    :root {
+        --primary-red: #ff0033;
+        --neon-pink: #ff007f;
+        --deep-black: #0a0a0a;
+        --luxury-gold: #d4af37;
+        --soft-glow: 0 0 20px rgba(255, 0, 127, 0.6);
+        --transition-speed: 0.8s;
+    }
 
-        :root {
-            --gold: #D4AF37;
-            --soft-gold: #f9f1d0;
-            --blush: #fce4ec;
-            --cream: #fffaf0;
-            --glass: rgba(255, 255, 255, 0.2);
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        background-color: var(--deep-black);
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+    }
 
-        body {
-            background: linear-gradient(135deg, var(--cream), var(--blush), var(--soft-gold));
-            background-size: 400% 400%;
-            animation: bgMove 15s ease infinite;
-            font-family: 'Montserrat', sans-serif;
-            color: #4a4a4a;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+    /* --- LAYOUT & PAGES --- */
+    .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, #1a0a0a 0%, #050505 100%);
+        overflow: hidden;
+        z-index: 10;
+    }
 
-        @keyframes bgMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .active {
+        display: flex;
+        animation: fadeIn var(--transition-speed) ease-in-out;
+    }
 
-        /* Top Header */
-        .top-header {
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8rem;
-            color: var(--gold);
-            letter-spacing: 3px;
-            animation: fadeIn 3s ease;
-            position: relative;
-            z-index: 10;
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(1.05); }
+        to { opacity: 1; transform: scale(1); }
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
+    /* --- LOADING SCREEN --- */
+    #loader {
+        display: flex;
+        z-index: 100;
+        background: #000;
+    }
 
-        .hero h2 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.2rem, 5vw, 2rem);
-            letter-spacing: 5px;
-            color: #8b7355;
-            margin-bottom: 10px;
-        }
+    .neon-heart-loader {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background: transparent;
+        filter: drop-shadow(var(--soft-glow));
+    }
 
-        .name-container { position: relative; display: inline-block; }
+    .neon-heart-loader svg {
+        fill: none;
+        stroke: var(--neon-pink);
+        stroke-width: 2;
+        stroke-dasharray: 300;
+        stroke-dashoffset: 300;
+        animation: heartStroke 2.5s ease-in-out infinite;
+    }
 
-        .crown {
-            font-size: 3rem;
-            position: absolute;
-            top: -45px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: crownFloat 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 10px var(--gold));
-        }
+    @keyframes heartStroke {
+        0% { stroke-dashoffset: 300; }
+        50% { stroke-dashoffset: 0; }
+        100% { stroke-dashoffset: -300; }
+    }
 
-        .hero h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(4rem, 15vw, 7rem);
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s infinite linear;
-            padding: 10px;
-        }
+    /* --- BUTTONS --- */
+    .btn-luxury {
+        margin-top: 30px;
+        padding: 15px 40px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: white;
+        background: transparent;
+        border: 1px solid var(--neon-pink);
+        border-radius: 50px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: 0.4s;
+        box-shadow: var(--soft-glow);
+        z-index: 50;
+    }
 
-        /* Glassmorphism Cards */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px;
-            padding: 40px 25px;
-            width: 90%;
-            max-width: 500px;
-            margin: 40px auto;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s ease-out;
-        }
+    .btn-luxury:hover {
+        background: var(--neon-pink);
+        box-shadow: 0 0 40px var(--neon-pink);
+        transform: translateY(-3px);
+    }
 
-        .glass-card.show { opacity: 1; transform: translateY(0); }
+    /* --- MAIN INTRO (PAGE 1) --- */
+    .title-text {
+        font-family: 'Great Vibes', cursive;
+        font-size: 3.5rem;
+        text-align: center;
+        color: var(--primary-red);
+        text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        margin-bottom: 10px;
+        opacity: 0;
+        animation: slideUp 1.5s ease-out forwards 0.5s;
+    }
 
-        .card-gif {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 3px solid var(--gold);
-            padding: 5px;
-            object-fit: cover;
-        }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        .btn-premium {
-            background: var(--gold);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-            transition: 0.3s;
-            margin-top: 20px;
-        }
+    /* --- VIDEO PAGE (PAGE 2) --- */
+    #video-container {
+        width: 100%;
+        height: 100%;
+        background: #000;
+    }
 
-        .btn-premium:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5); }
+    #introVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-        /* Row Cards */
-        .row-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+    /* --- NAME & CROWN (PAGE 3) --- */
+    .crown-container {
+        position: relative;
+        margin-bottom: -10px;
+    }
 
-        .row-card { flex: 1; min-width: 280px; }
+    .crown {
+        font-size: 3rem;
+        color: var(--luxury-gold);
+        filter: drop-shadow(0 0 10px gold);
+        animation: float 3s ease-in-out infinite;
+    }
 
-        /* Music Button */
-        .music-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 55px;
-            height: 55px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-        }
+    .khusi-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 5rem;
+        font-weight: 700;
+        background: linear-gradient(to bottom, #fff, #ff007f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 5px;
+        text-shadow: 2px 2px 20px rgba(255, 0, 127, 0.5);
+        position: relative;
+    }
 
-        /* Animations */
-        @keyframes crownFloat { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -15px); } }
-        @keyframes shimmer { 0% { background-position: -200%; } 100% { background-position: 200%; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .typing-effect::after {
+        content: '|';
+        animation: blink 0.7s infinite;
+    }
 
-        .hidden { display: none; }
-        
-        #sparkles {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-    </style>
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(-5deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+    }
+
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+
+    /* --- HEART INTERACTION (PAGE 4) --- */
+    .beating-heart {
+        width: 200px;
+        cursor: pointer;
+        transition: 0.3s;
+        filter: drop-shadow(0 0 30px var(--primary-red));
+        animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        15% { transform: scale(1.15); }
+        30% { transform: scale(1); }
+        45% { transform: scale(1.25); }
+        100% { transform: scale(1); }
+    }
+
+    .heart-message {
+        position: absolute;
+        font-size: 1.5rem;
+        font-family: 'Dancing Script', cursive;
+        color: white;
+        pointer-events: none;
+        animation: floatAway 2s forwards;
+    }
+
+    @keyframes floatAway {
+        to { transform: translateY(-150px); opacity: 0; }
+    }
+
+    /* --- LOVE LETTER (PAGE 5) --- */
+    .envelope-wrapper {
+        perspective: 1000px;
+    }
+
+    .envelope {
+        width: 300px;
+        height: 200px;
+        background: #4a0000;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: 1s;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .envelope.open {
+        transform: rotateX(20deg);
+    }
+
+    .flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #6e0000;
+        clip-path: polygon(0 0, 100% 0, 50% 50%);
+        z-index: 3;
+        transition: 0.6s;
+        transform-origin: top;
+    }
+
+    .envelope.open .flap {
+        transform: rotateX(180deg);
+    }
+
+    .letter-card {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        width: 280px;
+        height: 180px;
+        background: #fff;
+        color: #333;
+        padding: 20px;
+        font-family: 'Dancing Script', cursive;
+        transition: 0.8s;
+        z-index: 2;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .envelope.open .letter-card {
+        transform: translateY(-100px);
+        height: 250px;
+    }
+
+    /* --- ANIMATIONS PAGES (PAGE 6-10) --- */
+    .canvas-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .quote-float {
+        position: absolute;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.8);
+        white-space: nowrap;
+        animation: slideRight linear infinite;
+    }
+
+    @keyframes slideRight {
+        from { left: -100%; }
+        to { left: 100%; }
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+        margin-top: 50px;
+        font-size: 0.8rem;
+        color: #666;
+        text-align: center;
+    }
+
+    .insta-placeholder {
+        width: 24px;
+        margin-top: 10px;
+        opacity: 0.5;
+        filter: invert(1);
+    }
+
+    /* --- PARTICLES & GIFS --- */
+    .floating-gif {
+        position: absolute;
+        width: 60px;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .top-left { top: 20px; left: 20px; }
+    .bottom-right { bottom: 20px; right: 20px; }
+
+    /* --- AUDIO UI (HIDDEN) --- */
+    #audio-player { display: none; }
+</style>
+
 </head>
-<body onclick="initMusic()">
+<body>
+<canvas id="particleCanvas" style="position:fixed; top:0; left:0; pointer-events:none; z-index:1;"></canvas>
 
-    <canvas id="sparkles"></canvas>
-
-    <header class="top-header">
-        <span>✨ Made by sivasingh 💫</span>
-    </header>
-
-    <section class="hero">
-        <h2>HAPPY BIRTHDAY <br> MADAM JI 🎂✨</h2>
-        <div class="name-container">
-            <span class="crown">👑</span>
-            <h1>PALLAVI</h1>
-        </div>
-    </section>
-
-    <div class="glass-card show" id="intro">
-        <img src="intro.gif" class="card-gif">
-        <p style="font-size: 1.1rem; line-height: 1.6; font-style: italic;">
-            “Madam Ji 💖<br>
-            Today isn’t just a birthday,<br>
-            it’s a celebration of someone truly special…”
-        </p>
-        <button class="btn-premium" onclick="reveal()">Open the Surprise 🎁</button>
+<section id="loader" class="page active">
+    <div class="neon-heart-loader">
+        <svg viewBox="0 0 100 100">
+            <path d="M50 85 C20 65, 5 45, 5 25 A20 20 0 0 1 45 20 A20 20 0 0 1 85 25 C85 45, 70 65, 50 85" />
+        </svg>
     </div>
+    <p style="margin-top:20px; letter-spacing: 5px; font-size: 0.7rem; color: var(--neon-pink);">INITIALIZING LOVE...</p>
+</section>
 
-    <div id="content" class="hidden">
-        <div class="glass-card reveal">
-            <img src="rose.gif" class="card-gif">
-            <p>“Pallavi,<br>You have a way of making every moment brighter. Your smile is magic, your presence is peace.”</p>
-        </div>
+<section id="page1" class="page">
+    <img src="heart.gif" class="floating-gif top-left" alt="">
+    <h1 class="title-text">Happy Valentine’s Day ❤️</h1>
+    <p style="font-weight:300; opacity: 0.7;">Welcome to my digital heart</p>
+    <button class="btn-luxury" onclick="nextPage(2)">Enter My Heart</button>
+    <img src="rose.gif" class="floating-gif bottom-right" alt="">
+</section>
 
-        <div class="glass-card reveal">
-            <div style="display: flex; justify-content: center; gap: 10px;">
-                <img src="heart1.gif" style="width: 60px;">
-                <img src="heart2.gif" style="width: 60px;">
+<section id="page2" class="page">
+    <div id="video-container">
+        <video id="introVideo" playsinline muted>
+            <source src="couple.mp4" type="video/mp4">
+            </video>
+    </div>
+</section>
+
+<section id="page3" class="page">
+    <div class="crown-container">
+        <div class="crown">👑</div>
+    </div>
+    <h2 class="khusi-name" id="khusi-text"></h2>
+    <p style="font-family: 'Playfair Display', serif; font-style: italic; color: var(--luxury-gold);">You are the queen of my heart</p>
+    <button class="btn-luxury" onclick="nextPage(4)">My Love</button>
+</section>
+
+<section id="page4" class="page">
+    <div id="heart-tap-zone" onclick="createHeartPop(event)">
+        <svg class="beating-heart" viewBox="0 0 32 32">
+            <path fill="#ff0033" d="M16 28.5L14.1 26.8C7.33 20.65 3 16.5 3 11.5 3 7.36 6.36 4 10.5 4c2.34 0 4.58 1.1 6 3.01C17.92 5.1 20.16 4 22.5 4 26.64 4 30 7.36 30 11.5c0 5-4.33 9.15-11.1 15.3z" />
+        </svg>
+    </div>
+    <p style="margin-top: 40px; color: #ff007f;">Tap the heart to feel my pulse</p>
+    <button class="btn-luxury" onclick="nextPage(5)">Read My Note</button>
+</section>
+
+<section id="page5" class="page">
+    <div class="envelope-wrapper">
+        <div class="envelope" id="envelope" onclick="openEnvelope()">
+            <div class="flap"></div>
+            <div class="letter-card" id="letter-content">
+                "Every heartbeat whispers your name..."
             </div>
-            <p style="margin-top: 15px;">“Some people are rare, some are precious, but you are both… and more.”</p>
-        </div>
-
-        <div class="row-container">
-            <div class="glass-card row-card reveal">
-                <img src="hug.gif" class="card-gif" style="width:80px; height:80px;">
-                <p><strong>Pure heart</strong></p>
-            </div>
-            <div class="glass-card row-card reveal">
-                <img src="kiss.gif" class="card-gif" style="width:80px; height:80px;">
-                <p><strong>Beautiful soul</strong></p>
-            </div>
-            <div class="glass-card row-card reveal">
-                <img src="cute.gif" class="card-gif" style="width:80px; height:80px;">
-                <p><strong>Unforgettable presence</strong></p>
-            </div>
-        </div>
-
-        <div class="glass-card reveal">
-            <img src="promise.gif" class="card-gif">
-            <p>“Pallavi,<br>May this year bring you happiness, success, and endless reasons to smile. You truly deserve the best.”</p>
-        </div>
-
-        <div class="glass-card reveal" style="margin-bottom: 150px;">
-            <img src="endlove.gif" class="card-gif">
-            <h1 style="font-family: 'Great Vibes'; color: var(--gold); font-size: 3rem;">Once again...</h1>
-            <p style="font-family: 'Cinzel'; font-weight: bold; font-size: 1.5rem; margin: 10px 0;">Happy Birthday, Madam Ji 💖</p>
-            <p>Stay blessed, stay amazing ✨</p>
         </div>
     </div>
+    <p id="letter-instruction" style="margin-top: 150px; font-size: 0.8rem; color: #888;">Tap to open your letter</p>
+    <button class="btn-luxury" style="margin-top: 50px;" onclick="nextPage(6)">Magical Moments</button>
+</section>
 
-    <div class="music-toggle" onclick="toggleMute(event)">🎵</div>
-    <audio id="bgMusic" loop>
-        <source src="tere-liye.mp3" type="audio/mpeg">
-    </audio>
+<section id="page6" class="page">
+    <canvas id="neonCanvas" class="canvas-bg"></canvas>
+    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">Infinite Love</h3>
+    <button class="btn-luxury" onclick="nextPage(7)">More Magic</button>
+</section>
 
-    <script>
-        let music = document.getElementById('bgMusic');
-        let musicStarted = false;
+<section id="page7" class="page">
+    <canvas id="rainbowCanvas" class="canvas-bg"></canvas>
+    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">Colors of You</h3>
+    <button class="btn-luxury" onclick="nextPage(8)">Feel the Spark</button>
+</section>
 
-        function initMusic() {
-            if (!musicStarted) {
-                music.volume = 0.35;
-                music.play().catch(() => {});
-                musicStarted = true;
+<section id="page8" class="page">
+    <canvas id="heartParticleCanvas" class="canvas-bg"></canvas>
+    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">A Thousand Hearts</h3>
+    <button class="btn-luxury" onclick="nextPage(9)">The Grand Finale</button>
+</section>
+
+<section id="page9" class="page">
+    <canvas id="fireworksCanvas" class="canvas-bg"></canvas>
+    <h3 style="z-index:10; font-family: 'Dancing Script', cursive; font-size: 2rem;">Our Celebration</h3>
+    <button class="btn-luxury" onclick="nextPage(10)">Final Message</button>
+</section>
+
+<section id="page10" class="page">
+    <div id="quote-container" style="width:100%; height:50%;"></div>
+    <div style="text-align:center; z-index: 10;">
+        <img src="love.gif" style="width:120px; border-radius: 50%; border: 2px solid var(--neon-pink); margin-bottom: 20px;">
+        <h2 style="font-family: 'Great Vibes', cursive; font-size: 3rem; color: var(--primary-red);">Forever Yours, Khusi</h2>
+    </div>
+    
+    <div class="footer">
+        <p>Made with ❤️ by Sivasingh</p>
+        <div class="insta-placeholder">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+    </div>
+</section>
+
+<audio id="audio-player" preload="auto"></audio>
+<audio id="heartbeat-sfx" src="[https://assets.mixkit.co/sfx/preview/mixkit-human-single-heart-beat-490.mp3](https://assets.mixkit.co/sfx/preview/mixkit-human-single-heart-beat-490.mp3)"></audio>
+
+<script>
+    // --- GLOBAL STATE ---
+    let currentPage = 0;
+    const totalPages = 10;
+    const songs = [
+        { name: "Until I Found You", url: "[https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3)" }, // Placeholders
+        { name: "Perfect", url: "[https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3)" },
+        { name: "Blue", url: "[https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3](https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3)" }
+    ];
+
+    const audio = document.getElementById('audio-player');
+    const heartbeatSfx = document.getElementById('heartbeat-sfx');
+
+    // --- PAGE NAVIGATION ---
+    function nextPage(pageNumber) {
+        const currentEl = document.querySelector('.active');
+        const nextEl = document.getElementById('page' + pageNumber);
+
+        if (currentEl) currentEl.classList.remove('active');
+        nextEl.classList.add('active');
+        currentPage = pageNumber;
+
+        handlePageTrigger(pageNumber);
+    }
+
+    // --- TRIGGERS ON PAGE LOAD ---
+    function handlePageTrigger(num) {
+        if (num === 2) {
+            const video = document.getElementById('introVideo');
+            video.play().catch(e => console.log("Video autoplay blocked"));
+            video.onended = () => {
+                video.parentElement.style.opacity = '0';
+                setTimeout(() => {
+                    nextPage(3);
+                    playMusic(0);
+                }, 1000);
+            };
+        }
+
+        if (num === 3) {
+            typeWriter("KHUSI", "khusi-text");
+            playMusic(0);
+        }
+
+        if (num === 5) playMusic(1);
+        if (num === 6) initNeonAnimation();
+        if (num === 7) initRainbowAnimation();
+        if (num === 8) initHeartParticles();
+        if (num === 9) {
+            initFireworks();
+            playMusic(2);
+        }
+        if (num === 10) initQuoteFloat();
+    }
+
+    // --- MUSIC LOGIC ---
+    function playMusic(index) {
+        // Simplified logic: index is specific song
+        const targetSrc = songs[index].url;
+        if (audio.src !== targetSrc) {
+            fadeOutAudio(() => {
+                audio.src = targetSrc;
+                audio.play();
+                fadeInAudio();
+            });
+        }
+    }
+
+    function fadeOutAudio(callback) {
+        let vol = audio.volume;
+        const interval = setInterval(() => {
+            if (vol > 0.1) {
+                vol -= 0.1;
+                audio.volume = vol;
+            } else {
+                clearInterval(interval);
+                audio.pause();
+                if (callback) callback();
+            }
+        }, 100);
+    }
+
+    function fadeInAudio() {
+        audio.volume = 0;
+        let vol = 0;
+        const interval = setInterval(() => {
+            if (vol < 0.9) {
+                vol += 0.1;
+                audio.volume = vol;
+            } else {
+                clearInterval(interval);
+            }
+        }, 100);
+    }
+
+    // --- TYPING EFFECT ---
+    function typeWriter(text, elementId) {
+        const el = document.getElementById(elementId);
+        el.innerHTML = "";
+        el.classList.add('typing-effect');
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                el.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 200);
+            } else {
+                setTimeout(() => el.classList.remove('typing-effect'), 1000);
             }
         }
+        type();
+    }
 
-        function toggleMute(e) {
-            e.stopPropagation();
-            music.muted = !music.muted;
-            e.target.innerText = music.muted ? "🔇" : "🎵";
+    // --- HEART POP INTERACTION ---
+    function createHeartPop(e) {
+        const container = document.getElementById('page4');
+        const msg = document.createElement('div');
+        msg.className = 'heart-message';
+        msg.innerText = 'I ❤️ Love You Khusi';
+        msg.style.left = e.clientX + 'px';
+        msg.style.top = e.clientY + 'px';
+        container.appendChild(msg);
+        
+        heartbeatSfx.currentTime = 0;
+        heartbeatSfx.play();
+
+        setTimeout(() => msg.remove(), 2000);
+    }
+
+    // --- ENVELOPE LOGIC ---
+    let currentLetterIdx = 0;
+    const loveQuotes = [
+        "Every heartbeat whispers your name",
+        "You are my today and all my tomorrows",
+        "With you, love feels magical",
+        "Forever starts with you",
+        "You're the most beautiful dream come true"
+    ];
+
+    function openEnvelope() {
+        const env = document.getElementById('envelope');
+        const card = document.getElementById('letter-content');
+        const instr = document.getElementById('letter-instruction');
+        
+        if (!env.classList.contains('open')) {
+            env.classList.add('open');
+            instr.innerText = "Tap card to flip messages";
+        } else {
+            currentLetterIdx = (currentLetterIdx + 1) % loveQuotes.length;
+            card.style.opacity = '0';
+            setTimeout(() => {
+                card.innerText = loveQuotes[currentLetterIdx];
+                card.style.opacity = '1';
+            }, 400);
         }
+    }
 
-        function reveal() {
-            document.getElementById('content').classList.remove('hidden');
-            document.getElementById('intro').querySelector('button').style.display = 'none';
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, { threshold: 0.2 });
+    // --- CANVAS ANIMATIONS ---
 
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        }
-
-        // Luxury Floating Particles
-        const canvas = document.getElementById('sparkles');
+    // 1. NEON SPIN
+    function initNeonAnimation() {
+        const canvas = document.getElementById('neonCanvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedY = Math.random() * -0.5 - 0.2;
-                this.opacity = Math.random();
-            }
-            update() {
-                this.y += this.speedY;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < 60; i++) particles.push(new Particle());
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let angle = 0;
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            if (currentPage !== 6) return;
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const x = canvas.width / 2 + Math.cos(angle) * 100;
+            const y = canvas.height / 2 + Math.sin(angle * 2) * 100;
+
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#ff007f';
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = '#ff007f';
+            ctx.fill();
+            
+            angle += 0.05;
             requestAnimationFrame(animate);
         }
         animate();
-    </script>
+    }
+
+    // 2. RAINBOW CIRCLE
+    function initRainbowAnimation() {
+        const canvas = document.getElementById('rainbowCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let hue = 0;
+
+        function draw() {
+            if (currentPage !== 7) return;
+            ctx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.1)`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(canvas.width/2, canvas.height/2, (Math.sin(hue*0.01) * 100) + 150, 0, Math.PI*2);
+            ctx.stroke();
+            hue += 2;
+            requestAnimationFrame(draw);
+        }
+        draw();
+    }
+
+    // 3. HEART PARTICLES
+    function initHeartParticles() {
+        const canvas = document.getElementById('heartParticleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const hearts = [];
+
+        class Heart {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 10;
+                this.size = Math.random() * 15 + 5;
+                this.speed = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.5;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 0, 127, ${this.opacity})`;
+                ctx.font = `${this.size}px serif`;
+                ctx.fillText('❤️', this.x, this.y);
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < -20) this.y = canvas.height + 20;
+            }
+        }
+
+        for(let i=0; i<30; i++) hearts.push(new Heart());
+
+        function animate() {
+            if (currentPage !== 8) return;
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            hearts.forEach(h => { h.update(); h.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
+    // 4. FIREWORKS
+    function initFireworks() {
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function createFirework() {
+            if (currentPage !== 9) return;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const colors = ['#ff0033', '#ff007f', '#ffd700', '#ffffff'];
+            const color = colors[Math.floor(Math.random()*colors.length)];
+
+            for(let i=0; i<20; i++) {
+                setTimeout(() => {
+                    ctx.beginPath();
+                    ctx.arc(x + (Math.random()-0.5)*100, y + (Math.random()-0.5)*100, 2, 0, Math.PI*2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                }, i * 50);
+            }
+            setTimeout(createFirework, 800);
+        }
+        createFirework();
+        
+        function clear() {
+            if (currentPage !== 9) return;
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.2)';
+            ctx.fillRect(0,0, canvas.width, canvas.height);
+            requestAnimationFrame(clear);
+        }
+        clear();
+    }
+
+    // 5. QUOTE FLOAT
+    function initQuoteFloat() {
+        const container = document.getElementById('quote-container');
+        loveQuotes.forEach((q, i) => {
+            const span = document.createElement('div');
+            span.className = 'quote-float';
+            span.innerText = q;
+            span.style.top = (20 + i * 15) + '%';
+            span.style.animationDuration = (10 + i * 2) + 's';
+            span.style.animationDelay = (i * 1) + 's';
+            container.appendChild(span);
+        });
+    }
+
+    // --- GLOBAL PARTICLES (BACKGROUND) ---
+    const bgCanvas = document.getElementById('particleCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+    const bgParticles = [];
+
+    function initBgParticles() {
+        for(let i=0; i<50; i++) {
+            bgParticles.push({
+                x: Math.random() * bgCanvas.width,
+                y: Math.random() * bgCanvas.height,
+                r: Math.random() * 2,
+                d: Math.random() * 50
+            });
+        }
+    }
+
+    function drawBgParticles() {
+        bgCtx.clearRect(0,0, bgCanvas.width, bgCanvas.height);
+        bgCtx.fillStyle = "rgba(255, 255, 255, 0.3)";
+        bgCtx.beginPath();
+        for(let i=0; i<50; i++) {
+            const p = bgParticles[i];
+            bgCtx.moveTo(p.x, p.y);
+            bgCtx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+        }
+        bgCtx.fill();
+        updateBgParticles();
+        requestAnimationFrame(drawBgParticles);
+    }
+
+    function updateBgParticles() {
+        for(let i=0; i<50; i++) {
+            const p = bgParticles[i];
+            p.y -= 0.5;
+            if(p.y < 0) p.y = bgCanvas.height;
+        }
+    }
+
+    // --- STARTUP ---
+    window.onload = () => {
+        initBgParticles();
+        drawBgParticles();
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            nextPage(1);
+        }, 3000);
+    };
+
+    // Handle window resize
+    window.onresize = () => {
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+    };
+
+</script>
+
 </body>
 </html>
