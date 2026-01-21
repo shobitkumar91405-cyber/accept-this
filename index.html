@@ -3,184 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For My Pallavi 💖</title>
+    <title>For Pallavi 💖</title>
     <style>
-        :root { --pink: #ff2d75; --purple: #bc13fe; --glass: rgba(255, 255, 255, 0.1); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: #000; color: #fff; overflow: hidden; height: 100vh; width: 100vw; position: fixed; }
-        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; width: 100%; height: 100%; background: radial-gradient(circle at center, #1a001a 0%, #000 100%); }
-        .header { position: fixed; top: 20px; width: 100%; text-align: center; z-index: 1000; font-size: 14px; color: var(--pink); text-shadow: 0 0 10px var(--pink); font-weight: bold; letter-spacing: 2px; pointer-events: none; }
-        .page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 25px; transition: opacity 0.8s ease; opacity: 0; z-index: 10; text-align: center; }
-        .active { display: flex; opacity: 1; }
-        .glass-card { background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; padding: 30px; width: 100%; max-width: 400px; box-shadow: 0 0 30px rgba(255, 45, 117, 0.3); transform: scale(0.9); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .active .glass-card { transform: scale(1); }
-        .btn { margin-top: 25px; padding: 15px 45px; border-radius: 50px; border: none; background: linear-gradient(45deg, var(--pink), var(--purple)); color: white; font-weight: bold; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 20px var(--pink); font-size: 16px; }
-        .mute-btn { position: fixed; bottom: 30px; right: 30px; z-index: 1000; background: var(--glass); border: 1px solid var(--pink); width: 50px; height: 50px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; }
-        #intro-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 500; display: none; }
-        .neon-scene { position: relative; width: 100%; height: 300px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 20px; }
-        .char { position: absolute; transition: all 3.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .boy { left: -100px; filter: drop-shadow(0 0 10px #00d2ff); }
-        .girl { right: 50px; filter: drop-shadow(0 0 10px var(--pink)); }
-        .msg-text { font-size: 17px; line-height: 1.7; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .gif-box { width: 160px; border-radius: 20px; overflow: hidden; margin-bottom: 20px; border: 2px solid var(--pink); }
-        .gif-box img { width: 100%; display: block; }
-        .side-gifs { display: flex; gap: 15px; margin-bottom: 15px; }
-        .side-gifs .gif-box { width: 110px; }
-        .three-gifs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-        .three-gifs .gif-box { width: 100%; }
-        .floating-heart { position: absolute; pointer-events: none; animation: floatUp 4s linear forwards; color: var(--pink); z-index: 999; }
-        @keyframes floatUp { 0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; } 100% { transform: translateY(-100vh) scale(0) rotate(360deg); opacity: 0; } }
+        :root {
+            --neon-pink: #ff2d75;
+            --neon-purple: #bc13fe;
+            --bg-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .header-credit {
+            position: fixed;
+            top: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 1000;
+            text-transform: uppercase;
+        }
+
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--glass);
+            padding: 12px;
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--neon-pink);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 45, 117, 0.3);
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .active .glass-card {
+            transform: scale(1);
+        }
+
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-purple);
+            margin-bottom: 10px;
+        }
+
+        .btn-continue {
+            margin-top: 25px;
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 45, 117, 0.5);
+        }
+
+        #intro-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2000;
+            background: black;
+            display: none;
+        }
+
+        /* NEON CHARACTER STYLES */
+        .stage {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .character {
+            position: absolute;
+            bottom: 20px;
+            width: 80px;
+            height: 120px;
+        }
+
+        #boy {
+            left: -100px;
+            filter: drop-shadow(0 0 8px #00f2ff);
+        }
+
+        #girl {
+            right: 40px;
+            filter: drop-shadow(0 0 8px var(--neon-pink));
+        }
+
+        .stick-man { stroke-width: 4; fill: none; stroke-linecap: round; }
+        .boy-color { stroke: #00f2ff; }
+        .girl-color { stroke: var(--neon-pink); }
+
+        .kneel-anim {
+            transform: translateY(25px) scaleY(0.7);
+            transition: transform 1s ease;
+        }
+
+        .message-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #f0f0f0;
+            font-style: italic;
+        }
+
+        .gif-frame {
+            width: 140px;
+            height: 140px;
+            border-radius: 15px;
+            margin: 0 auto 15px;
+            display: block;
+            border: 2px solid var(--neon-purple);
+        }
+
+        .heart-fly {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: moveUp 3s linear forwards;
+        }
+
+        @keyframes moveUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">Made by sivasingh 💖</div>
+    <div class="header-credit">Made by sivasingh 💖</div>
     <canvas id="bg-canvas"></canvas>
-    <button class="mute-btn" onclick="toggleMute()">🎵</button>
-    
-    <audio id="bg-music" loop><source src="tere-liye.mp3" type="audio/mpeg"></audio>
-    <video id="intro-video" playsinline><source src="intro-love.mp4" type="video/mp4"></video>
+    <video id="intro-video" playsinline></video>
 
-    <div id="p1" class="page active">
-        <div class="gif-box"><img src="intro.gif" alt="Intro"></div>
+    <div class="audio-control" onclick="toggleAudio()">
+        <span id="music-icon">🎵</span>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="tere-liye.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="page active" id="p1">
         <div class="glass-card">
-            <h1 style="color:var(--pink); font-size: 2.5rem; margin-bottom: 10px;">Hey Pallavi 💖</h1>
-            <p style="font-style: italic; opacity: 0.9;">A moment that comes straight from my heart...</p>
-            <button class="btn" onclick="startExperience()">Continue 💌</button>
+            <img src="intro.gif" class="gif-frame">
+            <h1 class="neon-text">Hey Pallavi 💖</h1>
+            <p>A moment that comes straight from my heart...</p>
+            <button class="btn-continue" onclick="initiate()">Continue 💌</button>
         </div>
     </div>
 
-    <div id="p2" class="page">
-        <div class="neon-scene">
-            <div id="boy" class="char boy">
-                <svg width="80" height="150" viewBox="0 0 60 100"><circle cx="30" cy="20" r="12" fill="none" stroke="#00d2ff" stroke-width="3"/><path d="M30 32 L30 70 L15 95 M30 70 L45 95 M30 45 L10 60 M30 45 L50 60" stroke="#00d2ff" stroke-width="3" fill="none"/></svg>
+    <div class="page" id="p3">
+        <div class="stage">
+            <div id="boy" class="character">
+                <svg viewBox="0 0 100 150">
+                    <circle class="stick-man boy-color" cx="50" cy="25" r="15"/>
+                    <path class="stick-man boy-color" d="M50 40 L50 90 M50 55 L25 80 M50 55 L75 80 M50 90 L30 130 M50 90 L70 130" id="boy-body"/>
+                </svg>
             </div>
-            <div class="char girl">
-                <svg width="80" height="150" viewBox="0 0 60 100"><circle cx="30" cy="20" r="12" fill="none" stroke="#ff2d75" stroke-width="3"/><path d="M30 32 L30 65 L15 95 M30 65 L45 95 M30 45 L10 60 M30 45 L50 60" stroke="#ff2d75" stroke-width="3" fill="none"/><path d="M15 65 L45 65 L30 85 Z" fill="#ff2d75" opacity="0.4"/></svg>
+            <div id="girl" class="character">
+                <svg viewBox="0 0 100 150">
+                    <circle class="stick-man girl-color" cx="50" cy="25" r="15"/>
+                    <path class="stick-man girl-color" d="M50 40 L30 100 L70 100 Z M50 100 L40 140 M50 100 L60 140 M50 60 L25 85 M50 60 L75 85"/>
+                </svg>
             </div>
         </div>
-        <h2 id="prop-text" style="opacity:0; transition:1.5s; color:var(--pink); text-shadow: 0 0 20px var(--pink);">Pallavi, You are my forever...</h2>
-        <button id="prop-btn" class="btn" style="display:none;" onclick="nextPage(3)">Open My Heart 💖</button>
-    </div>
-
-    <div id="p3" class="page" onclick="nextPage(4)">
-        <div class="gif-box"><img src="rose.gif" alt="Rose"></div>
-        <div class="glass-card">
-            <p class="msg-text">My dearest Pallavi, every single day I find myself getting lost in the thought of your beautiful smile. You are the light that has guided me through my darkest moments, and I want to spend every sunrise and sunset by your side. This journey with you has been the most precious gift of my life, Pallavi, and I cherish every second of it.</p>
+        <div id="prop-box" style="opacity:0; transition: 1s;">
+             <div class="glass-card">
+                <h2 class="neon-text">Pallavi...</h2>
+                <p>I want to spend every sunrise and sunset of my life with you. Will you be mine forever?</p>
+                <button class="btn-continue" onclick="nextPage()">YES 💖</button>
+             </div>
         </div>
     </div>
 
-    <div id="p4" class="page" onclick="nextPage(5)">
-        <div class="side-gifs"><div class="gif-box"><img src="heart1.gif"></div><div class="gif-box"><img src="heart2.gif"></div></div>
+    <div class="page" id="p4" onclick="nextPage()">
         <div class="glass-card">
-            <p class="msg-text">Pallavi, from the very first moment we spoke, I knew there was something magical about us. My heart beats only for you, and in this chaotic world, you are my only peace. I don't just want you for a moment; I want to hold your hand through every chapter of our lives, building a world filled with nothing but love for you, my Pallavi.</p>
+            <img src="rose.gif" class="gif-frame">
+            <p class="message-text">Pallavi, you are the most beautiful soul I have ever known. Your kindness and grace inspire me every single day. Being with you feels like home, a place where I can truly be myself and find peace in your warm embrace.</p>
         </div>
     </div>
 
-    <div id="p5" class="page" onclick="nextPage(6)">
-        <div class="three-gifs">
-            <div class="gif-box"><img src="hug.gif"></div><div class="gif-box"><img src="kiss.gif"></div><div class="gif-box"><img src="cute.gif"></div>
-        </div>
+    <div class="page" id="p5" onclick="nextPage()">
         <div class="glass-card">
-            <p class="msg-text">Everything about you, Pallavi, feels like a dream I never want to wake up from. Your kindness, your strength, and the way you care for everyone around you makes me fall in love with you over and over again. I promise to be the shoulder you lean on and the partner who never stops fighting for your happiness. You are my everything, Pallavi.</p>
-        </div>
-    </div>
-
-    <div id="p6" class="page" onclick="nextPage(7)">
-        <div class="gif-box"><img src="promise.gif" alt="Promise"></div>
-        <div class="glass-card">
-            <p class="msg-text">Pallavi, I promise to walk beside you no matter where the road leads. I promise to build a future where we grow old together, sharing secrets and creating memories that will last a lifetime. My commitment to you is eternal, and my love for you, Pallavi, grows stronger with every heartbeat. Let's make our forever start today.</p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <img src="heart1.gif" style="width:70px; border-radius:10px;">
+                <img src="heart2.gif" style="width:70px; border-radius:10px;">
+            </div>
+            <p class="message-text">Every heartbeat of mine whispers your name, Pallavi. I promise to protect your smile and cherish your dreams as if they were my own. Life's journey is only worth traveling if you are the one walking beside me, holding my hand.</p>
         </div>
     </div>
 
-    <div id="p7" class="page">
-        <div class="gif-box"><img src="endlove.gif" alt="End Love"></div>
+    <div class="page" id="p6" onclick="nextPage()">
         <div class="glass-card">
-            <h2 style="color:var(--pink); margin-bottom:15px;">I Love You, Pallavi 💖</h2>
-            <p class="msg-text">Pallavi, you are my soulmate, my best friend, and my greatest adventure. As I look into the future, I see only you filling my days with warmth and my soul with joy. I am yours forever and always. You are the best thing that ever happened to me, Pallavi. Forever yours, Sivasingh.</p>
+            <div style="display:flex; justify-content:center; gap:5px; margin-bottom:15px;">
+                <img src="hug.gif" style="width:60px;">
+                <img src="kiss.gif" style="width:60px;">
+                <img src="cute.gif" style="width:60px;">
+            </div>
+            <p class="message-text">I want to be your anchor in every storm and your biggest fan in every victory, Pallavi. You aren't just my love; you are my best friend and my entire world. Thank you for making my life so incredibly meaningful and full of joy.</p>
+        </div>
+    </div>
+
+    <div class="page" id="p7" onclick="nextPage()">
+        <div class="glass-card">
+            <img src="promise.gif" class="gif-frame">
+            <p class="message-text">Pallavi, I promise to choose you every single day, without a doubt, in a heartbeat. I look forward to building a beautiful future together, filled with laughter, deep conversations, and a love that only grows stronger with time.</p>
+        </div>
+    </div>
+
+    <div class="page" id="p8">
+        <div class="glass-card">
+            <img src="endlove.gif" class="gif-frame">
+            <h2 class="neon-text">Always & Forever</h2>
+            <p class="message-text">Pallavi, you are my heart's final destination. I love you more than words could ever express, and I am so blessed to have you in my life. This is just the beginning of our forever. I love you! 💖</p>
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
         const music = document.getElementById('bg-music');
         const video = document.getElementById('intro-video');
-        let particles = [];
+        let current = 1;
 
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    speedX: Math.random() * 1 - 0.5,
-                    speedY: Math.random() * 1 - 0.5,
-                    color: Math.random() > 0.5 ? '#ff2d75' : '#bc13fe'
-                });
+        // Background Particles
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        
+        class P {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.v = Math.random() * 0.5 + 0.2;
+                this.s = Math.random() * 2;
+            }
+            draw() {
+                ctx.fillStyle = "rgba(255, 45, 117, 0.5)";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.s, 0, Math.PI*2);
+                ctx.fill();
+                this.y -= this.v;
+                if(this.y < 0) this.y = canvas.height;
+            }
+        }
+        for(let i=0; i<80; i++) particles.push(new P());
+        function anim() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            particles.forEach(p => p.draw());
+            requestAnimationFrame(anim);
+        }
+        anim();
+
+        function toggleAudio() {
+            if(music.paused) { music.play(); document.getElementById('music-icon').innerText='🎵'; }
+            else { music.pause(); document.getElementById('music-icon').innerText='🔇'; }
+        }
+
+        function spawnHearts() {
+            for(let i=0; i<15; i++) {
+                const h = document.createElement('div');
+                h.className = 'heart-fly';
+                h.innerHTML = '💖';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.bottom = '-20px';
+                h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 3000);
             }
         }
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                p.x += p.speedX; p.y += p.speedY;
-                if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-            });
-            requestAnimationFrame(draw);
-        }
-
-        function toggleMute() { music.muted = !music.muted; }
-
-        function spawnHeart() {
-            const h = document.createElement('div');
-            h.className = 'floating-heart';
-            h.innerHTML = '💖';
-            h.style.left = Math.random() * 95 + 'vw';
-            h.style.fontSize = Math.random() * 20 + 15 + 'px';
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 4000);
-        }
-
-        function startExperience() {
-            music.volume = 0.35; music.play();
+        function initiate() {
+            music.volume = 0.35;
+            music.play();
             document.getElementById('p1').classList.remove('active');
-            video.style.display = 'block'; video.play(); music.pause();
+            
+            // Video Page Logic
+            video.style.display = 'block';
+            video.src = 'intro-love.mp4';
+            music.pause();
+            video.play();
+            
             video.onended = () => {
-                video.style.display = 'none'; music.play();
-                nextPage(2);
-                setTimeout(runProposal, 500);
+                video.style.opacity = '0';
+                setTimeout(() => {
+                    video.style.display = 'none';
+                    music.play();
+                    startProposal();
+                }, 800);
             };
         }
 
-        function runProposal() {
+        function startProposal() {
+            document.getElementById('p3').classList.add('active');
             const boy = document.getElementById('boy');
-            boy.style.left = 'calc(50% - 90px)';
             setTimeout(() => {
-                boy.style.transform = 'translateY(20px) rotate(-15deg) scale(0.9)';
-                document.getElementById('prop-text').style.opacity = '1';
-                document.getElementById('prop-btn').style.display = 'inline-block';
-                for(let i=0; i<25; i++) setTimeout(spawnHeart, i * 150);
-            }, 3600);
+                boy.style.transition = "left 3s linear";
+                boy.style.left = "calc(100% - 160px)";
+                setTimeout(() => {
+                    document.getElementById('boy-body').classList.add('kneel-anim');
+                    spawnHearts();
+                    document.getElementById('prop-box').style.opacity = '1';
+                }, 3200);
+            }, 500);
         }
 
-        function nextPage(n) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('p' + n).classList.add('active');
-            for(let i=0; i<8; i++) spawnHeart();
+        function nextPage() {
+            document.querySelector('.page.active').classList.remove('active');
+            current++;
+            if(current < 3) current = 4; // Skip video/prop logic if handled
+            const next = document.getElementById('p' + (current > 8 ? 8 : current));
+            next.classList.add('active');
+            spawnHearts();
         }
-
-        setInterval(spawnHeart, 800);
-        window.onload = () => { init(); draw(); };
-        window.onresize = init;
     </script>
 </body>
 </html>
