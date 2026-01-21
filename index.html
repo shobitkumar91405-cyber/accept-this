@@ -1,81 +1,107 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pallavi AI - Your Girlfriend</title>
+    <title>Pallavi - Your Possessive Bestie</title>
     <style>
-        body { background: #ffe4e1; font-family: 'Arial', sans-serif; text-align: center; padding: 50px; }
-        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: inline-block; }
-        h1 { color: #ff4d6d; }
-        #status { color: #888; margin-bottom: 20px; }
-        .btn { background: #ff4d6d; color: white; border: none; padding: 15px 30px; border-radius: 50px; cursor: pointer; font-size: 18px; transition: 0.3s; }
-        .btn:hover { background: #ff758f; transform: scale(1.05); }
-        .response-box { margin-top: 20px; font-style: italic; color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #fce4ec; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        #chat-container { width: 400px; height: 600px; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; border: 2px solid #f06292; }
+        #header { background: #e91e63; color: white; padding: 20px; text-align: center; font-weight: bold; font-size: 1.3em; letter-spacing: 1px; }
+        #chat-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #fffafb; }
+        .message { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.5; }
+        .user { align-self: flex-end; background: #f06292; color: white; border-bottom-right-radius: 2px; }
+        .pallavi { align-self: flex-start; background: #fce4ec; color: #880e4f; border-bottom-left-radius: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05); }
+        #input-area { display: flex; padding: 15px; background: white; border-top: 1px solid #f8bbd0; }
+        #user-input { flex: 1; border: 1.5px solid #f8bbd0; padding: 12px; border-radius: 25px; outline: none; transition: 0.3s; }
+        #user-input:focus { border-color: #e91e63; }
+        #send-btn { background: #e91e63; color: white; border: none; padding: 10px 20px; margin-left: 8px; border-radius: 25px; cursor: pointer; font-weight: bold; }
+        #status { font-size: 10px; color: #e91e63; text-align: center; padding-bottom: 5px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>💖 Pallavi AI</h1>
-    <p id="status">Tap the button and say "Hello"</p>
-    <button class="btn" onclick="startListening()">Pallavi se baat karo 🎙️</button>
-    <div class="response-box" id="response">...</div>
+<div id="chat-container">
+    <div id="header">💖 Pallavi</div>
+    <div id="status">Online | Siva ki Best Friend</div>
+    <div id="chat-box" id="chatBox">
+        <div class="message pallavi">Sivaaa! Tum aa gaye? Kitna wait karwaya.. Khana khaya? Aur kahan busy the itni der? ❤️</div>
+    </div>
+    <div id="input-area">
+        <input type="text" id="user-input" placeholder="Pallavi se baat karo...">
+        <button id="send-btn">Send</button>
+    </div>
 </div>
 
 <script>
-    // Pallavi ka personality logic
-    function getPallaviResponse(input) {
-        input = input.toLowerCase();
+    const API_KEY = "AIzaSyAbb8zUxVziefQJUeR8ffI7kLOdgAmo_kI"; 
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    // Instructions for Pallavi's behavior
+    const PERSONALITY = `
+    Your name is Pallavi. You are Siva Singh's best friend but you love him deeply. 
+    Language: Hinglish.
+    Nature: Sweet, extremely caring, but very possessive. 
+    Mood Swings Logic: 
+    1. Normally, be very romantic, ask about his food, health, and day.
+    2. If Siva mentions any girl's name (like Priya, Anjali, Neha) or says he was talking to another girl, get jealous immediately. 
+    3. When jealous: Be rude, ask "Kaun hai wo?", say "Usi se baat kar lo phir", and act cold.
+    4. Keep your responses short and natural like a WhatsApp chat.
+    `;
+
+    async function getPallaviResponse(userText) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
         
-        if (input.includes("kaun ho") || input.includes("introduction")) {
-            return "Main Pallavi hoon, aapki sweet girlfriend. Mujhe Siva Singh ne banaya hai! 🫰";
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: `${PERSONALITY} \n Siva says: ${userText}` }]
+                    }]
+                })
+            });
+
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
+        } catch (error) {
+            return "Yaar mera mood kharab ho gaya, network bhi nahi chal raha! 😤";
         }
-        if (input.includes("pyar") || input.includes("love you")) {
-            return "I love you too! Par dhyan rakhna, main bohot jealous bhi hoti hoon.";
-        }
-        if (input.includes("dusri ladki") || input.includes("friend")) {
-            return "Kya? Dusri ladki ki baat mat karo mujhse! Main gussa ho jaungi. 😤";
-        }
-        if (input.includes("kaise ho")) {
-            return "Main thik hoon, bas aapka intezar kar rahi thi.";
-        }
-        
-        return "Hmm, main sun rahi hoon. Kuch aur batao na?";
     }
 
-    function speak(text) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'hi-IN'; // Hindi voice
-        utterance.rate = 1.0;
-        utterance.pitch = 1.2; // Thoda sweet voice ke liye pitch high
-        window.speechSynthesis.speak(utterance);
+    function appendMessage(role, text) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${role}`;
+        msgDiv.innerText = text;
+        chatBox.appendChild(msgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    function startListening() {
-        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-        recognition.lang = 'hi-IN';
+    sendBtn.addEventListener('click', async () => {
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        appendMessage('user', text);
+        userInput.value = '';
+
+        // Typing effect feel
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'message pallavi';
+        loadingMsg.innerText = "Typing...";
+        chatBox.appendChild(loadingMsg);
+
+        const aiResponse = await getPallaviResponse(text);
         
-        document.getElementById('status').innerText = "Pallavi sun rahi hai...";
+        chatBox.removeChild(loadingMsg);
+        appendMessage('pallavi', aiResponse);
+    });
 
-        recognition.onresult = function(event) {
-            const transcript = event.results[0][0].transcript;
-            document.getElementById('response').innerText = "Aapne kaha: " + transcript;
-            
-            const reply = getPallaviResponse(transcript);
-            setTimeout(() => {
-                speak(reply);
-                document.getElementById('response').innerText = "Pallavi: " + reply;
-            }, 500);
-        };
-
-        recognition.onspeechend = function() {
-            recognition.stop();
-            document.getElementById('status').innerText = "Tap to talk again";
-        };
-
-        recognition.start();
-    }
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendBtn.click();
+    });
 </script>
 
 </body>
