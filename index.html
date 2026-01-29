@@ -3,206 +3,443 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Happy Rose Day Cutiee</title>
+<title>Rose Day Special - Cutiee</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap');
- * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-   body { background: #0a0101; color: #fff; font-family: 'Poppins', sans-serif; overflow: hidden; height: 100vh; width: 100vw; }
-   .page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s; padding: 20px; text-align: center; z-index: 10; }
-   .active { opacity: 1; visibility: visible; }
-   .bg-glow { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,20,147,0.3) 0%, rgba(139,0,0,0) 70%); filter: blur(50px); z-index: 1; pointer-events: none; animation: pulse 4s infinite alternate; }
-   @keyframes pulse { from { transform: translate(-50%, -50%) scale(1); } to { transform: translate(-50%, -50%) scale(1.5); } }
-   .header { position: fixed; top: 20px; left: 0; width: 100%; z-index: 100; text-align: center; }
-   .header h4 { font-size: 14px; color: #ff2d55; text-shadow: 0 0 10px #ff2d55; margin-bottom: 5px; }
-   .header-insta { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: #fff; opacity: 0.8; }
-   .header-insta img { width: 20px; height: 20px; border-radius: 50%; border: 1px solid #ff2d55; }
-   .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; padding: 30px; width: 90%; max-width: 400px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8); position: relative; }
-   .btn-magic { background: linear-gradient(45deg, #ff2d55, #8b0000); border: none; padding: 15px 40px; border-radius: 50px; color: white; font-weight: bold; font-size: 18px; margin-top: 25px; cursor: pointer; box-shadow: 0 0 20px rgba(255, 45, 85, 0.6); animation: neon 1.5s infinite alternate; }
-   @keyframes neon { from { box-shadow: 0 0 10px #ff2d55; } to { box-shadow: 0 0 25px #ff2d55, 0 0 5px #fff; } }
-   .romantic-title { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff2d55; text-shadow: 0 0 15px rgba(255,45,85,0.8); margin-bottom: 15px; }
-   .romantic-text { font-size: 1.1rem; line-height: 1.6; color: #ffccd5; margin-bottom: 20px; }
-   .video-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 50; background: #000; display: none; }
-   video { width: 100%; height: 100%; object-fit: cover; }
-   .gif-container { width: 220px; height: 220px; margin-bottom: 20px; border-radius: 20px; overflow: hidden; border: 2px solid #ff2d55; box-shadow: 0 0 20px rgba(255, 45, 85, 0.4); }
-   .gif-container img { width: 100%; height: 100%; object-fit: cover; }
-   .gif-msg { font-size: 1.5rem; font-weight: 600; min-height: 60px; color: #fff; margin-top: 20px; text-shadow: 0 0 10px #ff2d55; display: none; }
-   .slider { position: relative; width: 250px; height: 350px; transform-style: preserve-3d; animation: float 6s ease-in-out infinite; }
-   @keyframes float { 0%, 100% { transform: translateY(0) rotateY(0deg); } 50% { transform: translateY(-20px) rotateY(5deg); } }
-   .slide-img { position: absolute; width: 100%; height: 100%; border-radius: 15px; border: 3px solid #ff2d55; object-fit: cover; box-shadow: 0 0 30px rgba(255, 45, 85, 0.5); opacity: 0; transition: opacity 1s ease; }
-   .slide-img.active-slide { opacity: 1; }
-   .heart-burst { position: fixed; pointer-events: none; z-index: 999; font-size: 24px; animation: fly 1s forwards; }
-   @keyframes fly { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
-   .floating-elements { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
-   </style>
-   </head>
-   <body>
-   <div class="bg-glow"></div>
-   <div class="floating-elements" id="particles"></div>
-   <header class="header">
-   <h4>Made with Love by Sivasingh ❤️</h4>
-   <div class="header-insta">
-   <img src="https://www.instagram.com/static/images/ico/favicon-192.png/68d9940c2958.png" alt="ig">
-   <span>@smss1708</span>
-   </div>
-   </header>
-   <audio id="bgMusic" loop>
-   <source src="rose-day.mp3" type="audio/mpeg">
-   </audio>
-   <section id="p1" class="page active">
-   <div class="romantic-title">🌹</div>
-   <h1 class="romantic-title">Happy Rose Day Cutiee ❤️</h1>
-   <p class="romantic-text">This rose is not just a flower,
-   it’s my heart reaching out to you.</p>
-   <button class="btn-magic" onclick="startApp()">Tap for Magic ✨</button>
-   </section>
-   <div id="videoSection" class="video-container">
-   <video id="loveVideo" playsinline>
-   <source src="intro-love.mp4" type="video/mp4">
-   </video>
-   </div>
-   <section id="p2" class="page">
-   <div class="glass-card">
-   <h2 class="romantic-title">My Dearest Cutiee</h2>
-   <p class="romantic-text" style="font-size: 1rem;">In a world full of temporary things, you are my forever. Just like a rose spreads its fragrance, your presence fills my life with a sweetness I never knew existed. Today, I don't just give you a rose, I give you the promise that I will always be there to protect your smile. You are the most beautiful flower in my garden of life, Cutiee. Happy Rose Day!</p>
-   <button class="btn-magic" onclick="nextPage(3)">Next 💖</button>
-   </div>
-   </section>
-   <section id="p3" class="page">
-   <div class="gif-container" onclick="handleGifTap(0)">
-   <img src="rose.gif" alt="rose">
-   </div>
-   <div class="gif-msg" id="msg0">Every petal reminds me of your grace...</div>
-   </section>
-   <section id="p4" class="page">
-   <div class="gif-container" onclick="handleGifTap(1)">
-   <img src="heart1.gif" alt="heart">
-   </div>
-   <div class="gif-msg" id="msg1">My heart beats only for you, Cutiee!</div>
-   </section>
-   <section id="p5" class="page">
-   <div class="gif-container" onclick="handleGifTap(2)">
-   <img src="heart2.gif" alt="heart">
-   </div>
-   <div class="gif-msg" id="msg2">You are my favorite thought...</div>
-   </section>
-   <section id="p6" class="page">
-   <div class="gif-container" onclick="handleGifTap(3)">
-   <img src="hug.gif" alt="hug">
-   </div>
-   <div class="gif-msg" id="msg3">A warm hug for my favorite person!</div>
-   </section>
-   <section id="p7" class="page">
-   <div class="gif-container" onclick="handleGifTap(4)">
-   <img src="kiss.gif" alt="kiss">
-   </div>
-   <div class="gif-msg" id="msg4">Sending you a million virtual kisses!</div>
-   </section>
-   <section id="p8" class="page">
-   <div class="gif-container" onclick="handleGifTap(5)">
-   <img src="cute.gif" alt="cute">
-   </div>
-   <div class="gif-msg" id="msg5">Why are you so cute, Cutiee? 😍</div>
-   </section>
-   <section id="p9" class="page">
-   <div class="gif-container" onclick="handleGifTap(6)">
-   <img src="love.gif" alt="love">
-   </div>
-   <div class="gif-msg" id="msg6">I'm so lucky to have you...</div>
-   </section>
-   <section id="p10" class="page">
-   <div class="slider">
-   <img src="photo1.jpg" class="slide-img active-slide" alt="1">
-   <img src="photo2.jpg" class="slide-img" alt="2">
-   <img src="photo3.jpg" class="slide-img" alt="3">
-   <img src="photo4.jpg" class="slide-img" alt="4">
-   </div>
-   <button class="btn-magic" onclick="nextPage(11)" style="margin-top: 40px;">Final Surprise 🌹</button>
-   </section>
-   <section id="p11" class="page">
-   <div class="gif-container">
-   <img src="endlove.gif" alt="end">
-   </div>
-   <h2 class="romantic-title">Forever Yours...</h2>
-   <p class="romantic-text" style="font-weight: 600;">Cutiee, this Rose Day is just an excuse... because my heart chooses you every single day of the year. I love you more than words can ever say.</p>
-   </section>
-   <script>
-   let currentPage = 1;
-   const bgMusic = document.getElementById('bgMusic');
-   const video = document.getElementById('loveVideo');
-   const videoSec = document.getElementById('videoSection');
-   let gifClickCount = 0;
-   bgMusic.volume = 0.35;
-   function startApp() {
-   bgMusic.play();
-   nextPage(200);
-   }
-   function nextPage(num) {
-   if(num === 200) {
-   document.getElementById('p1').classList.remove('active');
-   videoSec.style.display = 'block';
-   bgMusic.pause();
-   video.play();
-   video.onended = () => {
-   videoSec.style.display = 'none';
-   bgMusic.play();
-   document.getElementById('p2').classList.add('active');
-   currentPage = 2;
-   };
-   return;
-   }
-   document.querySelector('.page.active').classList.remove('active');
-   document.getElementById('p' + num).classList.add('active');
-   currentPage = num;
-   if(num === 10) startSlider();
-   if(num === 11) setInterval(createHeart, 300);
-   }
-   function handleGifTap(idx) {
-   const msg = document.getElementById('msg' + idx);
-   if(msg.style.display === 'block') {
-   nextPage(currentPage + 1);
-   } else {
-   msg.style.display = 'block';
-   for(let i=0; i<15; i++) createBurst();
-   }
-   }
-   function createBurst() {
-   const heart = document.createElement('div');
-   heart.className = 'heart-burst';
-   heart.innerHTML = '💖';
-   heart.style.left = '50%';
-   heart.style.top = '50%';
-   heart.style.setProperty('--x', (Math.random() * 400 - 200) + 'px');
-   heart.style.setProperty('--y', (Math.random() * 400 - 200) + 'px');
-   document.body.appendChild(heart);
-   setTimeout(() => heart.remove(), 1000);
-   }
-   function createHeart() {
-   const heart = document.createElement('div');
-   heart.innerHTML = Math.random() > 0.5 ? '🌹' : '💖';
-   heart.style.position = 'fixed';
-   heart.style.left = Math.random() * 100 + 'vw';
-   heart.style.top = '100vh';
-   heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-   heart.style.zIndex = '5';
-   heart.style.transition = 'transform 4s linear, opacity 4s';
-   document.getElementById('particles').appendChild(heart);
-   setTimeout(() => {
-   heart.style.transform = translateY(-110vh) rotate(${Math.random() * 360}deg);
-   heart.style.opacity = '0';
-   }, 100);
-   setTimeout(() => heart.remove(), 4000);
-   }
-   function startSlider() {
-   let currentSlide = 0;
-   const slides = document.querySelectorAll('.slide-img');
-   setInterval(() => {
-   slides[currentSlide].classList.remove('active-slide');
-   currentSlide = (currentSlide + 1) % slides.length;
-   slides[currentSlide].classList.add('active-slide');
-   createBurst();
-   }, 3000);
-   }
-   setInterval(createHeart, 800);
-   </script>
-   </body>
-   </html>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { background: #050000; color: #fff; font-family: 'Poppins', sans-serif; overflow: hidden; height: 100vh; width: 100vw; }
+.page { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); padding: 20px; text-align: center; z-index: 10; }
+.active { opacity: 1; visibility: visible; transform: scale(1); }
+.bg-glow { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,45,85,0.2) 0%, transparent 70%); filter: blur(60px); z-index: 1; pointer-events: none; }
+.header { position: fixed; top: 15px; width: 100%; z-index: 100; text-align: center; }
+.header h4 { font-size: 12px; color: #ff2d55; text-shadow: 0 0 10px #ff2d55; letter-spacing: 1px; }
+.insta-badge { font-size: 10px; opacity: 0.7; margin-top: 3px; }
+.glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 45, 85, 0.3); border-radius: 30px; padding: 25px; width: 90%; max-width: 380px; box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,45,85,0.1); position: relative; animation: cardFloat 3s ease-in-out infinite; }
+@keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.neon-title { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: #fff; text-shadow: 0 0 10px #ff2d55, 0 0 20px #ff2d55, 0 0 30px #ff2d55; margin-bottom: 15px; }
+.romantic-msg { font-size: 1rem; line-height: 1.6; color: #ffe5ec; margin-bottom: 20px; font-weight: 300; }
+.btn-magic { background: linear-gradient(45deg, #ff2d55, #8b0000); border: none; padding: 14px 35px; border-radius: 50px; color: white; font-weight: 600; font-size: 16px; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 45, 85, 0.5); transition: 0.3s; margin-top: 10px; }
+.video-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; background: #000; display: none; }
+video { width: 100%; height: 100%; object-fit: cover; }
+.gif-box { width: 180px; height: 180px; margin: 0 auto 20px; border-radius: 20px; border: 2px solid #ff2d55; overflow: hidden; box-shadow: 0 0 25px rgba(255,45,85,0.3); }
+.gif-box img { width: 100%; height: 100%; object-fit: cover; }
+/* Neon Character Styling */
+.neon-boy, .neon-girl { position: absolute; width: 80px; height: 150px; background-color: transparent; }
+.neon-boy { left: 50%; transform: translateX(-150%); bottom: 30%; border: 3px solid #00ffff; box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; border-radius: 5px; animation: boyGlow 2s infinite alternate; }
+.neon-boy:before, .neon-boy:after { content: ''; position: absolute; background-color: #00ffff; box-shadow: 0 0 10px #00ffff; }
+.neon-boy:before { width: 3px; height: 70px; bottom: -70px; left: 50%; transform: translateX(-50%); } /* Legs */
+.neon-boy:after { width: 30px; height: 30px; border-radius: 50%; top: -35px; left: 50%; transform: translateX(-50%); } /* Head */
+
+.neon-girl { left: 50%; transform: translateX(50%); bottom: 30%; border: 3px solid #ff2d55; box-shadow: 0 0 10px #ff2d55, 0 0 20px #ff2d55, 0 0 30px #ff2d55; border-radius: 5px; animation: girlGlow 2s infinite alternate; }
+.neon-girl:before, .neon-girl:after { content: ''; position: absolute; background-color: #ff2d55; box-shadow: 0 0 10px #ff2d55; }
+.neon-girl:before { width: 3px; height: 70px; bottom: -70px; left: 50%; transform: translateX(-50%); } /* Legs */
+.neon-girl:after { width: 30px; height: 30px; border-radius: 50%; top: -35px; left: 50%; transform: translateX(-50%); } /* Head */
+
+@keyframes boyGlow { from { box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; } to { box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff, 0 0 45px #00ffff; } }
+@keyframes girlGlow { from { box-shadow: 0 0 5px #ff2d55, 0 0 10px #ff2d55, 0 0 15px #ff2d55; } to { box-shadow: 0 0 15px #ff2d55, 0 0 30px #ff2d55, 0 0 45px #ff2d55; } }
+
+.proposing-boy {
+    position: absolute;
+    bottom: 25%; /* Adjust as needed */
+    left: 40%;
+    transform: translateX(-50%);
+    width: 80px; /* Width of stick figure */
+    height: 120px; /* Height of stick figure */
+    z-index: 20;
+}
+
+.proposing-boy .head {
+    width: 30px;
+    height: 30px;
+    background-color: #00ffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 25px;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-boy .body {
+    width: 3px;
+    height: 50px;
+    background-color: #00ffff;
+    position: absolute;
+    top: 30px;
+    left: 39px;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-boy .arm-left {
+    width: 30px;
+    height: 3px;
+    background-color: #00ffff;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-boy .arm-right {
+    width: 30px;
+    height: 3px;
+    background-color: #00ffff;
+    position: absolute;
+    top: 60px;
+    left: 40px;
+    transform: rotate(-30deg);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-boy .leg-left {
+    width: 3px;
+    height: 40px;
+    background-color: #00ffff;
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    transform: rotate(-30deg);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-boy .leg-right {
+    width: 3px;
+    height: 40px;
+    background-color: #00ffff;
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    transform: rotate(30deg);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-boy .knee-bend {
+    width: 30px;
+    height: 3px;
+    background-color: #00ffff;
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    transform: rotate(-10deg);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.proposing-girl {
+    position: absolute;
+    bottom: 25%; /* Adjust as needed */
+    left: 60%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 120px;
+    z-index: 20;
+}
+
+.proposing-girl .head {
+    width: 30px;
+    height: 30px;
+    background-color: #ff2d55;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 25px;
+    box-shadow: 0 0 10px #ff2d55;
+}
+
+.proposing-girl .body {
+    width: 3px;
+    height: 60px;
+    background-color: #ff2d55;
+    position: absolute;
+    top: 30px;
+    left: 39px;
+    box-shadow: 0 0 10px #ff2d55;
+}
+
+.proposing-girl .skirt {
+    width: 40px;
+    height: 30px;
+    background-color: #ff2d55;
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 0 10px #ff2d55;
+}
+
+.proposing-girl .arm-left, .proposing-girl .arm-right {
+    width: 30px;
+    height: 3px;
+    background-color: #ff2d55;
+    position: absolute;
+    top: 50px;
+    box-shadow: 0 0 10px #ff2d55;
+}
+.proposing-girl .arm-left { left: 5px; transform: rotate(-30deg); }
+.proposing-girl .arm-right { right: 5px; transform: rotate(30deg); }
+
+
+.realistic-rose {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-image: url('rose.png'); /* Placeholder, replace with actual realistic rose image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 15%; /* Position it above the characters */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    filter: drop-shadow(0 0 20px rgba(255, 45, 85, 0.8));
+    animation: rosePulse 3s infinite alternate;
+}
+
+@keyframes rosePulse {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.05); }
+}
+
+.proposing-rose {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url('mini-rose.png'); /* Placeholder, replace with actual mini rose image */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 70px; /* Position it in the boy's hand */
+    left: 60px;
+    z-index: 21;
+    filter: drop-shadow(0 0 8px #ff2d55);
+    animation: miniRoseFloat 1.5s infinite alternate;
+}
+
+@keyframes miniRoseFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-5px); }
+}
+
+.slider-frame { position: relative; width: 280px; height: 380px; border: 4px solid #ff2d55; border-radius: 20px; overflow: hidden; box-shadow: 0 0 40px rgba(255,45,85,0.6); }
+.slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; object-fit: cover; }
+.slide.active { opacity: 1; }
+.heart-burst { position: fixed; pointer-events: none; z-index: 999; animation: fly 1s ease-out forwards; }
+@keyframes fly { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div id="particles" style="position:fixed; width:100%; height:100%; pointer-events:none; z-index:2;"></div>
+<header class="header">
+<h4>Made with Love by Sivasingh ❤️</h4>
+<div class="insta-badge">@smss1708</div>
+</header>
+<audio id="bgMusic" loop><source src="rose-day.mp3" type="audio/mpeg"></audio>
+
+<section id="p1" class="page active">
+<div class="realistic-rose"></div>
+<div class="proposing-boy">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+    <div class="leg-left"></div>
+    <div class="leg-right"></div>
+    <div class="knee-bend"></div>
+    <div class="proposing-rose"></div>
+</div>
+<div class="proposing-girl">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="skirt"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+</div>
+<h1 class="neon-title" style="margin-top: 100px;">Happy Rose Day Cutiee ❤️</h1>
+<div class="glass-card" style="margin-top: 20px;">
+<p class="romantic-msg">"A single rose can be my garden... a single friend, my world. But only YOU can be my everything."</p>
+<button class="btn-magic" onclick="startApp()">Enter Her Heart ✨</button>
+</div>
+</section>
+
+<div id="videoLayer" class="video-layer"><video id="loveVid" playsinline><source src="intro-love.mp4" type="video/mp4"></video></div>
+
+<section id="p2" class="page">
+<div class="glass-card">
+<h2 class="neon-title">My Heart's Choice</h2>
+<p class="romantic-msg">Cutiee, roses are red, violets are blue, but no flower in this world is as beautiful as you. In this journey of life, I want to hold your hand through every thorn and every petal. This Rose Day, I am giving you my heart wrapped in these words. Will you keep it forever?</p>
+<button class="btn-magic" onclick="nextPage(3)">Open My Feelings 💌</button>
+</div>
+</section>
+<section id="p3" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="rose.gif"></div>
+<p class="romantic-msg">"Just like a rose, you add fragrance and color to my colorless world, Cutiee."</p>
+<p style="font-size:12px; color:#ff2d55;">(Tap card to continue)</p>
+</div>
+</section>
+<section id="p4" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="heart1.gif"></div>
+<p class="romantic-msg">"Every beat of my heart whispers your name. You are my heartbeat, Cutiee!"</p>
+</div>
+</section>
+<section id="p5" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="heart2.gif"></div>
+<p class="romantic-msg">"No matter where I go, my soul always finds its way back to you, Cutiee."</p>
+</div>
+</section>
+<section id="p6" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="hug.gif"></div>
+<p class="romantic-msg">"I wish I could hold you right now and never let go, my Cutiee. Happy Rose Day!"</p>
+</div>
+</section>
+<section id="p7" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="kiss.gif"></div>
+<p class="romantic-msg">"A thousand roses are not enough to show how much I adore you, my queen Cutiee."</p>
+</div>
+</section>
+<section id="p8" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="cute.gif"></div>
+<p class="romantic-msg">"Cutiee, your smile is the only thing that makes my day worth living."</p>
+</div>
+</section>
+<section id="p9" class="page">
+<div class="glass-card" onclick="handleTap()">
+<div class="gif-box"><img src="love.gif"></div>
+<p class="romantic-msg">"I loved you yesterday, I love you today, and I'll love you until my last breath, Cutiee."</p>
+</div>
+</section>
+<section id="p10" class="page">
+<h2 class="neon-title" style="font-size: 2rem;">Our Memories 💖</h2>
+<div class="slider-frame">
+<img src="photo1.jpg" class="slide active">
+<img src="photo2.jpg" class="slide">
+<img src="photo3.jpg" class="slide">
+<img src="photo4.jpg" class="slide">
+</div>
+<button class="btn-magic" onclick="nextPage(11)" style="margin-top:25px;">Final Secret 🌹</button>
+</section>
+<section id="p11" class="page">
+<div class="proposing-boy" style="left: 40%;">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+    <div class="leg-left"></div>
+    <div class="leg-right"></div>
+    <div class="knee-bend"></div>
+    <div class="proposing-rose"></div>
+</div>
+<div class="proposing-girl" style="left: 60%;">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="skirt"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+</div>
+<div class="glass-card" style="margin-top: 100px;">
+<div class="gif-box"><img src="endlove.gif"></div>
+<h2 class="neon-title" style="font-size: 1.8rem;">Cutiee, Be Mine Forever?</h2>
+<p class="romantic-msg">Every petal of this rose represents a reason why I love you. This isn't just a website, it's a piece of my soul. Happy Rose Day, my love!</p>
+<div style="font-size: 30px;">🌹🌹🌹</div>
+</div>
+</section>
+<script>
+let cur = 1;
+const bgm = document.getElementById('bgMusic');
+const vid = document.getElementById('loveVid');
+const vidLay = document.getElementById('videoLayer');
+
+// Check if audio is already playing to prevent multiple plays on reload
+let audioPlayed = false;
+
+function startApp() {
+    if (!audioPlayed) {
+        bgm.play().then(() => {
+            audioPlayed = true;
+        }).catch(e => console.log("Audio play prevented:", e));
+    }
+
+    document.getElementById('p1').classList.remove('active');
+    vidLay.style.display = 'block';
+    bgm.pause();
+    vid.play();
+
+    vid.onended = () => {
+        vidLay.style.display = 'none';
+        bgm.play().catch(e => console.log("Background music play prevented:", e));
+        nextPage(2);
+    };
+}
+
+function nextPage(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('p' + n).classList.add('active');
+    cur = n;
+    if(n === 10) initSlider();
+    if(n === 11) setInterval(spawnHeart, 200);
+}
+
+function handleTap() {
+    for(let i=0; i<15; i++) burst(window.innerWidth/2, window.innerHeight/2);
+    setTimeout(() => nextPage(cur + 1), 500);
+}
+
+function burst(x, y) {
+    const h = document.createElement('div');
+    h.className = 'heart-burst';
+    h.innerHTML = ['💖','🌹','✨','❤️'][Math.floor(Math.random()*4)];
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    h.style.setProperty('--x', (Math.random()*400-200)+'px');
+    h.style.setProperty('--y', (Math.random()*400-200)+'px');
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1000);
+}
+
+function spawnHeart() {
+    const h = document.createElement('div');
+    h.innerHTML = Math.random() > 0.5 ? '🌹' : '💖';
+    h.style.position = 'fixed';
+    h.style.left = Math.random()*100+'vw';
+    h.style.top = '100vh';
+    h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    h.style.zIndex = '5';
+    h.style.transition = '4s linear';
+    document.getElementById('particles').appendChild(h);
+    setTimeout(() => {
+        h.style.transform = `translateY(-110vh) rotate(${Math.random()*360}deg)`;
+        h.style.opacity = '0';
+    }, 50);
+    setTimeout(() => h.remove(), 4000);
+}
+
+function initSlider() {
+    let sIdx = 0;
+    const slides = document.querySelectorAll('.slide');
+    setInterval(() => {
+        slides[sIdx].classList.remove('active');
+        sIdx = (sIdx + 1) % slides.length;
+        slides[sIdx].classList.add('active');
+    }, 3000);
+}
+
+// Initial particle spawn
+setInterval(spawnHeart, 700);
+
+// Auto-play background music on first user interaction (for browsers that require it)
+document.addEventListener('click', function() {
+    if (!audioPlayed) {
+        bgm.play().then(() => {
+            audioPlayed = true;
+        }).catch(e => console.log("Audio play prevented:", e));
+    }
+}, { once: true });
+
+</script>
+</body>
+</html>
