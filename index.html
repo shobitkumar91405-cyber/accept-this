@@ -5,123 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine?</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* Base Styles */
+        /* --- ROMANTIC THEME & ANIMATIONS --- */
         body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            flex-direction: column;
+            background: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
             text-align: center;
-            flex-direction: column;
+            position: relative;
+        }
+
+        /* Floating Background Hearts */
+        .bg-heart {
+            position: absolute;
+            bottom: -100px;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+            animation: floatUp 10s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
         }
 
         .container {
             position: relative;
+            z-index: 10;
             padding: 20px;
-            z-index: 1;
+            max-width: 90%;
         }
 
-        /* Utility to hide elements */
-        .hidden {
-            display: none !important;
+        /* --- CREDITS (TOP FIXED) --- */
+        .top-credits {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #d6336c;
+            font-weight: bold;
+            z-index: 20;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        .top-credits a {
+            color: #d6336c;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 8px;
+            border-radius: 10px;
         }
 
-        /* --- Stage 1 & 3 Styles --- */
+        /* --- IMAGES & TEXT --- */
         .gif-container img {
-            width: 220px;
+            width: 200px; /* Thoda chota kiya taaki screen pe fit aaye */
+            max-width: 100%;
             height: auto;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            margin-bottom: 15px;
+            border: 4px solid white;
         }
 
         h1 {
-            color: #d32f2f;
+            font-family: 'Pacifico', cursive; /* Handwritten Style */
+            color: #ff4757;
             font-size: 2.2rem;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px white;
+            line-height: 1.4;
         }
 
+        /* --- BUTTONS --- */
         .buttons {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px;
-            margin-top: 25px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 15px 35px;
-            font-size: 1.3rem;
+            padding: 12px 30px;
+            font-size: 1.2rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-family: 'Poppins', sans-serif;
         }
 
-        #yesBtn { background-color: #ff4d79; color: white; }
-        #noBtn { background-color: #e74c3c; color: white; }
-        #yesBtn:hover { background-color: #ff1f59; transform: scale(1.05); }
-
-        /* --- Stage 2: Gift Selection Styles --- */
-        .gift-title {
-            color: #8e44ad;
-            font-size: 2rem;
-            margin-bottom: 30px;
+        #yesBtn {
+            background-color: #ff4757; 
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.5);
+        }
+        
+        #noBtn {
+            background-color: #ffffff;
+            color: #ff4757;
         }
 
+        #yesBtn:active { transform: scale(0.95); }
+
+        /* --- GIFT BOXES --- */
         .gift-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .gift-box {
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            text-align: center;
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
             padding: 15px;
             border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
 
         .gift-box:hover {
-            transform: translateY(-10px) scale(1.05);
+            transform: translateY(-10px);
+            background: white;
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
         }
 
         .gift-box img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
         }
         
         .gift-label {
             display: block;
-            margin-top: 10px;
-            color: #d32f2f;
+            margin-top: 8px;
+            color: #c0392b;
             font-weight: bold;
+            font-size: 0.9rem;
         }
 
-        /* --- Footer Credits Styles --- */
-        .footer {
-            position: absolute;
-            bottom: 15px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-        .footer a {
-            color: #d32f2f;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        .hidden { display: none !important; }
 
     </style>
 </head>
@@ -129,11 +165,17 @@
 
     <audio id="bg-music" src="valentine day.mp3" loop></audio>
 
+    <div id="hearts-container"></div>
+
+    <div class="top-credits">
+        Made by sivasingh🥀 | Insta - <a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
+    </div>
+
     <div class="container" id="stage1">
         <div class="gif-container">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmM5YnZ3bGh3YnZ3YnZ3YnZ3YnZ3YnZ3YnZ3YnZ3YnZ3eSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Bear">
         </div>
-        <h1>Hello Cutie! <br> Will you be my Valentine?</h1>
+        <h1>Hello Cutie! 💖<br>Will you be my Valentine?</h1>
         <div class="buttons">
             <button class="btn" id="yesBtn" onclick="goToGiftStage()">Yes</button>
             <button class="btn" id="noBtn" onclick="rejectLove()">No</button>
@@ -141,18 +183,18 @@
     </div>
 
     <div class="container hidden" id="stage2">
-        <h1 class="gift-title">Yay! Now Choose Your Gift! 🎁</h1>
+        <h1>Yay! Choose a Gift for me? 🎁</h1>
         <div class="gift-grid">
             <div class="gift-box" onclick="finalCelebration()">
-                <img src="https://cdn-icons-png.flaticon.com/512/4213/4213652.png" alt="Gift Box">
+                <img src="https://cdn-icons-png.flaticon.com/512/1164/1164620.png" alt="Rose">
                 <span class="gift-label">Rose 🌹</span>
             </div>
             <div class="gift-box" onclick="finalCelebration()">
-                <img src="https://cdn-icons-png.flaticon.com/512/4213/4213652.png" alt="Gift Box">
-                <span class="gift-label">Chocolates 🍫</span>
+                <img src="https://cdn-icons-png.flaticon.com/512/3343/3343795.png" alt="Chocolate">
+                <span class="gift-label">Chocolate 🍫</span>
             </div>
             <div class="gift-box" onclick="finalCelebration()">
-                <img src="https://cdn-icons-png.flaticon.com/512/4213/4213652.png" alt="Gift Box">
+                <img src="https://cdn-icons-png.flaticon.com/512/2632/2632731.png" alt="Teddy">
                 <span class="gift-label">Teddy 🧸</span>
             </div>
         </div>
@@ -160,66 +202,77 @@
 
     <div class="container hidden" id="stage3">
         <div class="gif-container">
-            <img src="https://media.giphy.com/media/T86i6yDyOYz7J6vap8/giphy.gif" alt="Happy Couple">
+            <img src="kiss.gif" alt="Romantic Kiss" id="final-gif">
         </div>
         <h1>She Said Yes! ❤️<br>I knew you loved me!</h1>
     </div>
 
-    <div class="footer">
-        Made by sivasingh🥀 | Insta - <a href="https://instagram.com/smss1708" target="_blank">@smss1708</a>
-    </div>
-
-
     <script>
-        let yesButtonSize = 1.3;
+        // --- Setup Background Animation ---
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            for(let i=0; i<15; i++) {
+                let heart = document.createElement('div');
+                heart.innerHTML = '❤';
+                heart.classList.add('bg-heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // --- Logic Variables ---
+        let yesButtonSize = 1;
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const audio = document.getElementById('bg-music');
-
-        const stage1 = document.getElementById('stage1');
-        const stage2 = document.getElementById('stage2');
-        const stage3 = document.getElementById('stage3');
-
-        // Funny texts for the 'No' button
-        const noTexts = ["No", "Are you sure?", "Pakka?", "Soch lo!", "Dil todogi?", "Last chance!", "I'll cry...", "Please na!"];
+        
+        // No button texts
+        const noTexts = ["No", "Are you sure?", "Soch lo!", "Man jao!", "Dil todogi?", "Please na!", "Last Chance!", "Cry aa raha hai.."];
         let noCount = 0;
 
-        // Helper function to try playing music on any interaction
         function playMusic() {
             if (audio.paused) {
-                audio.play().catch(err => console.log("Interaction needed for audio"));
+                audio.play().catch(e => console.log("Audio requires interaction"));
             }
         }
 
-        // Function when 'No' is clicked
+        // Action: Click No
         function rejectLove() {
             playMusic();
             noCount++;
-            yesButtonSize += 0.4;
+            yesButtonSize += 0.3; // Grow Yes button
             yesBtn.style.transform = `scale(${yesButtonSize})`;
-            noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
+            
+            // Change text
+            let textIndex = Math.min(noCount, noTexts.length - 1);
+            noBtn.innerText = noTexts[textIndex];
         }
 
-        // Function when 'Yes' is clicked -> Go to Gift Stage
+        // Action: Click Yes -> Go to Stage 2
         function goToGiftStage() {
             playMusic();
-            stage1.classList.add('hidden'); // Hide first screen
-            stage2.classList.remove('hidden'); // Show gift screen
+            document.getElementById('stage1').classList.add('hidden');
+            document.getElementById('stage2').classList.remove('hidden');
         }
 
-        // Function when a Gift is picked -> Final Celebration
+        // Action: Pick Gift -> Final Stage
         function finalCelebration() {
             playMusic();
-            stage2.classList.add('hidden'); // Hide gift screen
-            stage3.classList.remove('hidden'); // Show final screen
-            blastConfetti(); // Trigger effect
+            document.getElementById('stage2').classList.add('hidden');
+            document.getElementById('stage3').classList.remove('hidden');
+            
+            // Blast confetti
+            blastConfetti();
         }
 
-        // Confetti Effect
+        // Confetti Blast Logic
         function blastConfetti() {
-            const duration = 10 * 1000;
+            const duration = 8 * 1000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
 
             function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
@@ -227,8 +280,9 @@
                 const timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
                 const particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee'] }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#ff4d79', '#e74c3c'] }));
+                
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ['#ff0000', '#ff69b4', '#ffd700'] }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ['#ff0000', '#ff69b4', '#fff'] }));
             }, 250);
         }
     </script>
