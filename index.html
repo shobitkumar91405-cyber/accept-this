@@ -1,223 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Daddy Day 🧸</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Daddy Day 💖</title>
+    <style>
+        :root {
+            --pink-soft: #fff0f3;
+            --pink-bright: #ff8fa3;
+            --text-color: #5d5d5d;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{
-height:100vh;
-background:linear-gradient(135deg,#ffe6ec,#fff1d6,#fde2ff);
-overflow:hidden;
-text-align:center;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-/* header */
-header{
-position:fixed;
-top:10px;
-left:0;
-right:0;
-z-index:10;
-}
-header h1{font-size:22px;color:#6b2c4f}
-header p{font-size:14px;opacity:.7}
+        body {
+            background: linear-gradient(135deg, #fff0f3 0%, #fff5f7 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-/* hearts */
-.heart{
-position:fixed;
-bottom:-20px;
-font-size:18px;
-animation:floatUp linear infinite;
-opacity:.6;
-}
-@keyframes floatUp{
-to{transform:translateY(-110vh);opacity:0}
-}
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 12px 0;
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(255, 143, 163, 0.1);
+        }
 
-/* teddy grid */
-#teddyArea{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-align-items:center;
-height:100vh;
-padding-top:80px;
-gap:14px;
-}
+        h1 {
+            color: #d65a73;
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+        }
 
-.teddy{
-font-size:42px;
-cursor:pointer;
-animation:bounce 3s ease-in-out infinite;
-transition:.4s;
-}
-@keyframes bounce{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-}
+        .credit {
+            font-size: 0.7rem;
+            color: #888;
+            font-weight: bold;
+        }
 
-/* overlay */
-#overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.4);
-backdrop-filter:blur(6px);
-display:none;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-z-index:20;
-}
+        /* --- Floating Hearts --- */
+        #heart-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-/* big teddy */
-#bigTeddy{
-font-size:120px;
-animation:pop .6s ease;
-}
-@keyframes pop{
-from{transform:scale(.5);opacity:0}
-to{transform:scale(1);opacity:1}
-}
+        .float-heart {
+            position: absolute;
+            color: #ffb7c5;
+            opacity: 0.6;
+            animation: floatUp linear infinite;
+        }
 
-/* card */
-.card{
-margin-top:20px;
-background:#fff;
-padding:20px;
-border-radius:20px;
-width:85%;
-max-width:360px;
-box-shadow:0 0 20px rgba(255,120,170,.4);
-animation:fadeUp .8s ease;
-}
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(20px)}
-to{opacity:1;transform:translateY(0)}
-}
-.card p{
-font-size:16px;
-color:#444;
-line-height:1.5;
-}
-button{
-margin-top:15px;
-padding:12px 26px;
-border:none;
-border-radius:30px;
-background:linear-gradient(135deg,#ff6fae,#ff9f6f);
-color:#fff;
-font-size:16px;
-cursor:pointer;
-box-shadow:0 0 15px rgba(255,120,170,.5);
-}
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
 
-/* final screen */
-#final{
-display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-height:100vh;
-}
-#final h2{
-font-size:24px;
-color:#6b2c4f;
-margin-top:15px;
-}
-</style>
+        /* --- Main Character Grid --- */
+        #grid {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            padding: 85px 15px 30px 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: flex-start;
+            gap: 12px;
+            transition: opacity 0.6s ease;
+        }
+
+        .character {
+            font-size: 3.2rem;
+            cursor: pointer;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.05));
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: softBounce 3s infinite ease-in-out;
+            user-select: none;
+        }
+
+        .character:active { transform: scale(0.8); }
+
+        @keyframes softBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* --- Card / Modal --- */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            z-index: 50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #overlay.active { opacity: 1; pointer-events: auto; }
+
+        .card {
+            background: white;
+            width: 88%;
+            max-width: 350px;
+            padding: 35px 20px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(214, 90, 115, 0.2);
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #overlay.active .card { transform: scale(1); }
+
+        .big-icon {
+            font-size: 6rem;
+            margin-bottom: 15px;
+            display: block;
+            animation: popIn 0.6s;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .hug-btn {
+            background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%);
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(255, 154, 158, 0.4);
+        }
+
+        /* --- Final Screen --- */
+        #final {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 60;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+        }
+
+        #final.visible { opacity: 1; pointer-events: auto; }
+
+        .final-emoji { font-size: 9rem; animation: pulse 2s infinite; }
+        .final-msg { 
+            color: #d65a73; 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 20px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: burstAnim 1s ease-out forwards;
+        }
+
+        @keyframes burstAnim {
+            to { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>Happy Daddy Day 🧸💖</h1>
-<p>Made with love by Sivasingh · @smss1708</p>
-</header>
+    <header>
+        <h1>Happy Daddy Day 🧸💖</h1>
+        <div class="credit">Made with love by Sivasingh<br>@smss1708</div>
+    </header>
 
-<div id="teddyArea"></div>
+    <audio id="player" loop>
+        <source src="valentine-day.mp3" type="audio/mpeg">
+    </audio>
 
-<div id="overlay">
-<div id="bigTeddy">🧸</div>
-<div class="card">
-<p>
-Happy Daddy Day 🧸<br><br>
-You are my comfort,  
-my safe place,  
-my soft teddy in a hard world.<br><br>
-When I hug you,  
-everything feels calm again.<br><br>
-Thank you for being my forever teddy 💖
-</p>
-<button onclick="goFinal()">Hug You 🤍</button>
-</div>
-</div>
+    <div id="heart-bg"></div>
+    <div id="grid"></div>
 
-<div id="final">
-<div style="font-size:120px">🧸</div>
-<h2>
-For me, Daddy Day is special<br>
-because YOU exist 💖
-</h2>
-</div>
+    <div id="overlay">
+        <div class="card">
+            <span class="big-icon" id="target-icon">🧸</span>
+            <div class="message">
+                “Happy Daddy Day 🧸<br>
+                You are my comfort,<br>
+                my safe place,<br>
+                my soft teddy in a hard world.<br><br>
+                Whenever I hug you,<br>
+                everything feels calm again.<br><br>
+                Thank you for being my<br>
+                <strong>forever teddy 💖</strong>”
+            </div>
+            <button class="hug-btn" onclick="showFinal()">Hug You 🤍</button>
+        </div>
+    </div>
 
-<audio id="bgm" loop>
-<source src="valentine-day.mp3" type="audio/mpeg">
-</audio>
+    <div id="final">
+        <span class="final-emoji">🧸</span>
+        <p class="final-msg">“For me, Daddy Day is special<br>because YOU exist 💖”</p>
+    </div>
 
-<script>
-const teddyArea=document.getElementById("teddyArea");
-const colors=["🧸","🧸","🧸","🧸","🧸"];
-for(let i=0;i<30;i++){
-let t=document.createElement("div");
-t.className="teddy";
-t.innerHTML=colors[Math.floor(Math.random()*colors.length)];
-t.onclick=()=>openTeddy();
-teddyArea.appendChild(t);
-}
+    <script>
+        const grid = document.getElementById('grid');
+        const overlay = document.getElementById('overlay');
+        const player = document.getElementById('player');
+        const finalScreen = document.getElementById('final');
+        const emojis = ['🧸', '🐶', '🐱', '🐼', '🐨', '🐰', '🦁', '🐷', '🐸', '🦄', '🐯', '🐹'];
+        let started = false;
 
-/* music start on first interaction */
-let musicStarted=false;
-function startMusic(){
-if(!musicStarted){
-let m=document.getElementById("bgm");
-m.volume=0.35;
-m.play();
-musicStarted=true;
-}
-}
+        function init() {
+            // Create Floating Hearts
+            for(let i=0; i<20; i++) {
+                const h = document.createElement('div');
+                h.className = 'float-heart';
+                h.innerHTML = '💖';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                h.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                h.style.animationDelay = Math.random() * 5 + 's';
+                document.getElementById('heart-bg').appendChild(h);
+            }
 
-/* open teddy */
-function openTeddy(){
-startMusic();
-document.getElementById("overlay").style.display="flex";
-burstHearts(25);
-}
+            // Create Character Grid
+            for(let i=0; i<60; i++) {
+                const char = document.createElement('div');
+                char.className = 'character';
+                const icon = emojis[Math.floor(Math.random() * emojis.length)];
+                char.innerHTML = icon;
+                char.style.animationDelay = Math.random() * 2 + 's';
+                
+                char.onclick = (e) => {
+                    if(!started) {
+                        player.volume = 0.35;
+                        player.play();
+                        started = true;
+                    }
+                    createBurst(e.clientX, e.clientY);
+                    document.getElementById('target-icon').innerHTML = icon;
+                    overlay.classList.add('active');
+                };
+                grid.appendChild(char);
+            }
+        }
 
-/* final */
-function goFinal(){
-document.getElementById("overlay").style.display="none";
-document.getElementById("teddyArea").style.display="none";
-document.getElementById("final").style.display="flex";
-burstHearts(40);
-}
+        function createBurst(x, y) {
+            for(let i=0; i<10; i++) {
+                const b = document.createElement('div');
+                b.className = 'burst';
+                b.innerHTML = '💖';
+                b.style.left = x + 'px';
+                b.style.top = y + 'px';
+                const tx = (Math.random() - 0.5) * 200 + 'px';
+                const ty = (Math.random() - 0.5) * 200 + 'px';
+                b.style.setProperty('--x', tx);
+                b.style.setProperty('--y', ty);
+                document.body.appendChild(b);
+                setTimeout(() => b.remove(), 1000);
+            }
+        }
 
-/* hearts */
-function burstHearts(n){
-for(let i=0;i<n;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💖";
-h.style.left=Math.random()*100+"%";
-h.style.animationDuration=(4+Math.random()*4)+"s";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),8000);
-}
-}
-setInterval(()=>burstHearts(3),1500);
-</script>
+        function showFinal() {
+            overlay.classList.remove('active');
+            grid.style.opacity = '0';
+            setTimeout(() => {
+                grid.style.display = 'none';
+                finalScreen.classList.add('visible');
+                createBurst(window.innerWidth/2, window.innerHeight/2);
+            }, 600);
+        }
 
+        window.onload = init;
+    </script>
 </body>
 </html>
