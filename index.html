@@ -2,426 +2,241 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Kiss Day 💋</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day, Khushi! 💖</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Nunito:wght@400;700&display=swap');
-
-        :root {
-            --primary: #ff4d6d;
-            --glass: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-dark: #590d22;
-        }
-
-        * {
-            box-sizing: border-box;
+        body {
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            transition: background 1s ease;
         }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+        .day { background: linear-gradient(to bottom, #87CEEB, #FFD700); }
+        .night { background: linear-gradient(to bottom, #191970, #000000); }
+        section {
             height: 100vh;
-            width: 100vw;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            color: var(--text-dark);
+            text-align: center;
+            padding: 20px;
+            position: relative;
         }
-
-        /* Ambient Background Canvas */
-        #particle-canvas {
+        .message {
+            font-size: 2em;
+            color: #FF69B4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+        .gif {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255,105,180,0.5);
+        }
+        .photo {
+            width: 400px;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px;
+            box-shadow: 0 0 30px rgba(255,20,147,0.7);
+        }
+        .bulbs {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            display: flex;
+            justify-content: space-around;
+            animation: colorChange 3s infinite;
+        }
+        .bulb {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #FFF, #FF69B4);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #FF69B4;
+        }
+        @keyframes colorChange {
+            0% { background: radial-gradient(circle, #FFF, #FF69B4); box-shadow: 0 0 20px #FF69B4; }
+            33% { background: radial-gradient(circle, #FFF, #00FF7F); box-shadow: 0 0 20px #00FF7F; }
+            66% { background: radial-gradient(circle, #FFF, #FFD700); box-shadow: 0 0 20px #FFD700; }
+            100% { background: radial-gradient(circle, #FFF, #FF69B4); box-shadow: 0 0 20px #FF69B4; }
+        }
+        .hearts {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
             pointer-events: none;
+            overflow: hidden;
         }
-
-        /* Start Overlay */
-        #start-overlay {
-            position: fixed;
+        .heart {
+            position: absolute;
+            color: #FF1493;
+            font-size: 2em;
+            animation: float 10s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        .rain {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 154, 158, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
-
-        .start-btn {
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            background: white;
-            color: var(--primary);
-            border: none;
-            border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3);
-            cursor: pointer;
-            font-family: 'Dancing Script', cursive;
-            animation: pulse 2s infinite;
-        }
-
-        /* Main Container */
-        .container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 450px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            opacity: 0; /* Hidden initially */
-            transition: opacity 1s ease;
-            justify-content: space-between;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-top: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: #fff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            line-height: 1.1;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.9);
-            margin-top: 5px;
-        }
-
-        /* Cards Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 20px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .card:active {
-            transform: scale(0.92);
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
-        }
-
-        .card-title {
-            font-weight: 700;
-            color: var(--text-dark);
-            font-size: 0.95rem;
-        }
-
-        .card-num {
-            font-size: 0.7rem;
-            color: #fff;
-            background: rgba(255,255,255,0.3);
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-bottom: 5px;
-        }
-
-        /* Modal */
-        #modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.3);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            overflow: hidden;
         }
-
-        #modal.active {
-            opacity: 1;
-            pointer-events: all;
+        .drop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: #87CEEB;
+            animation: fall 2s linear infinite;
         }
-
-        .modal-content {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(20px);
-            width: 85%;
-            max-width: 350px;
-            border-radius: 30px;
-            padding: 40px 25px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.8);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        @keyframes fall {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100vh); }
         }
-
-        #modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-emoji {
-            font-size: 4rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .modal-text {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.6rem;
-            line-height: 1.4;
-            color: var(--primary);
-            margin-bottom: 25px;
-        }
-
-        .close-btn {
-            background: var(--primary);
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #FF69B4;
             color: white;
             border: none;
-            padding: 10px 30px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
-        }
-
-        /* Footer */
-        .footer-note {
-            text-align: center;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 10px;
-            background: rgba(255,255,255,0.15);
             padding: 10px;
-            border-radius: 15px;
-            line-height: 1.4;
+            border-radius: 5px;
+            cursor: pointer;
         }
-
-        /* Keyframes */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .credits {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 0.8em;
+            color: #FFF;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
-            80% { transform: scale(1.2) rotate(10deg); }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
-        }
+        audio { display: none; }
     </style>
 </head>
-<body>
-
-    <audio id="bg-music" loop>
-        <source src="kiss-day.mp3" type="audio/mpeg">
+<body class="day">
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 Night / ☀️ Day</button>
+    <div class="credits">Made by sivasingh | Instagram: @smass1708</div>
+    <audio id="romanticMusic" loop autoplay>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav"> <!-- Placeholder romantic sound; replace with a free romantic track -->
     </audio>
 
-    <canvas id="particle-canvas"></canvas>
-
-    <div id="start-overlay">
-        <h1 style="color:var(--text-dark); margin-bottom:20px; font-size:3.5rem;">Happy<br>Kiss Day</h1>
-        <button class="start-btn" onclick="startExperience()">Tap to Open 💖</button>
-    </div>
-
-    <div class="container" id="main-container">
-        <header>
-            <h1>Happy Kiss Day 💋</h1>
-            <div class="subtitle">Made by sivasingh @smss1708</div>
-        </header>
-
-        <div class="grid">
-            <div class="card" onclick="openKiss('forehead')">
-                <span class="card-num">1️⃣</span>
-                <div class="card-icon">💖</div>
-                <div class="card-title">Forehead Kiss</div>
-            </div>
-            <div class="card" onclick="openKiss('cheek')">
-                <span class="card-num">2️⃣</span>
-                <div class="card-icon">😊</div>
-                <div class="card-title">Cheek Kiss</div>
-            </div>
-            <div class="card" onclick="openKiss('hand')">
-                <span class="card-num">3️⃣</span>
-                <div class="card-icon">🤍</div>
-                <div class="card-title">Hand Kiss</div>
-            </div>
-            <div class="card" onclick="openKiss('flying')">
-                <span class="card-num">4️⃣</span>
-                <div class="card-icon">😘</div>
-                <div class="card-title">Flying Kiss</div>
-            </div>
+    <!-- Section 1: Welcome -->
+    <section>
+        <div class="bulbs">
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
         </div>
+        <div class="hearts" id="heartsContainer"></div>
+        <div class="rain" id="rainContainer"></div>
+        <h1 class="message">Happy Valentine's Day, My Love Khushi! 💕</h1>
+        <img src="https://media.giphy.com/media/3o7TKz9bX9v8Z8Z8Z8/giphy.gif" alt="Romantic GIF" class="gif">
+        <p class="message">Every moment with you is magical, like a dream from Studio Ghibli. I love you endlessly! 🌟</p>
+    </section>
 
-        <div class="footer-note">
-            If this kiss made you smile 💕<br>
-            take a screenshot<br>
-            and send it to me 😘
+    <!-- Section 2: Messages -->
+    <section>
+        <div class="bulbs">
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
         </div>
-    </div>
+        <div class="hearts" id="heartsContainer2"></div>
+        <div class="rain" id="rainContainer2"></div>
+        <h2 class="message">Page 1: Our Story</h2>
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ghibli Couple" class="photo"> <!-- Ghibli-inspired couple photo -->
+        <p class="message">Khushi, from the first day, you've been my Totoro in this big world—cute, adventurous, and full of wonder. I cherish every laugh we share! 🐾</p>
+    </section>
 
-    <div id="modal">
-        <div class="modal-content">
-            <div class="modal-emoji" id="modal-emoji">💋</div>
-            <p class="modal-text" id="modal-text">Message</p>
-            <button class="close-btn" onclick="closeModal()">Close x</button>
+    <!-- Section 3: More Messages -->
+    <section>
+        <div class="bulbs">
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
         </div>
-    </div>
+        <div class="hearts" id="heartsContainer3"></div>
+        <div class="rain" id="rainContainer3"></div>
+        <h2 class="message">Page 2: Forever Together</h2>
+        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Floating Hearts GIF" class="gif">
+        <p class="message">In your eyes, I see our future—adventures like Spirited Away, love like Howl's Moving Castle. You're my everything, Khushi! ❤️</p>
+    </section>
+
+    <!-- Section 4: Final Message -->
+    <section>
+        <div class="bulbs">
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+        </div>
+        <div class="hearts" id="heartsContainer4"></div>
+        <div class="rain" id="rainContainer4"></div>
+        <h2 class="message">Page 3: My Promise</h2>
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Romantic Couple" class="photo"> <!-- Another Ghibli-style photo -->
+        <p class="message">Khushi, let's make more memories. I love you more than words can say. Happy Valentine's Day! 💖🌹</p>
+        <button onclick="alert('I love you, Khushi! 💕')">Click for a Surprise Kiss!</button>
+    </section>
 
     <script>
-        // Data
-        const messages = {
-            forehead: { text: "A promise to protect you, respect you, and cherish your soul forever. You are safe with me. 💕", emoji: "💖" },
-            cheek: { text: "Just to see you smile! I adore your cuteness and every moment with you is magic. 😊", emoji: "😊" },
-            hand: { text: "My loyalty and my heart are yours. Walking through life with you is my greatest honor. 🤍", emoji: "🤍" },
-            flying: { text: "Catch it! 😘 My love travels any distance to find you. You are always in my thoughts.", emoji: "😘" }
-        };
-
-        // Logic
-        function startExperience() {
-            const overlay = document.getElementById('start-overlay');
-            const main = document.getElementById('main-container');
-            const audio = document.getElementById('bg-music');
-            
-            audio.volume = 0.35;
-            audio.play().catch(e => console.log("Audio requires interaction"));
-            
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                main.style.opacity = '1';
-                initParticles();
-            }, 800);
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('day');
+            document.body.classList.toggle('night');
         }
 
-        function openKiss(type) {
-            const modal = document.getElementById('modal');
-            const textEl = document.getElementById('modal-text');
-            const emojiEl = document.getElementById('modal-emoji');
-            
-            textEl.innerText = messages[type].text;
-            emojiEl.innerText = "💋"; // Initial kiss
-            setTimeout(() => { emojiEl.innerText = messages[type].emoji; }, 300); // Switch to specific emoji
-
-            createBurst();
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
-
-        // Particle System
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor(burst = false) {
-                this.x = burst ? canvas.width/2 : Math.random() * canvas.width;
-                this.y = burst ? canvas.height/2 : canvas.height + 20;
-                this.size = Math.random() * 15 + 8;
-                this.speedY = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 1;
-                this.type = Math.random() > 0.5 ? '💖' : '⭐';
-                this.opacity = 1;
-                this.burst = burst;
-                if(burst) {
-                    this.speedY = (Math.random() - 0.5) * 15;
-                    this.speedX = (Math.random() - 0.5) * 15;
-                }
-            }
-            update() {
-                this.y -= this.speedY;
-                this.x += this.speedX;
-                if(this.burst) this.opacity -= 0.02;
-                else if(this.y < -50) this.y = canvas.height + 20;
-            }
-            draw() {
-                ctx.globalAlpha = this.opacity;
-                ctx.font = `${this.size}px Arial`;
-                ctx.fillText(this.type, this.x, this.y);
+        // Floating Hearts
+        function createHearts(containerId) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(heart);
             }
         }
+        createHearts('heartsContainer');
+        createHearts('heartsContainer2');
+        createHearts('heartsContainer3');
+        createHearts('heartsContainer4');
 
-        function initParticles() {
-            for(let i=0; i<25; i++) particles.push(new Particle());
-            animate();
+        // Rain Effect
+        function createRain(containerId) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < 50; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'drop';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(drop);
+            }
         }
-
-        function createBurst() {
-            for(let i=0; i<30; i++) particles.push(new Particle(true));
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                if(p.burst && p.opacity <= 0) particles.splice(index, 1);
-            });
-            requestAnimationFrame(animate);
-        }
+        createRain('rainContainer');
+        createRain('rainContainer2');
+        createRain('rainContainer3');
+        createRain('rainContainer4');
     </script>
 </body>
 </html>
