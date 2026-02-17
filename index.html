@@ -1,153 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Ritima</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #050505;
-            overflow: hidden;
-            font-family: 'Georgia', serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You Gaarvita ❤️</title>
+<style>
+    /* --- CSS SETTINGS --- */
+    :root {
+        --primary: #ff3366;
+        --secondary: #ff99cc;
+        --bg-color: #ffe6f2;
+        --text-color: #4a1526;
+    }
 
-        /* Container for the Rose */
-        .container {
-            position: relative;
-            text-align: center;
-        }
+    * { box-sizing: border-box; }
 
-        /* Message Styling */
-        .message {
-            position: absolute;
-            top: -150px;
-            width: 100%;
-            color: #ff4d6d;
-            font-size: 2.5rem;
-            text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
-            opacity: 0;
-            animation: fadeIn 3s ease-in forwards;
-            animation-delay: 4s;
-        }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        overflow-x: hidden;
+        transition: background-color 2s ease;
+        text-align: center;
+        /* Romantic Animation Theme Change */
+        animation: themeShift 10s infinite alternate;
+    }
 
-        /* Rose Animation Logic */
-        .glass {
-            height: 450px;
-            width: 300px;
-            position: relative;
-        }
+    @keyframes themeShift {
+        0% { background-color: #fff0f5; }
+        50% { background-color: #ffe4e1; }
+        100% { background-color: #fce4ec; }
+    }
 
-        .rose-petals > div {
-            position: absolute;
-            background-color: #d52d58;
-            width: 45px;
-            height: 80px;
-            border-top-left-radius: 50% 10%;
-            border-top-right-radius: 50% 10%;
-            border-bottom-left-radius: 50% 40%;
-            border-bottom-right-radius: 50% 40%;
-            left: 50%;
-            top: 15%;
-            transform-origin: bottom center;
-            opacity: 0;
-            animation: bloom 3s soft-start forwards;
-        }
+    /* Instagram Header */
+    .insta-header {
+        position: fixed;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        z-index: 1000;
+        pointer-events: none; /* Allows clicking through */
+    }
+    .insta-tag {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 8px 20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        color: #C13584;
+        text-decoration: none;
+        pointer-events: auto;
+        font-size: 0.9rem;
+    }
+    .insta-icon {
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        border-radius: 5px;
+        display: inline-block;
+    }
 
-        .rose-petals div:nth-child(1) { animation-delay: 1s; transform: rotate(-30deg); }
-        .rose-petals div:nth-child(2) { animation-delay: 1.5s; transform: rotate(30deg); }
-        .rose-petals div:nth-child(3) { animation-delay: 2s; transform: rotate(-15deg); scale: 1.1; }
-        .rose-petals div:nth-child(4) { animation-delay: 2.5s; transform: rotate(15deg); scale: 1.1; }
-        .rose-petals div:nth-child(5) { animation-delay: 3s; transform: rotate(0deg); scale: 1.2; }
+    /* --- NEW VIDEO CSS --- */
+    .top-video-box {
+        width: 90%;
+        max-width: 350px; /* Screenshot jaisa chhota size */
+        margin: 60px auto 10px auto; /* Header ke neeche adjust kiya */
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        background: #000;
+        position: relative;
+        z-index: 50; /* Sabse upar dikhe */
+        border: 2px solid #fff;
+    }
 
-        .stem {
-            position: absolute;
-            height: 250px;
-            width: 6px;
-            background-color: #1a4d2e;
-            left: 50%;
-            top: 35%;
-            border-radius: 10px;
-            transform: scaleY(0);
-            transform-origin: bottom;
-            animation: growStem 2s ease-out forwards;
-        }
+    .top-video-box video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        /* User interaction disable karne ke liye */
+        pointer-events: none; 
+    }
 
-        .leaf {
-            position: absolute;
-            width: 30px;
-            height: 50px;
-            background-color: #2d6a4f;
-            border-radius: 0 50% 0 50%;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-            animation-delay: 2s;
-        }
+    /* Floating Balloons Background */
+    .balloons-container {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .balloon {
+        position: absolute;
+        bottom: -150px;
+        width: 70px; /* Thoda bada kiya taaki Gaarvita fit aaye */
+        height: 80px;
+        background: radial-gradient(circle at 10px 10px, #ff99cc, #ff3366);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 13px; /* Font size adjusted for longer name */
+        box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+        animation: floatUp 15s linear infinite;
+    }
+    .balloon::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 33px;
+        width: 2px;
+        height: 40px;
+        background: rgba(0,0,0,0.2);
+    }
+    
+    @keyframes floatUp {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-120vh) rotate(20deg); opacity: 0.8; }
+    }
 
-        .leaf-1 { left: -25px; top: 50px; transform: rotate(-45deg); }
-        .leaf-2 { right: -25px; top: 100px; transform: rotate(45deg) scaleX(-1); }
+    /* Main Content Container */
+    .container {
+        position: relative;
+        z-index: 10;
+        min-height: 80vh; /* Adjusted height because of video */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
 
-        @keyframes growStem {
-            to { transform: scaleY(1); }
-        }
+    /* Page 1: Proposal */
+    #page1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+    }
 
-        @keyframes bloom {
-            from { opacity: 0; transform: scale(0) rotate(0deg); }
-            to { opacity: 1; transform: scale(1); }
-        }
+    /* Photo Styling */
+    .photo-frame {
+        width: 250px; /* Thoda chhota kiya taaki video ke sath fit ho */
+        height: 250px;
+        border: 5px solid white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        overflow: hidden;
+        background: #fff;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Underline Animation (Active after Yes) */
+    .glow-line {
+        height: 4px;
+        width: 0%;
+        background: red;
+        margin: 10px auto;
+        transition: width 1s ease;
+        animation: rainbowBorder 2s infinite linear;
+        display: none;
+    }
+    @keyframes rainbowBorder {
+        0% { background: red; }
+        20% { background: orange; }
+        40% { background: yellow; }
+        60% { background: green; }
+        80% { background: blue; }
+        100% { background: violet; }
+    }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+    h1 {
+        font-size: 2.2rem;
+        color: var(--text-color);
+        margin: 10px 0;
+        font-family: 'Brush Script MT', cursive;
+    }
 
-        /* Music Button */
-        #playBtn {
-            position: fixed;
-            bottom: 20px;
-            padding: 10px 20px;
-            background: #ff4d6d;
-            border: none;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            z-index: 100;
-        }
-    </style>
+    /* Buttons */
+    .btn-group {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    button {
+        padding: 12px 30px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    button:active { transform: scale(0.95); }
+
+    .btn-yes { background: var(--primary); color: white; }
+    .btn-no { background: #ddd; color: #555; }
+    .btn-next {
+        background: linear-gradient(45deg, #ff3366, #ff99cc);
+        color: white;
+        margin-top: 30px;
+        padding: 15px 40px;
+        font-size: 1.5rem;
+        display: none; /* Hidden Initially */
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .error-msg {
+        height: 30px;
+        margin-top: 15px;
+        color: #d32f2f;
+        font-weight: bold;
+        font-size: 1.1rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    /* Success Message */
+    .success-text {
+        display: none;
+        font-size: 2rem;
+        color: var(--primary);
+        font-weight: bold;
+        margin-top: 20px;
+        text-shadow: 2px 2px 0px #fff;
+    }
+
+    /* Page 2: Date Plan */
+    #page2 {
+        display: none; /* Hidden Initially */
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 50px;
+        width: 100%;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 800px;
+        margin-top: 30px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.9);
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+        border: 2px solid var(--secondary);
+    }
+    .card:hover { transform: translateY(-10px); }
+    
+    .card-icon { font-size: 4rem; margin-bottom: 10px; display: block; }
+    .card h3 { color: var(--primary); margin: 10px 0; }
+    .card p { font-size: 1.1rem; line-height: 1.4; color: #333; }
+
+    /* Romantic Rain (Hearts) */
+    .rain-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 5;
+        display: none;
+    }
+    .heart-drop {
+        position: absolute;
+        top: -50px;
+        font-size: 24px;
+        animation: fallDown linear forwards;
+    }
+    @keyframes fallDown {
+        to { transform: translateY(110vh); opacity: 0; }
+    }
+
+    /* Canvas for Blast */
+    #confetti-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 20;
+    }
+
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="message">This is for you Ritima</div>
-        
-        <div class="glass">
-            <div class="rose-petals">
-                <div></div><div></div><div></div><div></div><div></div>
-            </div>
-            <div class="stem">
-                <div class="leaf leaf-1"></div>
-                <div class="leaf leaf-2"></div>
-            </div>
-        </div>
-    </div>
-
-    <audio id="myAudio" loop>
+    <audio id="bgMusic" loop>
         <source src="tere-liye.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="playBtn">Tap to Play Music 🎵</button>
+    <div class="insta-header">
+        <a href="https://instagram.com/smss1708" target="_blank" class="insta-tag">
+            <span class="insta-icon"></span> Follow @smss1708
+        </a>
+    </div>
 
-    <script>
-        const btn = document.getElementById('playBtn');
-        const audio = document.getElementById('myAudio');
+    <div class="top-video-box">
+        <video src="video1.mp4" autoplay loop muted playsinline></video>
+    </div>
 
-        btn.addEventListener('click', () => {
-            audio.play();
-            btn.style.display = 'none'; // Play hone ke baad button gayab
+    <div class="balloons-container">
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="rain-container" id="rainBox"></div>
+
+    <div class="container">
+        
+        <div id="page1">
+            <div class="photo-frame">
+                <img src="photo.jpg" onerror="this.src='https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400'" alt="Gaarvita">
+                <div class="glow-line" id="glowLine"></div>
+            </div>
+
+            <h1 id="mainTitle">Do you love me? 🥺</h1>
+
+            <div class="btn-group" id="btnGroup">
+                <button class="btn-yes" id="yesBtn">YES 🥰</button>
+                <button class="btn-no" id="noBtn">NO 😢</button>
+            </div>
+
+            <div class="error-msg" id="errorText"></div>
+
+            <div class="success-text" id="finalMsg">
+                Finally she said Yes!<br>I Love You Gaarvita! ❤️
+            </div>
+
+            <button class="btn-next" id="nextBtn">Next: Our Date Plan ➡️</button>
+        </div>
+
+        <div id="page2">
+            <h1>Our Romantic Date Plan 🌹</h1>
+            <div class="cards-container">
+                <div class="card">
+                    <span class="card-icon">☕</span>
+                    <h3>Coffee Date</h3>
+                    <p>Starting with your favorite coffee. Just you, me, and endless talks looking into your eyes.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🚗</span>
+                    <h3>Long Drive</h3>
+                    <p>Windows down, romantic songs playing, holding hands, and a beautiful long drive.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🕯️</span>
+                    <h3>Candlelight Dinner</h3>
+                    <p>A cozy dinner under the dim lights. Celebrating us with delicious food and love.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🌌</span>
+                    <h3>Stargazing</h3>
+                    <p>Lying under the open sky, counting stars, and dreaming about our future together.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    /* --- JAVASCRIPT LOGIC --- */
+
+    // 1. BALLOON GENERATION - NAME UPDATED TO GAARVITA
+    const balloonContainer = document.querySelector('.balloons-container');
+    const balloonTexts = ["I", "Love", "You", "Gaarvita"];
+    const balloonColors = ["#ff3366", "#ff99cc", "#ff66b2", "#ff0066"];
+
+    function createBalloons() {
+        for(let i=0; i<8; i++) {
+            let b = document.createElement('div');
+            b.classList.add('balloon');
+            b.innerText = balloonTexts[i % 4];
+            b.style.left = Math.random() * 90 + "%";
+            b.style.animationDuration = (15 + Math.random() * 10) + "s";
+            b.style.animationDelay = (Math.random() * 5) + "s";
+            b.style.background = `radial-gradient(circle at 10px 10px, #fff, ${balloonColors[i%4]})`;
+            balloonContainer.appendChild(b);
+        }
+    }
+    createBalloons();
+
+    // 2. INTERACTION LOGIC
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const errorText = document.getElementById('errorText');
+    const finalMsg = document.getElementById('finalMsg');
+    const btnGroup = document.getElementById('btnGroup');
+    const nextBtn = document.getElementById('nextBtn');
+    const glowLine = document.getElementById('glowLine');
+    const mainTitle = document.getElementById('mainTitle');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const rainBox = document.getElementById('rainBox');
+    const music = document.getElementById('bgMusic');
+
+    // Messages for "No" button - NAME UPDATED TO GAARVITA
+    const noMessages = [
+        "Jao na... 🥺",
+        "Dil todogi? 💔",
+        "Soch lo ek baar... 🙏",
+        "Ro dunga main... 😭",
+        "Maan jao na Gaarvita...",
+        "Please say Yes! ❤️"
+    ];
+    let noCount = 0;
+
+    // Fix Audio Autoplay on first click
+    document.body.addEventListener('click', () => {
+        music.play().catch(() => {});
+    }, { once: true });
+
+    // NO Button Click
+    noBtn.addEventListener('click', () => {
+        errorText.style.opacity = 0;
+        setTimeout(() => {
+            errorText.innerText = noMessages[noCount % noMessages.length];
+            errorText.style.opacity = 1;
+            noCount++;
+        }, 200);
+    });
+
+    // YES Button Click
+    yesBtn.addEventListener('click', () => {
+        // Hide initial buttons & title
+        btnGroup.style.display = 'none';
+        errorText.style.display = 'none';
+        mainTitle.style.display = 'none';
+        
+        // Show Success elements
+        finalMsg.style.display = 'block';
+        nextBtn.style.display = 'inline-block';
+        glowLine.style.display = 'block';
+        glowLine.style.width = '100%';
+
+        // Start Effects
+        startConfetti();
+        startRain();
+    });
+
+    // NEXT Button Click
+    nextBtn.addEventListener('click', () => {
+        page1.style.display = 'none';
+        page2.style.display = 'flex';
+        window.scrollTo(0, 0);
+    });
+
+    // 3. RAIN EFFECT (Hearts)
+    function startRain() {
+        rainBox.style.display = 'block';
+        const emojis = ['❤️', '🌹', '💋', '🥰'];
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-drop');
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+            rainBox.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 200);
+    }
+
+    // 4. CONFETTI BLAST (Custom Code - No External Library)
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    function startConfetti() {
+        for(let i=0; i<300; i++) {
+            particles.push({
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                vx: (Math.random() - 0.5) * 20,
+                vy: (Math.random() - 0.5) * 20 - 5,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                size: Math.random() * 10 + 5,
+                life: 100
+            });
+        }
+        animateConfetti();
+    }
+
+    function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, index) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.5; // Gravity
+            p.life--;
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+            if(p.life <= 0) particles.splice(index, 1);
         });
-    </script>
+        if(particles.length > 0) requestAnimationFrame(animateConfetti);
+    }
+
+    // Resize canvas on window resize
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+</script>
 </body>
 </html>
