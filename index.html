@@ -1,110 +1,327 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Special For Ritimaa 💖</title>
-<style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    overflow:hidden;
-    background: linear-gradient(45deg,#ff4e50,#f9d423,#24c6dc,#ff9a9e);
-    background-size:400% 400%;
-    animation:bg 10s infinite alternate;
-    text-align:center;
-}
-@keyframes bg{
-    0%{background-position:left;}
-    100%{background-position:right;}
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Priya!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS Styles --- */
+        :root {
+            --primary-pink: #ff8fab;
+            --soft-pink: #ffe4e9;
+            --text-dark: #5a3a42;
+        }
 
-.container{
-    position:relative;
-    top:50px;
-    z-index:2;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-img{
-    width:300px;
-    border-radius:20px;
-    box-shadow:0 0 20px rgba(0,0,0,0.4);
-}
+        body, html {
+            height: 100%;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffe4e9 100%);
+            overflow: hidden; /* To contain the pages */
+            color: var(--text-dark);
+        }
 
-h1{
-    font-size:28px;
-    margin-top:20px;
-    background: linear-gradient(90deg,red,yellow,blue,green,pink);
-    -webkit-background-clip:text;
-    color:transparent;
-}
+        /* --- Fixed Top Header --- */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(255, 143, 171, 0.2);
+        }
 
-button{
-    padding:15px 30px;
-    font-size:18px;
-    border:none;
-    border-radius:30px;
-    background:#ff4081;
-    color:white;
-    cursor:pointer;
-    margin-top:20px;
-    transition:0.3s;
-}
-button:hover{
-    background:#e91e63;
-    transform:scale(1.1);
-}
+        /* --- Floating Balloons Animation --- */
+        .balloon-container {
+            position: fixed;
+            bottom: -100px;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-video{
-    display:none;
-    width:80%;
-    max-width:600px;
-    margin-top:20px;
-    border-radius:20px;
-    box-shadow:0 0 20px black;
-}
+        .balloon {
+            position: absolute;
+            bottom: 0;
+            width: 60px;
+            height: 80px;
+            background: rgba(255, 143, 171, 0.6);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 10px;
+            color: white;
+            animation: floatUp 15s linear infinite;
+        }
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: rgba(255, 143, 171, 0.6);
+        }
 
-/* Balloons */
-.balloon{
-    position:absolute;
-    bottom:-100px;
-    font-size:20px;
-    animation:float 10s linear infinite;
-}
-@keyframes float{
-    0%{transform:translateY(0);}
-    100%{transform:translateY(-110vh);}
-}
-</style>
+        .b1 { left: 10%; animation-duration: 12s; animation-delay: 0s; background: rgba(255, 105, 180, 0.5); }
+        .b2 { left: 30%; animation-duration: 18s; animation-delay: 2s; background: rgba(255, 182, 193, 0.5); }
+        .b3 { left: 50%; animation-duration: 15s; animation-delay: 1s; background: rgba(255, 20, 147, 0.4); }
+        .b4 { left: 70%; animation-duration: 20s; animation-delay: 3s; background: rgba(219, 112, 147, 0.5); }
+        .b5 { left: 90%; animation-duration: 14s; animation-delay: 5s; background: rgba(255, 192, 203, 0.5); }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0.8; }
+        }
+
+        /* --- Page Structure --- */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(50px);
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        /* --- Typography & Color Animation --- */
+        h1.romantic-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            /* Creating the colorful changing text effect */
+            background: linear-gradient(45deg, #ff0055, #ffbd00, #00ff7f, #00bfff, #ff00ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 5s ease infinite;
+            text-transform: lowercase; /* Ensuring small letters */
+        }
+
+        .sub-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            text-transform: lowercase;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            padding: 12px 30px;
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 143, 171, 0.4);
+            transition: transform 0.2s;
+            text-transform: lowercase;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- Photo Gallery Styles --- */
+        .gallery-container {
+            width: 300px;
+            height: 400px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            text-transform: lowercase;
+        }
+
+        /* Card style for wishes */
+        .wish-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 143, 171, 0.2);
+            max-width: 80%;
+            margin-bottom: 30px;
+        }
+
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <img src="photo1.jpg" alt="Special Photo">
-    <h1>Hii Ritimaa, I have something special for you 💖</h1>
-    <button onclick="playVideo()">Click Here 🎁</button>
-    <video id="myVideo" src="video1.mp4"></video>
-</div>
+    <div class="fixed-header">
+        follow 📷 - @smss1708
+    </div>
 
-<script>
-function playVideo(){
-    let video = document.getElementById("myVideo");
-    video.style.display="block";
-    video.play();
-    video.muted=false;
-}
+    <audio id="bgMusic" loop>
+        <source src="tere-liye.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-/* Create Balloons */
-const names=["Ritimaa 💖","Sivasingh ❤️"];
-for(let i=0;i<25;i++){
-    let balloon=document.createElement("div");
-    balloon.className="balloon";
-    balloon.innerText=names[Math.floor(Math.random()*names.length)];
-    balloon.style.left=Math.random()*100+"vw";
-    balloon.style.color="hsl("+Math.random()*360+",100%,50%)";
-    balloon.style.animationDuration=(5+Math.random()*5)+"s";
-    document.body.appendChild(balloon);
-}
-</script>
+    <div class="balloon-container">
+        <div class="balloon b1">happy birthday priya</div>
+        <div class="balloon b2">happy birthday priya</div>
+        <div class="balloon b3">happy birthday priya</div>
+        <div class="balloon b4">happy birthday priya</div>
+        <div class="balloon b5">happy birthday priya</div>
+    </div>
 
+    <section class="page active" id="page1">
+        <h1 class="romantic-text">hey priya!</h1>
+        <p class="sub-text">i made something special for you...</p>
+        <button class="btn" onclick="nextPage(2); playMusic()">tap to see ❤️</button>
+    </section>
+
+
+    <section class="page" id="page2">
+        <div class="wish-card">
+            <h1 class="romantic-text" style="font-size: 2.5rem;">it's your special day</h1>
+            <p class="sub-text">may your day be filled with as much happiness as you bring into my life.</p>
+        </div>
+        <button class="btn" onclick="nextPage(3)">next surprise goes here</button>
+    </section>
+
+
+    <section class="page" id="page3">
+        <h1 class="romantic-text">our memories</h1>
+        <p class="sub-text" style="margin-bottom: 10px;">keep tapping the photo...</p>
+
+        <div class="gallery-container" onclick="changePhoto()">
+            <div class="photo-frame">
+                <img id="galleryImage" src="photo1.jpg" alt="Romantic Memory">
+            </div>
+            <div class="tap-hint">tap me 👆</div>
+        </div>
+
+        <button class="btn" onclick="nextPage(4)">one last thing...</button>
+    </section>
+
+
+    <section class="page" id="page4">
+        <h1 class="romantic-text" style="font-size: 4rem;">happy birthday</h1>
+        <h1 class="romantic-text">my love, priya</h1>
+        <p class="sub-text">you mean everything to me.<br>i love you forever.</p>
+        <small style="margin-top: 20px; color: #888;">(screenshot this and send it to me 💖)</small>
+    </section>
+
+
+    <script>
+        // --- Music Control ---
+        const music = document.getElementById('bgMusic');
+        function playMusic() {
+            // Music plays only after user interaction due to browser policies
+            if (music.paused) {
+                music.play().catch(error => {
+                    console.log("Music autoplay blocked temporarily: " + error);
+                });
+            }
+        }
+
+        // --- Page Navigation System ---
+        function nextPage(pageNumber) {
+            // Hide currently active page
+            const activePage = document.querySelector('.page.active');
+            activePage.classList.remove('active');
+
+            // Show the next page with a slight delay for smooth transition
+            setTimeout(() => {
+               const nextPage = document.getElementById('page' + pageNumber);
+               nextPage.classList.add('active');
+            }, 300);
+        }
+
+        // --- Photo Gallery Logic ---
+        // Make sure you have these 6 images in your folder!
+        const photos = [
+            'photo1.jpg',
+            'photo2.jpg',
+            'photo3.jpg',
+            'photo4.jpg',
+            'photo5.jpg',
+            'photo6.jpg'
+        ];
+        let currentPhotoIndex = 0;
+        const galleryImage = document.getElementById('galleryImage');
+
+        function changePhoto() {
+            // Fade out effect
+            galleryImage.style.opacity = 0;
+
+            setTimeout(() => {
+                // Increment index, loop back to 0 if at the end
+                currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+                // Change image source
+                galleryImage.src = photos[currentPhotoIndex];
+                // Fade back in
+                galleryImage.style.opacity = 1;
+            }, 300); // Wait for fade out before changing
+        }
+    </script>
 </body>
 </html>
